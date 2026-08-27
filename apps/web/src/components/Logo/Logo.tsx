@@ -1,3 +1,4 @@
+import { useReveal } from '@/hooks/useReveal';
 import styles from './Logo.module.scss';
 
 /**
@@ -5,6 +6,10 @@ import styles from './Logo.module.scss';
  * it inherits currentColor and stays crisp at any size.
  */
 export function Logo({ showWordmark = true }: { showWordmark?: boolean }) {
+  // The wordmark sweeps its metallic gradient once when it first appears.
+  // `immediate` because the logo is always above the fold.
+  const { ref, revealed } = useReveal<HTMLSpanElement>({ immediate: true });
+
   return (
     <span className={styles.logo}>
       <svg
@@ -29,7 +34,9 @@ export function Logo({ showWordmark = true }: { showWordmark?: boolean }) {
 
       {showWordmark && (
         <span className={styles.wordmark}>
-          <span className={styles.name}>Aura</span>
+          <span ref={ref} className={styles.name} data-revealed={revealed}>
+            Aura
+          </span>
           <span className={styles.sub}>EVN Furniture</span>
         </span>
       )}

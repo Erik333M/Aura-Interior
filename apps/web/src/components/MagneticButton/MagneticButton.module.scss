@@ -1,0 +1,8 @@
+// Hugs the element it wraps so the magnetic pull moves the button and nothing
+// else. will-change stays on because this wrapper only exists around CTAs.
+.wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}

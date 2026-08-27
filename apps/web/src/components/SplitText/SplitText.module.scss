@@ -1,0 +1,24 @@
+.root {
+  // The mask needs a block context per line.
+  display: block;
+}
+
+.line {
+  @include text-line-mask;
+}
+
+.inner {
+  @include text-line-inner;
+}
+
+// During the measuring pass the words are laid out exactly as the final text
+// will be, but kept invisible so the split is never seen happening.
+.measuring {
+  visibility: hidden;
+}
+
+.word {
+  display: inline-block;
+  // Preserve the space that follows each word when it is inline-block.
+  white-space: pre;
+}

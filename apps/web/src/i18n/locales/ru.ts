@@ -22,6 +22,7 @@ export const ru: Dictionary = {
     madeToOrder: 'На заказ',
     requestPiece: 'Заказать эту модель',
     viewAll: 'Смотреть все',
+    view: 'Смотреть',
     loading: 'Загрузка…',
     leadTime: 'Срок изготовления',
     days: 'дн.',

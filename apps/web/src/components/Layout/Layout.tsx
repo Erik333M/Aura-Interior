@@ -3,6 +3,8 @@ import { SkipLink } from '@/components/SkipLink';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { PageTransition } from '@/components/PageTransition';
+import { SmoothScroll } from '@/components/SmoothScroll';
+import { CustomCursor } from '@/components/CustomCursor';
 import styles from './Layout.module.scss';
 
 /** The persistent chrome. Only the contents of <main> change between routes. */
@@ -10,6 +12,8 @@ export function Layout() {
   return (
     <div className={styles.shell}>
       <SkipLink />
+      <SmoothScroll />
+      <CustomCursor />
       <GrainOverlay />
       <Header />
       {/* tabIndex -1 makes the skip link's target focusable */}

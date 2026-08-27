@@ -27,6 +27,19 @@ function ratio(a: string, b: string): number {
   return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
 }
 
+/**
+ * Gradient stops parsed out of a `--gold-metal*` token. A metallic sweep paints
+ * text with EVERY stop as it animates, so each one has to clear the bar on its
+ * own — checking only the mid colour would let the sweep pass through
+ * unreadable text.
+ */
+interface GradientCheck {
+  label: string;
+  token: string;
+  bg: string;
+  min: number;
+}
+
 interface Check {
   label: string;
   fg: string;
@@ -62,6 +75,28 @@ const CHECKS: Check[] = [
   { label: 'dim text on porcelain', fg: 'text-on-light-dim', bg: 'porcelain', min: 4.5 },
   { label: 'dim text on alabaster', fg: 'text-on-light-dim', bg: 'alabaster', min: 4.5 },
 ];
+
+const GRADIENT_CHECKS: GradientCheck[] = [
+  // The hero headline is 48px+, so AA-large (3:1) is the bar.
+  { label: 'gold-metal on obsidian (display type)', token: 'gold-metal', bg: 'obsidian', min: 3 },
+  // The logo wordmark is 18px — normal text, 4.5:1, and it uses the safe ramp.
+  {
+    label: 'gold-metal-text on obsidian (small text)',
+    token: 'gold-metal-text',
+    bg: 'obsidian',
+    min: 4.5,
+  },
+];
+
+/** Pull every #rrggbb out of a custom property's value. */
+function gradientStops(css: string, token: string, scope: 'dark' | 'light'): string[] {
+  // Dark lives on `:root`, light inside the [data-theme="light"] block.
+  const lightStart = css.indexOf('[data-theme="light"]');
+  const region = scope === 'dark' ? css.slice(0, lightStart) : css.slice(lightStart);
+  const decl = new RegExp(`--${token}:([^;]*);`, 's').exec(region);
+  if (!decl?.[1]) return [];
+  return [...decl[1].matchAll(/#[0-9a-fA-F]{6}/g)].map((m) => m[0]);
+}
 
 async function main(): Promise<void> {
   const css = await readFile(TOKENS, 'utf8');
@@ -100,11 +135,37 @@ async function main(): Promise<void> {
     );
   }
 
+  // ── Gradient sweeps ───────────────────────────────────────────────────────
+  console.log('');
+  for (const g of GRADIENT_CHECKS) {
+    for (const scope of ['dark', 'light'] as const) {
+      const bg = scope === 'dark' ? tokens.get(g.bg) : tokens.get('porcelain');
+      const stops = gradientStops(css, g.token, scope);
+      if (!bg || stops.length === 0) {
+        console.error(`  ✖ ${g.token} (${scope}): could not read stops`);
+        failures += 1;
+        continue;
+      }
+      const worst = stops.reduce(
+        (acc, stop) => (ratio(stop, bg) < acc.r ? { stop, r: ratio(stop, bg) } : acc),
+        { stop: stops[0] as string, r: Infinity },
+      );
+      const ok = worst.r >= g.min;
+      if (!ok) failures += 1;
+      console.log(
+        `  ${ok ? '✔' : '✖'} ${`${g.token} · ${scope}`.padEnd(38)} ${worst.r
+          .toFixed(2)
+          .padStart(5)}:1  worst stop ${worst.stop} vs ${g.min}:1`,
+      );
+    }
+  }
+
   if (failures > 0) {
     console.error(`\n  ${failures} contrast check(s) failed.\n`);
     process.exit(1);
   }
-  console.log(`\n  All ${CHECKS.length} contrast checks passed.\n`);
+  const totalChecks = CHECKS.length + GRADIENT_CHECKS.length * 2;
+  console.log(`\n  All ${totalChecks} contrast checks passed.\n`);
 }
 
 main().catch((err: unknown) => {

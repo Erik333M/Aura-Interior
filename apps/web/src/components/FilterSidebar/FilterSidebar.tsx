@@ -9,6 +9,7 @@ import {
 } from '@aura/types';
 import { useI18n } from '@/i18n';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { pauseScroll, resumeScroll } from '@/lib/smoothScroll';
 import type { FilterState } from '@/hooks/useProductFilters';
 import { FilterGroup, CheckboxRow, ColourSwatch, ToggleRow } from '@/components/FilterGroup';
 import { PriceRange } from '@/components/PriceRange';
@@ -43,10 +44,12 @@ export function FilterSidebar(props: FilterSidebarProps) {
     };
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    pauseScroll();
     document.addEventListener('keydown', onKey);
     closeRef.current?.focus();
     return () => {
       document.body.style.overflow = prevOverflow;
+      resumeScroll();
       document.removeEventListener('keydown', onKey);
       trigger?.focus();
     };

@@ -158,12 +158,18 @@ $breakpoints: (
 
 /// Text painted with the metallic gold gradient. Falls back to flat gold where
 /// background-clip:text is unsupported.
-@mixin gold-text {
+/// Metallic gold text. `$safe: true` uses the contrast-constrained gradient,
+/// which is REQUIRED for anything below large-text size — see --gold-metal-text.
+///
+/// Resting background-position is 50%: with a 200% background size that frames
+/// the bright middle of the gradient, so text at rest never sits on a dark stop.
+@mixin gold-text($safe: false) {
   color: var(--accent-text);
 
   @supports (background-clip: text) or (-webkit-background-clip: text) {
-    background-image: var(--gold-metal);
+    background-image: if($safe, var(--gold-metal-text), var(--gold-metal));
     background-size: 200% 100%;
+    background-position: 50% 50%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -198,4 +204,97 @@ $breakpoints: (
   line-clamp: $lines;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+// ── Motion primitives ────────────────────────────────────────────────────────
+// Phase 5 routes every animation through these, so the reduced-motion variant
+// is enforced by the cascade rather than by each caller remembering to check.
+
+/// Scroll reveal: rise 24px + fade, 60ms per sibling.
+/// Driven by a `data-revealed` attribute that useReveal() flips.
+///
+/// Under `prefers-reduced-motion: reduce` the transform and the stagger delay
+/// are BOTH dropped — content appears with opacity only, immediately.
+@mixin reveal($rise: 24px, $stagger: 60ms) {
+  opacity: 0;
+  will-change: opacity, transform;
+
+  @include motion-safe {
+    transform: translate3d(0, $rise, 0);
+    transition:
+      opacity var(--dur-hero) var(--ease-out),
+      transform var(--dur-hero) var(--ease-out);
+    transition-delay: calc(var(--reveal-index, 0) * #{$stagger});
+  }
+
+  @include motion-reduce {
+    transition: opacity var(--dur-micro) linear;
+  }
+
+  &[data-revealed="true"] {
+    opacity: 1;
+
+    @include motion-safe {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+}
+
+/// Line mask for text reveals: the line box clips its own content while the
+/// inner span slides up from 100%.
+@mixin text-line-mask {
+  display: block;
+  overflow: hidden;
+  // A hair of breathing room so descenders (ք, у, g) are not shaved off by
+  // the mask — overflow:hidden on a tight line box clips them.
+  padding-block-end: 0.12em;
+  margin-block-end: -0.12em;
+}
+
+@mixin text-line-inner($stagger: 80ms) {
+  display: block;
+
+  @include motion-safe {
+    transform: translate3d(0, 100%, 0);
+    transition: transform var(--dur-hero) var(--ease-out);
+    transition-delay: calc(var(--line-index, 0) * #{$stagger});
+  }
+
+  @include motion-reduce {
+    opacity: 0;
+    transition: opacity var(--dur-micro) linear;
+  }
+
+  [data-revealed="true"] & {
+    @include motion-safe {
+      transform: translate3d(0, 0, 0);
+    }
+
+    @include motion-reduce {
+      opacity: 1;
+    }
+  }
+}
+
+/// One-shot metallic sweep across gold text. Never loops — a looping shimmer
+/// on a headline reads as a broken loading state.
+@mixin gold-shimmer($duration: 1600ms, $delay: 200ms) {
+  @include motion-safe {
+    background-position: 150% 50%;
+
+    &[data-revealed="true"] {
+      animation: aura-shimmer $duration var(--ease-inout) $delay 1 forwards;
+    }
+  }
+}
+
+// Settles at 50%, the bright middle of the gradient — not past its dark end,
+// which would leave the headline sitting on the lowest-contrast stop.
+@keyframes aura-shimmer {
+  from {
+    background-position: 150% 50%;
+  }
+  to {
+    background-position: 50% 50%;
+  }
 }

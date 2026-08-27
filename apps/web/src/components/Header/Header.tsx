@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useI18n } from '@/i18n';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { pauseScroll, resumeScroll } from '@/lib/smoothScroll';
 import { Logo } from '@/components/Logo';
 import { LocaleSwitcher } from '@/components/LocaleSwitcher';
 import { ThemeToggle } from '@/components/ThemeToggle';
@@ -51,9 +52,13 @@ export function Header() {
     const trigger = burgerRef.current;
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    // overflow:hidden stops native scrolling but not Lenis, which would keep
+    // scrolling the page behind the sheet.
+    pauseScroll();
     document.addEventListener('keydown', onKey);
     return () => {
       document.body.style.overflow = prevOverflow;
+      resumeScroll();
       document.removeEventListener('keydown', onKey);
       trigger?.focus();
     };

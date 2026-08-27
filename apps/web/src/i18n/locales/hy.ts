@@ -25,6 +25,7 @@ export const hy = {
     madeToOrder: 'Պատվերով',
     requestPiece: 'Պատվիրել այս կտորը',
     viewAll: 'Տեսնել բոլորը',
+    view: 'Դիտել',
     loading: 'Բեռնվում է…',
     leadTime: 'Պատրաստման ժամկետ',
     days: 'օր',

@@ -27,6 +27,13 @@
     #7a5d28 100%
   );
 
+  // Metallic sweep for SMALL text (logo wordmark, labels).
+  // --gold-metal's end stop is #7A5D28, which is only 3.21:1 on --obsidian:
+  // fine for 48px display type (AA-large is 3:1) but a FAILURE at 18px, and
+  // worse mid-sweep. This variant keeps every stop above 4.5:1 so the shimmer
+  // can never render unreadable text. Checked by `npm run check:contrast`.
+  --gold-metal-text: linear-gradient(135deg, #c6a15b 0%, #e8d4a2 50%, #c6a15b 100%);
+
   // ── Warm neutrals — the actual furniture colours ──────────────────────────
   --boucle: #efe8dc; // cream upholstery
   --sand: #dccfbb;
@@ -134,6 +141,10 @@
     #7a5d28 68%,
     #5e4720 100%
   );
+
+  // Light-mode small-text sweep: the peak DARKENS rather than brightens, since
+  // on porcelain #A8873F is only 3.06:1. Every stop here clears 4.5:1.
+  --gold-metal-text: linear-gradient(135deg, #7a5d28 0%, #5e4720 50%, #7a5d28 100%);
 
   --focus-ring: var(--gold-deep);
   --overlay: rgb(23 22 26 / 56%);

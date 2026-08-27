@@ -27,6 +27,9 @@
 
 .name {
   @include display-caps;
+  // 18px text: must use the contrast-constrained gradient.
+  @include gold-text($safe: true);
+  @include gold-shimmer($duration: 1800ms, $delay: 400ms);
   font-size: 18px;
   letter-spacing: 0.16em;
 }

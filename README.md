@@ -157,6 +157,56 @@ every frame — Russian changes the noun as the number passes 1 and 5
 (предмет / предмета / предметов), so it goes through `Intl.PluralRules` rather
 than an `n === 1` check.
 
+## Motion
+
+The portfolio layer. Everything below is gated on **one** `useReducedMotion()`
+hook, and most of it is expressed in CSS so the reduced-motion variant is
+enforced by the cascade rather than by each caller remembering to check.
+
+- **Scroll reveals** — `useReveal()` over IntersectionObserver, rise 24px + fade,
+  60ms sibling stagger, fires once. One shared observer per
+  (threshold, rootMargin) pair, not one per element: a catalogue page mounts 40+
+  revealing nodes and 40 observers all fight over the same scroll.
+- **Text reveals** — headlines are split by **rendered line**, not by word.
+  There is no way to know where a line breaks without laying the text out, so
+  `SplitText` renders once with each word wrapped, reads their `offsetTop` to
+  group them into lines, then re-renders those lines inside `overflow: hidden`
+  masks sliding up from `translateY(100%)`, 80ms apart. It re-measures on locale
+  change, on resize, and after webfonts load — Cormorant and the Noto Armenian
+  faces all move the breaks.
+- **Gold shimmer** — one sweep of `--gold-metal` across the hero headline and the
+  logo on entry, via `background-position` on `background-clip: text`. Once, never
+  looping: a looping shimmer on a headline reads as a broken loading state.
+- **Smooth scroll** — Lenis at lerp 0.09. Overlays that lock the page
+  (nav sheet, filter drawer) pause it through a reference-counted handle;
+  `overflow: hidden` stops native scrolling but not Lenis.
+- **Magnetic CTAs** — 8px pull toward the cursor, spring back on leave, gated
+  behind `(pointer: fine)` so a touch tap never triggers it.
+- **Custom cursor** — desktop only, a gold dot that grows and reads "View" over
+  product cards. `pointer-events: none`, always.
+- **Studio lamp** — a radial highlight behind the hero that drifts with the
+  cursor at heavy damping. At 1:1 tracking it reads as a torch, not lighting.
+- **Image loading** — blur placeholder cross-fading to the sharp image, with the
+  aspect ratio reserved up front so nothing reflows.
+
+### Under `prefers-reduced-motion: reduce`
+
+Verified in Chrome with the media feature emulated, not assumed:
+
+|                               | normal               | reduce             |
+| ----------------------------- | -------------------- | ------------------ |
+| transition properties         | `opacity, transform` | `opacity`          |
+| stagger delays                | 0s / 0.18s / 0.3s    | all `0s`           |
+| non-identity transforms       | present              | **0**              |
+| headline split into lines     | 2                    | **0** (plain text) |
+| shimmer animation             | runs once            | `none`             |
+| custom cursor in DOM          | yes                  | **no**             |
+| Lenis                         | active               | **not mounted**    |
+| grain + scroll-cue animations | running              | `none`             |
+
+Smooth scrolling is itself motion, so Lenis never mounts under `reduce` — the
+page falls back to native scrolling, which is the correct behaviour.
+
 ## The contrast rule
 
 The one trap in a gold palette:
@@ -176,6 +226,14 @@ npm run check:contrast    # 12 pairs, reads the real hex values out of _tokens.s
 
 The audit asserts that gold-on-light **fails** — if a token change ever made it
 pass, the remap would be dead code and the check says so.
+
+**Gradients are checked stop by stop.** A metallic sweep paints text with every
+stop as it animates, so each one has to clear the bar on its own. `--gold-metal`
+ends on `#7A5D28`, which is 3.21:1 on obsidian: fine for the 48px+ headline
+(AA-large is 3:1), a failure at 18px. Small gold text therefore uses
+`--gold-metal-text`, a constrained ramp whose every stop clears 4.5:1 in both
+themes — so the shimmer can never sweep through unreadable text. Both ramps are
+in the audit.
 
 ---
 
@@ -236,14 +294,14 @@ provider line.
 
 ## Status
 
-| Phase |                                                                                                |                                             |
-| ----- | ---------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| 1     | Foundation — monorepo, SCSS system, Prisma schema, 20-product seed, layout shell, i18n routing | **done**                                    |
-| 2     | Backend API — full REST surface, auth, uploads, rate limiting, mail                            | read endpoints done; **POST/admin pending** |
-| 3     | Catalogue & filtering                                                                          | **done**                                    |
-| 4     | Pages — home, product detail, interior design, about, contact, admin                           | pending                                     |
-| 5     | Motion — reveals, text masks, gold shimmer, Lenis, magnetic buttons, cursor                    | foundations in place                        |
-| 6     | Business & polish — SEO, wishlist, analytics, a11y, performance                                | i18n done ahead of schedule                 |
+| Phase |                                                                                                |                                                             |
+| ----- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| 1     | Foundation — monorepo, SCSS system, Prisma schema, 20-product seed, layout shell, i18n routing | **done**                                                    |
+| 2     | Backend API — full REST surface, auth, uploads, rate limiting, mail                            | read endpoints done; **POST/admin pending**                 |
+| 3     | Catalogue & filtering                                                                          | **done**                                                    |
+| 4     | Pages — home, product detail, interior design, about, contact, admin                           | pending — hero done, rest of Home + other pages outstanding |
+| 5     | Motion — reveals, text masks, gold shimmer, Lenis, magnetic buttons, cursor                    | **done**                                                    |
+| 6     | Business & polish — SEO, wishlist, analytics, a11y, performance                                | i18n done ahead of schedule                                 |
 
 Routes not yet built render an honest placeholder naming the phase that builds
 them, so nothing here can be mistaken for finished work.

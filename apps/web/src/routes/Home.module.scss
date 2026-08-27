@@ -8,14 +8,6 @@
   overflow: hidden;
 }
 
-.vignette {
-  @include vignette(50%, 42%, 70%);
-  position: absolute;
-  inset: -20%;
-  pointer-events: none;
-  z-index: 0;
-}
-
 .heroInner {
   @include container;
   position: relative;
@@ -32,6 +24,7 @@
 
 .title {
   @include gold-text;
+  @include gold-shimmer($duration: 1900ms, $delay: 500ms);
   max-width: 16ch;
 }
 
@@ -109,4 +102,65 @@
 .status {
   color: var(--text-dim);
   font-size: 14px;
+}
+
+.cta {
+  @include focus-ring;
+  align-self: flex-start;
+  margin-block-start: var(--space-4);
+  padding: var(--space-4) var(--space-12);
+  border: var(--hairline) solid var(--accent);
+  border-radius: var(--radius-sm);
+  color: var(--accent-text);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition:
+    background-color var(--dur-standard) var(--ease-out),
+    color var(--dur-standard) var(--ease-out);
+
+  &:hover {
+    background-color: var(--accent);
+    color: var(--obsidian);
+  }
+}
+
+.scrollCue {
+  position: absolute;
+  bottom: var(--space-12);
+  left: 50%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  transform: translateX(-50%);
+  font-size: 10px;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.cueLine {
+  width: 1px;
+  height: 44px;
+  background-image: linear-gradient(to bottom, var(--accent), transparent);
+  transform-origin: top;
+
+  @include motion-safe {
+    animation: cue-drop 2.4s var(--ease-inout) infinite;
+  }
+}
+
+@keyframes cue-drop {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
 }

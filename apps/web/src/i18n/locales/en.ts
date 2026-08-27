@@ -22,6 +22,7 @@ export const en: Dictionary = {
     madeToOrder: 'Made to order',
     requestPiece: 'Request this piece',
     viewAll: 'View all',
+    view: 'View',
     loading: 'Loading…',
     leadTime: 'Lead time',
     days: 'days',
