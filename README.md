@@ -16,6 +16,13 @@ furniture manufacturer that builds every piece to order.
   <img src="docs/screenshots/home-en-light.png" width="45%" alt="Home page, English, light mode">
   <img src="docs/screenshots/home-hy-mobile.png" width="21%" alt="Home page, Armenian, mobile">
 </p>
+<p align="center">
+  <img src="docs/screenshots/catalogue-en.png" width="90%" alt="Catalogue with filter sidebar, price histogram and product grid">
+</p>
+<p align="center">
+  <img src="docs/screenshots/catalogue-empty.png" width="45%" alt="Catalogue empty state with active filter pills">
+  <img src="docs/screenshots/catalogue-drawer.png" width="21%" alt="Filter drawer on mobile">
+</p>
 
 ---
 
@@ -113,6 +120,43 @@ Armenian_ and _Noto Sans Armenian_ first.
 
 ---
 
+## Catalogue filtering
+
+Every filter lives in the query string, so results are shareable and browser
+back/forward works with no second copy of the state to fall out of sync:
+
+```
+/en/catalogue?categories=beds&fabricCategories=LEATHER&priceMin=600000&sort=price-asc
+```
+
+Those param names are the API's own contract — a URL a customer pastes into a
+chat is also a URL you can `curl`.
+
+**Facets are contextual.** Each dimension is counted with every _other_ active
+filter applied but not its own. With "Beds" ticked, the fabric counts narrow to
+what beds actually come in, while the category counts still show what ticking
+Sofas as well would add. Options that would return nothing are disabled rather
+than hidden, so the shape of the catalogue stays readable — except an option you
+have already selected, which always stays clickable so you can switch it back off.
+
+**The price slider** is two overlapping native `<input type="range">` elements
+rather than pointer handlers on divs, which buys real keyboard support, correct
+touch behaviour and screen-reader announcements. Its track uses whole-catalogue
+bounds so it never moves under your finger, while the histogram above it redraws
+against the current filters. It is the only control that fires continuously, so
+it alone is debounced (250ms) and writes history with `replace` — dragging a
+slider should not stack forty back-button entries. Discrete filters commit
+immediately; a quarter-second lag on a checkbox just feels broken.
+
+**Results cross-fade, never blank-flash.** TanStack Query's `keepPreviousData`
+holds the previous page mounted while the next is in flight; the grid dims rather
+than collapsing, so nothing below it jumps.
+
+**The count ticks** from its old value to its new one, and re-derives its label
+every frame — Russian changes the noun as the number passes 1 and 5
+(предмет / предмета / предметов), so it goes through `Intl.PluralRules` rather
+than an `n === 1` check.
+
 ## The contrast rule
 
 The one trap in a gold palette:
@@ -192,14 +236,14 @@ provider line.
 
 ## Status
 
-| Phase |                                                                                                |                                         |
-| ----- | ---------------------------------------------------------------------------------------------- | --------------------------------------- |
-| 1     | Foundation — monorepo, SCSS system, Prisma schema, 20-product seed, layout shell, i18n routing | **done**                                |
-| 2     | Backend API — full REST surface, auth, uploads, rate limiting, mail                            | read endpoints done; POST/admin pending |
-| 3     | Catalogue & filtering                                                                          | pending                                 |
-| 4     | Pages — home, product detail, interior design, about, contact, admin                           | pending                                 |
-| 5     | Motion — reveals, text masks, gold shimmer, Lenis, magnetic buttons, cursor                    | foundations in place                    |
-| 6     | Business & polish — SEO, wishlist, analytics, a11y, performance                                | i18n done ahead of schedule             |
+| Phase |                                                                                                |                                             |
+| ----- | ---------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| 1     | Foundation — monorepo, SCSS system, Prisma schema, 20-product seed, layout shell, i18n routing | **done**                                    |
+| 2     | Backend API — full REST surface, auth, uploads, rate limiting, mail                            | read endpoints done; **POST/admin pending** |
+| 3     | Catalogue & filtering                                                                          | **done**                                    |
+| 4     | Pages — home, product detail, interior design, about, contact, admin                           | pending                                     |
+| 5     | Motion — reveals, text masks, gold shimmer, Lenis, magnetic buttons, cursor                    | foundations in place                        |
+| 6     | Business & polish — SEO, wishlist, analytics, a11y, performance                                | i18n done ahead of schedule                 |
 
 Routes not yet built render an honest placeholder naming the phase that builds
 them, so nothing here can be mistaken for finished work.

@@ -1,0 +1,26 @@
+.frame {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--marble);
+  // Reserving the aspect ratio here is what makes layout shift impossible:
+  // the box is the right size before the image byte one arrives.
+  background-size: cover;
+  background-position: center;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--dur-standard) var(--ease-out);
+}
+
+.loaded {
+  opacity: 1;
+}
+
+// If JS never runs or the load event was missed, don't leave a blank box.
+.noscript .img {
+  opacity: 1;
+}

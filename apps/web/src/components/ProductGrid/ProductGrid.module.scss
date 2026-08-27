@@ -1,0 +1,35 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: var(--space-6);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  @include mq("xxl") {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  }
+}
+
+.item {
+  display: flex;
+  min-width: 0;
+
+  > * {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+// Results cross-fade rather than blank out: the previous page stays mounted and
+// dims while the next one is in flight, so the grid never collapses to nothing.
+.fetching {
+  opacity: 0.45;
+  transition: opacity var(--dur-micro) var(--ease-out);
+  pointer-events: none;
+}
+
+.settled {
+  opacity: 1;
+  transition: opacity var(--dur-standard) var(--ease-out);
+}

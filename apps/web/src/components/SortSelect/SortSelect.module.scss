@@ -1,0 +1,40 @@
+.wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.select {
+  appearance: none;
+  padding: var(--space-2) var(--space-8) var(--space-2) var(--space-3);
+  background-color: transparent;
+  border: var(--hairline) solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: border-color var(--dur-micro) var(--ease-out);
+
+  &:hover {
+    border-color: var(--accent);
+  }
+
+  @include focus-ring(2px);
+
+  // The dark-on-dark popup is the OS's, not ours — make sure the options are
+  // legible when the platform renders them with the page's colours.
+  option {
+    background-color: var(--bg-elevated);
+    color: var(--text);
+  }
+}
+
+.chevron {
+  position: absolute;
+  right: var(--space-3);
+  width: 10px;
+  height: 10px;
+  color: var(--text-dim);
+  pointer-events: none;
+}

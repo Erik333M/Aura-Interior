@@ -1,0 +1,39 @@
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg-elevated);
+  border: var(--hairline) solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+// The shimmer is the only thing that animates; the box itself never moves,
+// which is what keeps CLS at zero.
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--accent) 7%, transparent) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+
+  @include motion-safe {
+    animation: sweep 1.6s var(--ease-inout) infinite;
+  }
+}
+
+@keyframes sweep {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.line {
+  height: 0.8em;
+  border: none;
+  border-radius: var(--radius-sm);
+  background-color: var(--marble);
+}

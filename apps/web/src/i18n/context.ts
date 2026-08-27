@@ -12,6 +12,13 @@ export interface I18nValue {
   /** Format an AMD price the way the brand writes it: "from 680,000 ֏". */
   price: (amd: number, withPrefix?: boolean) => string;
   formatNumber: (n: number) => string;
+  /**
+   * Plural-correct piece count, e.g. "6 предметов" / "1 предмет".
+   * Russian has one/few/many forms; getting this wrong is immediately visible
+   * to a native speaker, so it goes through Intl.PluralRules rather than an
+   * `n === 1` check.
+   */
+  pieces: (n: number) => string;
 }
 
 /**

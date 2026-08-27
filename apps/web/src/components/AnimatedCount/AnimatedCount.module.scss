@@ -1,0 +1,4 @@
+.count {
+  font-variant-numeric: tabular-nums;
+  // Tabular figures stop the label jittering as digits change width.
+}

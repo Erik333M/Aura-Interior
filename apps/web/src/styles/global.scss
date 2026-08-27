@@ -62,6 +62,10 @@ h4 {
   }
 }
 
+.visually-hidden {
+  @include visually-hidden;
+}
+
 ::selection {
   background-color: var(--accent);
   color: var(--obsidian);

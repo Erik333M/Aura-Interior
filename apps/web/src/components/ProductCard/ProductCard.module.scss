@@ -1,0 +1,190 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--onyx);
+  // Hairline --graphite border that warms toward gold on hover.
+  border: var(--hairline) solid var(--graphite);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition:
+    border-color var(--dur-standard) var(--ease-out),
+    box-shadow var(--dur-standard) var(--ease-out);
+
+  &:hover,
+  &:focus-within {
+    border-color: rgb(198 161 91 / 30%);
+    box-shadow: var(--shadow-card);
+  }
+}
+
+// Light mode keeps the same gesture but needs its own ground and border.
+[data-theme="light"] .card {
+  background-color: var(--bg-elevated);
+  border-color: var(--border);
+
+  &:hover,
+  &:focus-within {
+    border-color: rgb(122 93 40 / 30%);
+  }
+}
+
+.media {
+  position: relative;
+  // The frame stays perfectly still while the image inside scales.
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  transition:
+    opacity var(--dur-standard) var(--ease-out),
+    transform var(--dur-hero) var(--ease-out);
+}
+
+.primary {
+  opacity: 1;
+}
+
+.secondary {
+  opacity: 0;
+}
+
+@include motion-safe {
+  .card:hover .layer,
+  .card:focus-within .layer {
+    transform: scale(1.03);
+  }
+
+  .card:hover .primary,
+  .card:focus-within .primary {
+    opacity: 0;
+  }
+
+  .card:hover .secondary,
+  .card:focus-within .secondary {
+    opacity: 1;
+  }
+}
+
+.imageFill {
+  width: 100%;
+  height: 100%;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-4) var(--space-6);
+}
+
+.eyebrow {
+  @include eyebrow;
+  color: var(--text-dim);
+  font-size: 10px;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text);
+  @include fluid-type(19px, 23px);
+  @include line-clamp(2);
+}
+
+// The whole card is the click target, but only this one real link carries the
+// accessible name — no nested or duplicated links for a screen reader to read.
+.link {
+  color: inherit;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  @include focus-ring(4px);
+}
+
+.meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-block-start: var(--space-1);
+}
+
+.price {
+  color: var(--accent-text);
+  font-size: 14px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.lead {
+  font-size: 11px;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.swatches {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-block-start: var(--space-2);
+}
+
+.swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgb(255 255 255 / 14%);
+}
+
+.more {
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-inline-start: var(--space-1);
+}
+
+.badge {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 2;
+  padding: 4px var(--space-2);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--obsidian);
+  background-color: var(--gold);
+  border-radius: var(--radius-sm);
+}
+
+// ── Skeleton ────────────────────────────────────────────────────────────────
+// Same box model as the real card so swapping one for the other shifts nothing.
+.ghost {
+  border-radius: var(--radius-sm);
+  background-color: var(--marble);
+}
+
+.ghostEyebrow {
+  height: 10px;
+  width: 40%;
+}
+
+.ghostName {
+  height: 22px;
+  width: 70%;
+}
+
+.ghostPrice {
+  height: 14px;
+  width: 45%;
+}

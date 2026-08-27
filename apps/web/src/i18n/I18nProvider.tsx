@@ -19,6 +19,7 @@ export function I18nProvider({ locale, children }: { locale: Locale; children: R
   const value = useMemo<I18nValue>(() => {
     const t = dictionaryFor(locale);
     const nf = new Intl.NumberFormat(INTL_LOCALE[locale]);
+    const pr = new Intl.PluralRules(INTL_LOCALE[locale]);
 
     return {
       locale,
@@ -31,6 +32,11 @@ export function I18nProvider({ locale, children }: { locale: Locale; children: R
       price: (amd, withPrefix = true) =>
         `${withPrefix ? `${t.common.from} ` : ''}${nf.format(amd)} ${t.common.currency}`,
       formatNumber: (n) => nf.format(n),
+      pieces: (n) => {
+        const forms = t.catalogue.pieces;
+        const rule = pr.select(n) as keyof typeof forms;
+        return `${nf.format(n)} ${forms[rule] ?? forms.other}`;
+      },
     };
   }, [locale]);
 

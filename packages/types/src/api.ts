@@ -9,13 +9,29 @@ export interface Paginated<T> {
   pageSize: number;
 }
 
-/** Counts used to render filter options and grey out ones that would return nothing. */
+/**
+ * Counts used to render filter options and grey out ones that would return nothing.
+ *
+ * Each dimension is counted with every OTHER active filter applied, but NOT its
+ * own. That is what makes the numbers useful: with "Beds" selected, the fabric
+ * counts show how many beds come in each fabric, while the category counts still
+ * show what you would get by also ticking Sofas.
+ */
 export interface ProductFacets {
   categories: Array<{ id: string; slug: string; count: number }>;
   fabricCategories: Array<{ value: FabricCategory; count: number }>;
   fabrics: Array<{ id: string; hex: string; count: number }>;
   customSizeAvailable: number;
-  price: { min: number; max: number; histogram: number[] };
+  price: {
+    /** Full-catalogue bounds. Deliberately NOT filtered — the slider track must
+     *  stay still while you drag it, or the handles chase the data. */
+    min: number;
+    max: number;
+    /** Distribution of matches under every other active filter. */
+    histogram: number[];
+    /** AMD width of one histogram bucket, so the client can label the axis. */
+    bucketSize: number;
+  };
 }
 
 export interface ProductListResponse extends Paginated<Product> {

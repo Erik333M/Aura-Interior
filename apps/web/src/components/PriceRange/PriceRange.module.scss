@@ -1,0 +1,132 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+// ── Histogram ───────────────────────────────────────────────────────────────
+.histogram {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 48px;
+  padding-inline: 2px;
+}
+
+.bar {
+  flex: 1;
+  min-height: 2px;
+  border-radius: 1px 1px 0 0;
+  background-color: var(--border-strong);
+  transition:
+    background-color var(--dur-micro) var(--ease-out),
+    opacity var(--dur-micro) var(--ease-out);
+}
+
+.barActive {
+  background-color: var(--accent);
+  opacity: 0.75;
+}
+
+.barMuted {
+  opacity: 0.35;
+}
+
+// ── Dual-handle slider ──────────────────────────────────────────────────────
+// Two stacked range inputs. Each one owns a handle; the track is drawn by the
+// wrapper so the two inputs can overlap without painting two tracks.
+.slider {
+  position: relative;
+  height: 28px;
+}
+
+.track {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  height: 2px;
+  transform: translateY(-50%);
+  background-color: var(--border-strong);
+  border-radius: 1px;
+}
+
+.trackFill {
+  position: absolute;
+  top: 50%;
+  height: 2px;
+  transform: translateY(-50%);
+  background-color: var(--accent);
+  border-radius: 1px;
+}
+
+.input {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  width: 100%;
+  height: 28px;
+  margin: 0;
+  background: none;
+  appearance: none;
+  // The bar itself must not swallow clicks — only the thumbs are interactive,
+  // otherwise the upper input covers the lower one's whole track.
+  pointer-events: none;
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &::-webkit-slider-thumb {
+    pointer-events: auto;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--bg);
+    border: 2px solid var(--accent);
+    cursor: grab;
+    transition: transform var(--dur-micro) var(--ease-out);
+  }
+
+  &::-moz-range-thumb {
+    pointer-events: auto;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--bg);
+    border: 2px solid var(--accent);
+    cursor: grab;
+  }
+
+  &:hover::-webkit-slider-thumb,
+  &:active::-webkit-slider-thumb {
+    transform: scale(1.15);
+  }
+
+  // Focus ring lands on the thumb, not the invisible full-width input.
+  &:focus-visible::-webkit-slider-thumb {
+    box-shadow:
+      0 0 0 3px var(--bg),
+      0 0 0 5px var(--focus-ring);
+  }
+
+  &:focus-visible::-moz-range-thumb {
+    box-shadow:
+      0 0 0 3px var(--bg),
+      0 0 0 5px var(--focus-ring);
+  }
+}
+
+.values {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-dim);
+}
+
+.value {
+  color: var(--text);
+}
