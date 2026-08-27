@@ -1,0 +1,121 @@
+.section {
+  @include grain-overlay;
+  background-color: var(--bg-elevated);
+  border-block: var(--hairline) solid var(--border);
+}
+
+.inner {
+  @include container;
+  @include section-padding;
+  position: relative;
+  z-index: 2;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-block-end: var(--space-12);
+}
+
+.eyebrow {
+  @include eyebrow;
+}
+
+.title {
+  font-family: var(--font-display);
+  @include fluid-type(32px, 56px);
+  line-height: 1.05;
+  color: var(--text);
+}
+
+.controls {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.navButton {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: var(--hairline) solid var(--border-strong);
+  color: var(--text-dim);
+  transition:
+    color var(--dur-micro) var(--ease-out),
+    border-color var(--dur-micro) var(--ease-out);
+
+  @include focus-ring;
+
+  &:hover:not(:disabled) {
+    color: var(--accent-text);
+    border-color: var(--accent);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+
+// A real scroll container: swipe on touch, buttons on desktop, and keyboard
+// scrolling works for free because it is a focusable overflow region.
+.track {
+  display: flex;
+  gap: var(--space-6);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding-block-end: var(--space-4);
+  list-style: none;
+  margin: 0;
+  padding-inline: 0;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include motion-reduce {
+    scroll-behavior: auto;
+  }
+}
+
+.card {
+  flex: none;
+  width: min(88vw, 380px);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background-color: var(--bg);
+  border: var(--hairline) solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.quote {
+  color: var(--text-dim);
+  line-height: 1.75;
+  flex: 1;
+}
+
+.author {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.authorName {
+  color: var(--text);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.authorDate {
+  font-size: 12px;
+  color: var(--text-dim);
+}

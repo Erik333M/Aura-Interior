@@ -1,0 +1,62 @@
+.section {
+  @include container;
+  @include section-padding;
+  display: grid;
+  gap: var(--space-12);
+
+  @include mq("lg") {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    align-items: center;
+  }
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5, 20px);
+}
+
+.paragraph {
+  color: var(--text-dim);
+  line-height: 1.85;
+  max-width: 52ch;
+  @include fluid-type(15px, 17px);
+}
+
+.media {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: var(--hairline) solid var(--border);
+}
+
+.craft {
+  @include container;
+  padding-block-end: var(--space-24);
+}
+
+.craftTitle {
+  font-family: var(--font-display);
+  @include fluid-type(28px, 44px);
+  margin-block-end: var(--space-8);
+  color: var(--text);
+}
+
+.craftGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  @include mq("md") {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.craftTile {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: var(--hairline) solid var(--border);
+}

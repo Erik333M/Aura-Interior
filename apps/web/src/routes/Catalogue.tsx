@@ -12,6 +12,7 @@ import { AnimatedCount } from '@/components/AnimatedCount';
 import { SortSelect } from '@/components/SortSelect';
 import { EmptyState } from '@/components/EmptyState';
 import { Pagination } from '@/components/Pagination';
+import { ResponsiveImage } from '@/components/ResponsiveImage';
 import styles from './Catalogue.module.scss';
 
 const PAGE_SIZE = 12;
@@ -135,17 +136,45 @@ export function Catalogue() {
     clearAll();
   };
 
+  // A hero only makes sense for a single category — with several selected it
+  // would be arbitrary which one got the photograph.
+  const soleCategory =
+    filters.categories.length === 1
+      ? categories.find((c) => c.slug === filters.categories[0])
+      : undefined;
+
   const products = productsQuery.data?.items ?? [];
   const firstLoad = productsQuery.isPending;
   const showEmpty = !firstLoad && products.length === 0;
 
   return (
     <div className={styles.page}>
-      <header className={styles.head}>
-        <p className={styles.eyebrow}>{t.common.madeToOrder}</p>
-        <h1>{t.catalogue.title}</h1>
-        <p className={styles.lead}>{t.home.heroLead}</p>
-      </header>
+      {soleCategory ? (
+        <header className={styles.categoryHero}>
+          {soleCategory.heroImage && (
+            <ResponsiveImage
+              className={styles.categoryImage}
+              base={soleCategory.heroImage}
+              alt=""
+              width={1600}
+              height={900}
+              sizes="100vw"
+              priority
+            />
+          )}
+          <div className={styles.categoryOverlay}>
+            <p className={styles.eyebrow}>{t.common.madeToOrder}</p>
+            <h1 className={styles.categoryName}>{tl(soleCategory.name)}</h1>
+            <p className={styles.categoryDesc}>{tl(soleCategory.description)}</p>
+          </div>
+        </header>
+      ) : (
+        <header className={styles.head}>
+          <p className={styles.eyebrow}>{t.common.madeToOrder}</p>
+          <h1>{t.catalogue.title}</h1>
+          <p className={styles.lead}>{t.home.heroLead}</p>
+        </header>
+      )}
 
       <div className={styles.body}>
         <FilterSidebar

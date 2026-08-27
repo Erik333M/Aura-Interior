@@ -20,6 +20,9 @@ furniture manufacturer that builds every piece to order.
   <img src="docs/screenshots/catalogue-en.png" width="90%" alt="Catalogue with filter sidebar, price histogram and product grid">
 </p>
 <p align="center">
+  <img src="docs/screenshots/product-detail.png" width="90%" alt="Product detail with gallery, fabric selector, specs and the Request this piece CTA">
+</p>
+<p align="center">
   <img src="docs/screenshots/catalogue-empty.png" width="45%" alt="Catalogue empty state with active filter pills">
   <img src="docs/screenshots/catalogue-drawer.png" width="21%" alt="Filter drawer on mobile">
 </p>
@@ -119,6 +122,54 @@ identity to an arbitrary system fallback. `:lang(hy)` therefore puts _Noto Serif
 Armenian_ and _Noto Sans Armenian_ first.
 
 ---
+
+## Pages
+
+| Route                      |                                                                                                                        |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `/:locale`                 | Hero, pinned category strip, signature rows, Made in Yerevan, projects, reviews carousel, Instagram strip, contact CTA |
+| `/:locale/catalogue`       | Phase 3 filtering, plus a category hero when exactly one category is selected                                          |
+| `/:locale/catalogue/:slug` | Gallery + lightbox, sticky detail column, fabric selector, specs, enquiry modal, reviews, you-may-also-like            |
+| `/:locale/interior-design` | Process, project gallery, consultation form                                                                            |
+| `/:locale/about`           | Workshop story and craft details                                                                                       |
+| `/:locale/contact`         | Details, channels, map block, enquiry form                                                                             |
+| `/admin`                   | Login, inbox, moderation queue, products with image upload, fabric library                                             |
+
+**The enquiry flow is the product.** Selecting a fabric on a product page carries
+that fabric into the modal, which posts product + fabric + custom dimensions to
+`/api/inquiries`. Verified end to end through the real UI: pick Velvet Graphite
+on the Sevan bed → submit → the row lands in the database with the piece, the
+fabric and the dimensions attached, and appears in the admin inbox.
+
+The same `InquiryForm` serves the product modal, the contact page and the
+interior-design consultation — the consultation drops the dimensions field,
+since it is about a room rather than a piece.
+
+**The category strip** is a 280svh section with a sticky panel inside it;
+scrolling that extra height translates the track sideways. The travel distance is
+measured from the real rendered width and re-measured on resize, so adding a
+seventh category cannot silently cut the last card off. Under reduced motion the
+pin is dropped and it becomes an ordinary swipeable scroller.
+
+**The admin panel sits outside the locale tree and outside `Layout`** — no grain,
+no smooth scroll, no custom cursor. It is a tool, and the motion layer only gets
+in the way of scanning tables. It renders in Armenian, the workshop's language.
+
+### Not wired to live data
+
+- **Instagram strip** — six tiles linking to the profile. Pulling the latest six
+  posts needs an Instagram Graph API token tied to a Business account, which
+  cannot be committed and must be refreshed on a schedule. The layout, aspect
+  ratio and count match what the real feed will render, so connecting it is a
+  data swap inside `InstagramStrip`.
+- **Contact map** — a styled placeholder at the final dimensions. A real map
+  needs an API key and a third-party script.
+- **Fabric library in admin** is read-only: fabrics are a slow-moving reference
+  set seeded from `prisma/data/fabrics.ts`, and there is no admin write endpoint
+  for them.
+- **Product create/edit in admin** covers adding photographs and deleting a
+  piece. The API supports full CRUD (`POST`/`PUT /api/admin/products`); the
+  trilingual create form is not built.
 
 ## API
 
@@ -360,14 +411,14 @@ provider line.
 
 ## Status
 
-| Phase |                                                                                                |                                                             |
-| ----- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| 1     | Foundation — monorepo, SCSS system, Prisma schema, 20-product seed, layout shell, i18n routing | **done**                                                    |
-| 2     | Backend API — full REST surface, auth, uploads, rate limiting, mail                            | **done**                                                    |
-| 3     | Catalogue & filtering                                                                          | **done**                                                    |
-| 4     | Pages — home, product detail, interior design, about, contact, admin                           | pending — hero done, rest of Home + other pages outstanding |
-| 5     | Motion — reveals, text masks, gold shimmer, Lenis, magnetic buttons, cursor                    | **done**                                                    |
-| 6     | Business & polish — SEO, wishlist, analytics, a11y, performance                                | i18n done ahead of schedule                                 |
+| Phase |                                                                                                |                             |
+| ----- | ---------------------------------------------------------------------------------------------- | --------------------------- |
+| 1     | Foundation — monorepo, SCSS system, Prisma schema, 20-product seed, layout shell, i18n routing | **done**                    |
+| 2     | Backend API — full REST surface, auth, uploads, rate limiting, mail                            | **done**                    |
+| 3     | Catalogue & filtering                                                                          | **done**                    |
+| 4     | Pages — home, product detail, interior design, about, contact, admin                           | **done**                    |
+| 5     | Motion — reveals, text masks, gold shimmer, Lenis, magnetic buttons, cursor                    | **done**                    |
+| 6     | Business & polish — SEO, wishlist, analytics, a11y, performance                                | i18n done ahead of schedule |
 
 Routes not yet built render an honest placeholder naming the phase that builds
 them, so nothing here can be mistaken for finished work.

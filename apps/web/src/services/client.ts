@@ -32,11 +32,18 @@ function isApiError(value: unknown): value is ApiError {
 }
 
 export async function request<T>(pathname: string, init?: RequestInit): Promise<T> {
+  // FormData must NOT carry an explicit Content-Type — the browser has to set
+  // it so it can add the multipart boundary. Only JSON bodies get the header.
+  const isFormData = typeof FormData !== 'undefined' && init?.body instanceof FormData;
+
   let res: Response;
   try {
     res = await fetch(`${BASE}/api${pathname}`, {
-      headers: { 'Content-Type': 'application/json', ...(init?.headers ?? {}) },
       ...init,
+      headers: {
+        ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
+        ...(init?.headers ?? {}),
+      },
     });
   } catch (cause) {
     // Network-level failure: no response at all.

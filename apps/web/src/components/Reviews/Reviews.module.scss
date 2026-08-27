@@ -1,0 +1,231 @@
+.wrap {
+  display: grid;
+  gap: var(--space-12);
+
+  @include mq("lg") {
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: var(--space-16);
+  }
+}
+
+// ── Summary ─────────────────────────────────────────────────────────────────
+.summary {
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.average {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.averageNum {
+  font-family: var(--font-display);
+  @include fluid-type(44px, 60px);
+  line-height: 1;
+  color: var(--accent-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.averageMeta {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.barRow {
+  display: grid;
+  grid-template-columns: 2.5ch 1fr 3ch;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 12px;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.barTrack {
+  height: 4px;
+  background-color: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  background-color: var(--accent);
+  border-radius: 2px;
+  transform-origin: left;
+
+  @include motion-safe {
+    transition: width var(--dur-hero) var(--ease-out);
+  }
+}
+
+// ── Stars ───────────────────────────────────────────────────────────────────
+.stars {
+  display: inline-flex;
+  gap: 2px;
+  color: var(--accent);
+}
+
+.starEmpty {
+  color: var(--border-strong);
+}
+
+// ── List ────────────────────────────────────────────────────────────────────
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.review {
+  padding-block-end: var(--space-8);
+  border-block-end: var(--hairline) solid var(--border);
+
+  &:last-child {
+    border-block-end: none;
+    padding-block-end: 0;
+  }
+}
+
+.reviewHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-block-end: var(--space-3);
+}
+
+.author {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.date {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.body {
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+.empty {
+  color: var(--text-dim);
+}
+
+// ── Form ────────────────────────────────────────────────────────────────────
+.writeToggle {
+  align-self: flex-start;
+  margin-block-start: var(--space-6);
+  padding: var(--space-3) var(--space-8);
+  border: var(--hairline) solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  @include focus-ring;
+
+  &:hover {
+    border-color: var(--accent);
+    color: var(--accent-text);
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-block-start: var(--space-8);
+  padding: var(--space-6);
+  border: var(--hairline) solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-elevated);
+}
+
+.formRow {
+  display: grid;
+  gap: var(--space-4);
+
+  @include mq("sm") {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.ratingPicker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ratingLabel {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.starButtons {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.starButton {
+  color: var(--border-strong);
+  transition: color var(--dur-micro) var(--ease-out);
+  border-radius: var(--radius-sm);
+
+  @include focus-ring(2px);
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+.starOn {
+  color: var(--accent);
+}
+
+.submit {
+  align-self: flex-start;
+  padding: var(--space-3) var(--space-8);
+  background-color: var(--accent);
+  color: var(--obsidian);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  @include focus-ring;
+
+  &:disabled {
+    opacity: 0.55;
+  }
+}
+
+.pending {
+  padding: var(--space-4);
+  border: var(--hairline) solid var(--accent-hairline);
+  border-radius: var(--radius-sm);
+  color: var(--accent-text);
+  font-size: 14px;
+}

@@ -1,29 +1,42 @@
 import { Link } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useQueries } from '@tanstack/react-query';
 import { useI18n } from '@/i18n';
-import { catalogueKeys, fetchProducts } from '@/services/catalogue';
+import { catalogueKeys, fetchCategories, fetchProducts, fetchProjects } from '@/services/catalogue';
+import { fetchReviews, reviewKeys } from '@/services/reviews';
 import { Reveal } from '@/components/Reveal';
 import { SplitText } from '@/components/SplitText';
 import { VignetteFollow } from '@/components/VignetteFollow';
 import { MagneticButton } from '@/components/MagneticButton';
-import { ProductGrid, ProductGridSkeleton } from '@/components/ProductGrid';
+import { CategoryStrip } from '@/components/CategoryStrip';
+import { SignatureRows } from '@/components/SignatureRows';
+import { MadeInYerevan } from '@/components/MadeInYerevan';
+import { ProjectShowcase } from '@/components/ProjectShowcase';
+import { ReviewsCarousel } from '@/components/ReviewsCarousel';
+import { InstagramStrip } from '@/components/InstagramStrip';
+import { ContactCta } from '@/components/ContactCta';
 import styles from './Home.module.scss';
 
-/**
- * PHASE 5 SCOPE: the hero now carries the full motion treatment — line-split
- * headline, one-shot gold sweep, drifting studio lamp, magnetic CTA.
- *
- * The rest of the Home page (pinned category strip, signature-piece parallax
- * rows, "Made in Yerevan" band, reviews carousel, Instagram strip) is Phase 4
- * and still unbuilt.
- */
 export function Home() {
   const { t, path } = useI18n();
 
-  const query = useQuery({
-    queryKey: catalogueKeys.products({ pageSize: 4 }),
-    queryFn: () => fetchProducts({ pageSize: 4 }),
+  // One batch so the page settles in a single pass rather than cascading
+  // several independent loading states down the fold.
+  const [featured, categories, projects, reviews] = useQueries({
+    queries: [
+      {
+        queryKey: catalogueKeys.products({ sort: 'featured', pageSize: 8 }),
+        queryFn: () => fetchProducts({ sort: 'featured', pageSize: 8 }),
+      },
+      { queryKey: catalogueKeys.categories(), queryFn: fetchCategories, staleTime: 5 * 60_000 },
+      { queryKey: catalogueKeys.projects(), queryFn: fetchProjects, staleTime: 5 * 60_000 },
+      { queryKey: reviewKeys.list(undefined), queryFn: () => fetchReviews() },
+    ],
   });
+
+  const products = featured.data?.items ?? [];
+  // Interior Design is a service — it has its own page, not a catalogue tile.
+  const productCategories = (categories.data ?? []).filter((c) => (c.productCount ?? 0) > 0);
+  const signature = products.filter((p) => p.featured).slice(0, 3);
 
   return (
     <>
@@ -54,18 +67,19 @@ export function Home() {
         </p>
       </section>
 
-      <section className={styles.section} aria-labelledby="featured-heading">
-        <div className={styles.sectionHead}>
-          <Reveal as="p" className={styles.eyebrow} index={0}>
-            {t.common.madeToOrder}
-          </Reveal>
-          <SplitText as="h2" id="featured-heading" text={t.catalogue.title} />
-        </div>
+      {productCategories.length > 0 && <CategoryStrip categories={productCategories} />}
 
-        {query.isPending && <ProductGridSkeleton count={4} />}
-        {query.isError && <p className={styles.status}>{t.common.error}</p>}
-        {query.data && <ProductGrid products={query.data.items} />}
-      </section>
+      {signature.length > 0 && <SignatureRows products={signature} />}
+
+      <MadeInYerevan productCount={featured.data?.total ?? 0} />
+
+      <ProjectShowcase projects={(projects.data ?? []).slice(0, 3)} />
+
+      <ReviewsCarousel reviews={(reviews.data?.items ?? []).slice(0, 8)} />
+
+      <InstagramStrip fallback={products.slice(0, 6)} />
+
+      <ContactCta />
     </>
   );
 }

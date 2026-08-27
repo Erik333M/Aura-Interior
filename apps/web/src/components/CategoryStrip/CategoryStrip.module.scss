@@ -1,0 +1,120 @@
+// The section is taller than the viewport; the inner panel pins to the top and
+// the strip slides sideways as you scroll past. Section height therefore
+// controls how long the horizontal travel lasts.
+.section {
+  position: relative;
+  height: 280svh;
+}
+
+.pin {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-8);
+  overflow: hidden;
+}
+
+.head {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.eyebrow {
+  @include eyebrow;
+}
+
+.title {
+  font-family: var(--font-display);
+  @include fluid-type(32px, 60px);
+  line-height: 1.05;
+  color: var(--text);
+}
+
+.track {
+  display: flex;
+  gap: var(--space-6);
+  padding-inline: var(--gutter);
+  will-change: transform;
+}
+
+.card {
+  position: relative;
+  flex: none;
+  width: min(78vw, 420px);
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: var(--hairline) solid var(--border);
+  transition: border-color var(--dur-standard) var(--ease-out);
+
+  @include focus-ring;
+
+  &:hover {
+    border-color: var(--accent-hairline);
+  }
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding: var(--space-6);
+  background-image: linear-gradient(
+    to top,
+    rgb(11 11 13 / 88%) 0%,
+    rgb(11 11 13 / 40%) 45%,
+    transparent 75%
+  );
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  @include fluid-type(24px, 34px);
+  color: var(--boucle);
+}
+
+.cardCount {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+// Reduced motion: no pin, no scroll-driven travel — a plain horizontal
+// scroller the user drives themselves.
+@include motion-reduce {
+  .section {
+    height: auto;
+  }
+
+  .pin {
+    position: static;
+    height: auto;
+    padding-block: var(--space-16);
+  }
+
+  .track {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    transform: none !important;
+  }
+
+  .card {
+    scroll-snap-align: start;
+  }
+}

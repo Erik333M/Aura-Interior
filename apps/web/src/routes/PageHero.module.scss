@@ -1,0 +1,44 @@
+.hero {
+  @include grain-overlay;
+  position: relative;
+  overflow: hidden;
+  border-block-end: var(--hairline) solid var(--accent-hairline);
+}
+
+.glow {
+  @include vignette(35%, 40%, 62%);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.inner {
+  @include container;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-block: clamp(56px, 9vw, 128px);
+}
+
+.eyebrow {
+  @include eyebrow;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  @include fluid-type(40px, 88px);
+  color: var(--text);
+  max-width: 18ch;
+}
+
+.lead {
+  max-width: 56ch;
+  color: var(--text-dim);
+  @include fluid-type(15px, 19px);
+  line-height: 1.7;
+}

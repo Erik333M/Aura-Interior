@@ -57,8 +57,10 @@ export function ResponsiveImage({
           width={width}
           height={height}
           loading={priority ? 'eager' : 'lazy'}
-          // fetchPriority is still typed loosely across React versions.
-          fetchPriority={priority ? 'high' : 'auto'}
+          // React 18 does not know the camelCase `fetchPriority` prop (added in
+          // 19) and passes it straight through, which warns and emits nothing.
+          // Spreading the lowercase attribute is what actually reaches the DOM.
+          {...({ fetchpriority: priority ? 'high' : 'auto' } as Record<string, string>)}
           decoding={priority ? 'sync' : 'async'}
           onLoad={() => setLoaded(true)}
           // A cached image can finish before React attaches onLoad.

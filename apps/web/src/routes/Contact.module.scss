@@ -1,0 +1,123 @@
+.layout {
+  @include container;
+  @include section-padding;
+  display: grid;
+  gap: var(--space-12);
+
+  @include mq("lg") {
+    grid-template-columns: 1fr 1.15fr;
+    gap: var(--space-16);
+    align-items: start;
+  }
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-block-start: var(--space-4);
+  border-block-start: var(--hairline) solid var(--accent-hairline);
+}
+
+.label {
+  @include eyebrow;
+}
+
+.value {
+  color: var(--text);
+  font-size: 15px;
+}
+
+.link {
+  @include focus-ring(3px);
+  color: var(--accent-text);
+  font-size: 15px;
+  border-radius: var(--radius-sm);
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+}
+
+.channels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-block-start: var(--space-2);
+}
+
+.channel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border: var(--hairline) solid var(--accent);
+  border-radius: var(--radius-sm);
+  color: var(--accent-text);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition:
+    background-color var(--dur-standard) var(--ease-out),
+    color var(--dur-standard) var(--ease-out);
+
+  @include focus-ring;
+
+  &:hover {
+    background-color: var(--accent);
+    color: var(--obsidian);
+  }
+}
+
+// A real map needs an API key and a third-party script; this is an honest
+// placeholder that gives the block its final dimensions.
+.map {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: var(--hairline) solid var(--border);
+  background-color: var(--bg-elevated);
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 44px 44px;
+  display: grid;
+  place-items: center;
+  gap: var(--space-2);
+  text-align: center;
+  padding: var(--space-6);
+}
+
+.mapPin {
+  color: var(--accent);
+}
+
+.mapNote {
+  font-size: 12px;
+  color: var(--text-dim);
+  max-width: 32ch;
+}
+
+.formPanel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-8);
+  background-color: var(--bg-elevated);
+  border: var(--hairline) solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.formTitle {
+  font-family: var(--font-display);
+  @include fluid-type(26px, 36px);
+  color: var(--text);
+}

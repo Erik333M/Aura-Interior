@@ -1,0 +1,100 @@
+.section {
+  @include container;
+  @include section-padding;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-block-end: var(--space-8);
+}
+
+.eyebrow {
+  @include eyebrow;
+}
+
+.title {
+  font-family: var(--font-display);
+  @include fluid-type(28px, 48px);
+  color: var(--text);
+}
+
+.handle {
+  @include focus-ring(3px);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--accent-text);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  @include mq("sm") {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include mq("lg") {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.tile {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  border: var(--hairline) solid var(--border);
+
+  @include focus-ring(2px);
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--obsidian);
+    opacity: 0;
+    transition: opacity var(--dur-standard) var(--ease-out);
+  }
+
+  &:hover::after {
+    opacity: 0.35;
+  }
+}
+
+.icon {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  color: var(--boucle);
+  opacity: 0;
+  transition: opacity var(--dur-standard) var(--ease-out);
+
+  .tile:hover & {
+    opacity: 1;
+  }
+}
+
+.note {
+  margin-block-start: var(--space-6);
+  font-size: 12px;
+  color: var(--text-dim);
+}

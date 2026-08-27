@@ -1,0 +1,89 @@
+.band {
+  @include grain-overlay;
+  position: relative;
+  background-color: var(--bg-band);
+  border-block-start: var(--hairline) solid var(--accent-hairline);
+  overflow: hidden;
+}
+
+.glow {
+  @include vignette(60%, 45%, 60%);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.inner {
+  @include container;
+  @include section-padding;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+  text-align: center;
+}
+
+.eyebrow {
+  @include eyebrow;
+}
+
+.title {
+  @include gold-text;
+  font-family: var(--font-display);
+  @include fluid-type(38px, 80px);
+  line-height: 1.02;
+  max-width: 16ch;
+}
+
+.body {
+  color: var(--text-dim);
+  max-width: 46ch;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-block-start: var(--space-4);
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  @include focus-ring;
+}
+
+.primary {
+  background-color: var(--accent);
+  color: var(--obsidian);
+  transition: filter var(--dur-micro) var(--ease-out);
+
+  &:hover {
+    filter: brightness(1.08);
+  }
+}
+
+.secondary {
+  border: var(--hairline) solid var(--accent);
+  color: var(--accent-text);
+  transition:
+    background-color var(--dur-standard) var(--ease-out),
+    color var(--dur-standard) var(--ease-out);
+
+  &:hover {
+    background-color: var(--accent);
+    color: var(--obsidian);
+  }
+}

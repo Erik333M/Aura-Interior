@@ -1,0 +1,87 @@
+.section {
+  @include container;
+  @include section-padding;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-block-end: var(--space-12);
+}
+
+.eyebrow {
+  @include eyebrow;
+}
+
+.title {
+  font-family: var(--font-display);
+  @include fluid-type(32px, 56px);
+  line-height: 1.05;
+  color: var(--text);
+}
+
+.more {
+  @include focus-ring(3px);
+  color: var(--accent-text);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-block-end: 1px solid var(--accent-hairline);
+  padding-block-end: 2px;
+
+  &:hover {
+    border-block-end-color: var(--accent);
+  }
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-6);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  @include mq("md") {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.media {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: var(--hairline) solid var(--border);
+  transition: border-color var(--dur-standard) var(--ease-out);
+
+  .card:hover & {
+    border-color: var(--accent-hairline);
+  }
+}
+
+.year {
+  @include eyebrow;
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+.name {
+  font-family: var(--font-display);
+  @include fluid-type(20px, 26px);
+  color: var(--text);
+  @include line-clamp(2);
+}
+
+.location {
+  font-size: 13px;
+  color: var(--text-dim);
+}

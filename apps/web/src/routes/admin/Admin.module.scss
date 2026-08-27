@@ -1,0 +1,355 @@
+// Admin is a tool, not a showpiece: denser, plainer, high-contrast. It shares
+// the design tokens so it never looks like a different product, but drops the
+// display serif and the motion.
+.shell {
+  min-height: 100svh;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+}
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding: var(--space-4) var(--gutter);
+  background-color: var(--bg-elevated);
+  border-block-end: var(--hairline) solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.brandName {
+  @include display-caps;
+  font-size: 16px;
+  color: var(--accent-text);
+}
+
+.brandTag {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.tabs {
+  display: flex;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  color: var(--text-dim);
+  font-size: 13px;
+  border: var(--hairline) solid transparent;
+
+  @include focus-ring(2px);
+
+  &:hover {
+    color: var(--text);
+    border-color: var(--border);
+  }
+}
+
+.tabActive {
+  color: var(--accent-text);
+  border-color: var(--accent-hairline);
+  background-color: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.badge {
+  display: grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding-inline: 5px;
+  border-radius: 999px;
+  background-color: var(--accent);
+  color: var(--obsidian);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.signOut {
+  @include focus-ring(2px);
+  font-size: 12px;
+  color: var(--text-dim);
+  border-radius: var(--radius-sm);
+
+  &:hover {
+    color: var(--error);
+  }
+}
+
+.main {
+  padding: var(--space-8) var(--gutter) var(--space-24);
+  max-width: 1500px;
+  margin-inline: auto;
+}
+
+.pageTitle {
+  font-size: 20px;
+  font-weight: 500;
+  margin-block-end: var(--space-6);
+}
+
+// ── Login ───────────────────────────────────────────────────────────────────
+.login {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: var(--space-6);
+}
+
+.loginCard {
+  width: min(100%, 400px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5, 20px);
+  padding: var(--space-8);
+  background-color: var(--bg-elevated);
+  border: var(--hairline) solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.loginTitle {
+  @include display-caps;
+  font-size: 22px;
+  color: var(--accent-text);
+}
+
+.submit {
+  padding: var(--space-3) var(--space-6);
+  background-color: var(--accent);
+  color: var(--obsidian);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  @include focus-ring;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+.error {
+  padding: var(--space-3);
+  border: var(--hairline) solid var(--error);
+  border-radius: var(--radius-sm);
+  color: var(--error);
+  font-size: 13px;
+}
+
+// ── Tables ──────────────────────────────────────────────────────────────────
+.tableWrap {
+  overflow-x: auto;
+  border: var(--hairline) solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 720px;
+}
+
+.table th {
+  position: sticky;
+  top: 0;
+  text-align: start;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--bg-elevated);
+  border-block-end: var(--hairline) solid var(--border);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: var(--space-3) var(--space-4);
+  border-block-end: var(--hairline) solid var(--border);
+  vertical-align: top;
+}
+
+.table tr:last-child td {
+  border-block-end: none;
+}
+
+.table tbody tr:hover {
+  background-color: color-mix(in srgb, var(--accent) 4%, transparent);
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.muted {
+  color: var(--text-dim);
+}
+
+.wrapText {
+  max-width: 46ch;
+  line-height: 1.55;
+}
+
+// ── Status pills ────────────────────────────────────────────────────────────
+.pill {
+  display: inline-block;
+  padding: 2px var(--space-2);
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: var(--hairline) solid currentcolor;
+  white-space: nowrap;
+}
+
+.pillNew,
+.pillPending {
+  color: var(--warning);
+}
+
+.pillApproved,
+.pillWon {
+  color: var(--success);
+}
+
+.pillRejected,
+.pillLost {
+  color: var(--error);
+}
+
+.pillNeutral {
+  color: var(--text-dim);
+}
+
+// ── Actions ─────────────────────────────────────────────────────────────────
+.actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.action {
+  padding: var(--space-1) var(--space-3);
+  border: var(--hairline) solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  color: var(--text-dim);
+  white-space: nowrap;
+
+  @include focus-ring(2px);
+
+  &:hover {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+}
+
+.approve:hover {
+  color: var(--success);
+  border-color: var(--success);
+}
+
+.reject:hover {
+  color: var(--error);
+  border-color: var(--error);
+}
+
+.select {
+  padding: var(--space-1) var(--space-2);
+  background-color: var(--bg);
+  border: var(--hairline) solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 11px;
+
+  @include focus-ring(2px);
+}
+
+// ── Stats ───────────────────────────────────────────────────────────────────
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-4);
+  margin-block-end: var(--space-8);
+}
+
+.statCard {
+  padding: var(--space-4);
+  background-color: var(--bg-elevated);
+  border: var(--hairline) solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.statNum {
+  font-family: var(--font-display);
+  font-size: 34px;
+  line-height: 1;
+  color: var(--accent-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.statLabel {
+  margin-block-start: var(--space-2);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.empty {
+  padding: var(--space-16);
+  text-align: center;
+  color: var(--text-dim);
+}
+
+.thumbCell {
+  width: 52px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: var(--hairline) solid var(--border);
+}
+
+.uploadRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.fileInput {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.swatchDot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-inline-end: var(--space-2);
+  vertical-align: -1px;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 20%);
+}

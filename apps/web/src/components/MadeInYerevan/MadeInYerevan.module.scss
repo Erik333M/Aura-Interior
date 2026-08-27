@@ -1,0 +1,98 @@
+.band {
+  @include grain-overlay;
+  position: relative;
+  background-color: var(--bg-band);
+  border-block: var(--hairline) solid var(--accent-hairline);
+  overflow: hidden;
+}
+
+.glow {
+  @include vignette(22%, 30%, 65%);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.inner {
+  @include container;
+  @include section-padding;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: var(--space-12);
+
+  @include mq("md") {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    align-items: center;
+  }
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.eyebrow {
+  @include eyebrow;
+}
+
+.title {
+  font-family: var(--font-display);
+  @include fluid-type(34px, 64px);
+  line-height: 1.02;
+  color: var(--text);
+}
+
+.body {
+  color: var(--text-dim);
+  line-height: 1.8;
+  max-width: 48ch;
+}
+
+.link {
+  @include focus-ring(3px);
+  margin-block-start: var(--space-2);
+  color: var(--accent-text);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-block-end: 1px solid var(--accent-hairline);
+  padding-block-end: 2px;
+
+  &:hover {
+    border-block-end-color: var(--accent);
+  }
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-block-start: var(--space-4);
+  border-block-start: var(--hairline) solid var(--accent-hairline);
+}
+
+.statNum {
+  font-family: var(--font-display);
+  @include fluid-type(34px, 56px);
+  line-height: 1;
+  color: var(--accent-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.statLabel {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
