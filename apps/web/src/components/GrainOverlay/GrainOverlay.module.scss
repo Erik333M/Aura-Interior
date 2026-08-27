@@ -1,0 +1,33 @@
+// Fixed film grain across the whole viewport. Flat black reads cheap in a
+// browser; this is the cheapest thing that stops it.
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+
+  // A grain layer animating over the whole page is exactly the kind of
+  // ambient motion reduced-motion users are asking us to stop.
+  @include motion-safe {
+    animation: drift 700ms steps(3) infinite;
+  }
+}
+
+@keyframes drift {
+  0% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(-1%, 1%);
+  }
+  66% {
+    transform: translate(1%, -1%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}

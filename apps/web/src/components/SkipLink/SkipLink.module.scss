@@ -1,0 +1,21 @@
+.skip {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 10000;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--bg-elevated);
+  color: var(--accent-text);
+  border: var(--hairline) solid var(--accent);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 500;
+
+  // Off-screen until focused — the standard skip-link pattern.
+  transform: translateY(calc(-100% - var(--space-4)));
+  transition: transform var(--dur-micro) var(--ease-out);
+
+  &:focus {
+    transform: translateY(0);
+  }
+}

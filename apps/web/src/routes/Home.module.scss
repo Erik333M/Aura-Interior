@@ -1,0 +1,112 @@
+.hero {
+  @include grain-overlay(0);
+  position: relative;
+  display: grid;
+  align-content: center;
+  min-height: clamp(560px, 82svh, 900px);
+  padding-block: var(--space-24);
+  overflow: hidden;
+}
+
+.vignette {
+  @include vignette(50%, 42%, 70%);
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heroInner {
+  @include container;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 1100px;
+}
+
+.eyebrow {
+  @include eyebrow;
+}
+
+.title {
+  @include gold-text;
+  max-width: 16ch;
+}
+
+.lead {
+  max-width: 52ch;
+  color: var(--text-dim);
+  @include fluid-type(16px, 20px);
+}
+
+.section {
+  @include container;
+  @include section-padding;
+}
+
+.sectionHead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-block-end: var(--space-12);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: var(--space-6);
+  list-style: none;
+  padding: 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  background-color: var(--bg-elevated);
+  border: var(--hairline) solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color var(--dur-standard) var(--ease-out);
+
+  &:hover {
+    border-color: var(--accent-hairline);
+  }
+}
+
+.thumb {
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  object-fit: cover;
+  background-color: var(--marble);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: 0 var(--space-4) var(--space-4);
+}
+
+.cardName {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--text);
+}
+
+.cardPrice {
+  font-size: 13px;
+  color: var(--accent-text);
+}
+
+.cardMeta {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.status {
+  color: var(--text-dim);
+  font-size: 14px;
+}

@@ -1,0 +1,36 @@
+.switcher {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.option {
+  padding: var(--space-2) var(--space-2);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border-radius: var(--radius-sm);
+  transition: color var(--dur-micro) var(--ease-out);
+
+  &:hover {
+    color: var(--text);
+  }
+
+  @include focus-ring(2px);
+}
+
+.active {
+  color: var(--accent-text);
+
+  &:hover {
+    color: var(--accent-text);
+  }
+}
+
+.divider {
+  width: 1px;
+  height: 10px;
+  background-color: var(--border-strong);
+}

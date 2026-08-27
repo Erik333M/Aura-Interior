@@ -1,0 +1,200 @@
+// Aura Interior — data model.
+//
+// PORTABILITY NOTE: the datasource is SQLite for local development, but every
+// construct here exists in Postgres too. Deliberate constraints:
+//   * No Prisma `enum`s — SQLite has no enum type. Status/category columns are
+//     String, validated by Zod at the edge (see src/lib/validation.ts) and typed
+//     as unions in @aura/types. Swapping to Postgres lets these become real enums.
+//   * No native `Json` columns — SQLite stores JSON as TEXT with no operators.
+//   * No array columns — every to-many relation is an explicit join table.
+//   * Money is Int (Armenian dram has no minor unit), never Float.
+//   * Trilingual copy is three columns rather than a JSON blob so it stays
+//     indexable and sortable per language.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Prisma 7 moved connection URLs out of the schema. The URL for migrate/push
+// lives in prisma.config.ts; the runtime client gets a driver adapter instead
+// (src/db.ts). Swapping to Postgres = change this provider + one adapter import.
+datasource db {
+  provider = "sqlite"
+}
+
+model Category {
+  id          String @id @default(cuid())
+  slug        String @unique
+  nameHy      String
+  nameRu      String
+  nameEn      String
+  descHy      String
+  descRu      String
+  descEn      String
+  heroImage   String?
+  sortOrder   Int    @default(0)
+  /// Interior Design is a service, not a product category — it renders its own
+  /// page and is excluded from the catalogue filter list.
+  isService   Boolean @default(false)
+
+  products    Product[]
+
+  @@index([sortOrder])
+}
+
+model Product {
+  id                  String   @id @default(cuid())
+  slug                String   @unique
+  nameHy              String
+  nameRu              String
+  nameEn              String
+  descHy              String
+  descRu              String
+  descEn              String
+  /// Starting price in AMD (integer dram). Rendered as "from N ֏".
+  priceFrom           Int
+  categoryId          String
+  materialHy          String
+  materialRu          String
+  materialEn          String
+  widthCm             Int
+  depthCm             Int
+  heightCm            Int
+  customSizeAvailable Boolean  @default(true)
+  leadTimeDays        Int      @default(30)
+  featured            Boolean  @default(false)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  category            Category        @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  images              Image[]
+  fabrics             ProductFabric[]
+  reviews             Review[]
+  inquiries           Inquiry[]
+
+  @@index([categoryId])
+  @@index([priceFrom])
+  @@index([featured])
+  @@index([createdAt])
+}
+
+model Image {
+  id        String  @id @default(cuid())
+  productId String?
+  projectId String?
+  /// Base path without extension; the client picks .avif / .webp / .jpg per size.
+  url       String
+  alt       String
+  width     Int
+  height    Int
+  /// Base64 data-URI of a ~20px render, shown while the full image loads.
+  blurhash  String
+  sortOrder Int     @default(0)
+
+  product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+  project   Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([productId, sortOrder])
+  @@index([projectId, sortOrder])
+}
+
+model Fabric {
+  id         String @id @default(cuid())
+  slug       String @unique
+  nameHy     String
+  nameRu     String
+  nameEn     String
+  hex        String
+  textureUrl String?
+  /// BOUCLE | VELVET | LINEN | LEATHER
+  category   String
+  sortOrder  Int    @default(0)
+
+  products   ProductFabric[]
+  inquiries  Inquiry[]
+
+  @@index([category])
+}
+
+/// Which fabrics a given piece can be commissioned in.
+model ProductFabric {
+  productId String
+  fabricId  String
+
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  fabric    Fabric  @relation(fields: [fabricId], references: [id], onDelete: Cascade)
+
+  @@id([productId, fabricId])
+  @@index([fabricId])
+}
+
+model Review {
+  id          String   @id @default(cuid())
+  productId   String?
+  authorName  String
+  /// Collected for follow-up only — never returned by public endpoints.
+  authorEmail String
+  rating      Int
+  body        String
+  /// PENDING | APPROVED | REJECTED. New reviews are always PENDING.
+  status      String   @default("PENDING")
+  createdAt   DateTime @default(now())
+
+  product     Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, status])
+  @@index([status, createdAt])
+}
+
+/// The primary conversion record. Replaces a cart/checkout entirely.
+model Inquiry {
+  id               String   @id @default(cuid())
+  name             String
+  phone            String
+  email            String?
+  message          String
+  productId        String?
+  fabricId         String?
+  /// Free text, e.g. "200 x 180, headboard 140 tall".
+  customDimensions String?
+  /// NEW | CONTACTED | QUOTED | WON | LOST
+  status           String   @default("NEW")
+  /// Kept for rate-limit forensics and spam triage.
+  sourceIp         String?
+  createdAt        DateTime @default(now())
+
+  product          Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  fabric           Fabric?  @relation(fields: [fabricId], references: [id], onDelete: SetNull)
+
+  @@index([status, createdAt])
+  @@index([productId])
+}
+
+/// Completed interior design fit-outs, shown on the service page.
+model Project {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  titleHy     String
+  titleRu     String
+  titleEn     String
+  descHy      String
+  descRu      String
+  descEn      String
+  locationHy  String
+  locationRu  String
+  locationEn  String
+  year        Int
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  images      Image[]
+
+  @@index([year])
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}

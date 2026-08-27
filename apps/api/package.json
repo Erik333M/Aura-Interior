@@ -1,0 +1,48 @@
+{
+  "name": "@aura/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --env-file=../../.env src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node --env-file=../../.env dist/index.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.seed.json",
+    "db:generate": "dotenv -e ../../.env -- prisma generate",
+    "db:push": "dotenv -e ../../.env -- prisma db push",
+    "db:seed": "tsx --env-file=../../.env prisma/seed.ts",
+    "db:reset": "dotenv -e ../../.env -- prisma db push --force-reset && npm run db:seed",
+    "db:studio": "dotenv -e ../../.env -- prisma studio"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@aura/types": "*",
+    "@prisma/adapter-better-sqlite3": "^7.10.0",
+    "@prisma/client": "7.10.0",
+    "@types/bcryptjs": "^3.0.0",
+    "bcryptjs": "^3.0.2",
+    "cors": "2.8.6",
+    "express": "5.2.1",
+    "express-rate-limit": "8.6.2",
+    "helmet": "8.3.0",
+    "jsonwebtoken": "9.0.2",
+    "multer": "2.0.2",
+    "nodemailer": "9.0.5",
+    "sharp": "0.35.4",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/cors": "2.8.19",
+    "@types/express": "5.0.3",
+    "@types/jsonwebtoken": "9.0.10",
+    "@types/multer": "2.0.0",
+    "@types/node": "24.10.1",
+    "@types/nodemailer": "7.0.4",
+    "dotenv-cli": "10.0.0",
+    "prisma": "7.10.0",
+    "tsx": "4.23.12",
+    "typescript": "5.9.3"
+  }
+}

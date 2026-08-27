@@ -1,0 +1,162 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  // Transparent at rest so the hero reads full-bleed; the ground and hairline
+  // fade in only once the page has actually scrolled.
+  background-color: transparent;
+  border-block-end: var(--hairline) solid transparent;
+  transition:
+    background-color var(--dur-standard) var(--ease-inout),
+    border-color var(--dur-standard) var(--ease-inout),
+    backdrop-filter var(--dur-standard) var(--ease-inout);
+}
+
+.scrolled {
+  background-color: color-mix(in srgb, var(--bg) 82%, transparent);
+  border-block-end-color: var(--accent-hairline);
+  backdrop-filter: blur(14px) saturate(140%);
+}
+
+.inner {
+  @include container;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  min-height: var(--header-h);
+}
+
+.brand {
+  @include focus-ring;
+  flex: none;
+  border-radius: var(--radius-sm);
+}
+
+.nav {
+  display: none;
+
+  @include mq("lg") {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+  }
+}
+
+.link {
+  position: relative;
+  padding-block: var(--space-2);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  transition: color var(--dur-micro) var(--ease-out);
+
+  @include focus-ring(4px);
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur-standard) var(--ease-out);
+  }
+
+  &:hover {
+    color: var(--text);
+
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+}
+
+.linkActive {
+  color: var(--accent-text);
+
+  &::after {
+    transform: scaleX(1);
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.desktopOnly {
+  display: none;
+
+  @include mq("lg") {
+    display: flex;
+  }
+}
+
+.burger {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  color: var(--text);
+  border-radius: var(--radius-sm);
+
+  @include focus-ring;
+
+  @include mq("lg") {
+    display: none;
+  }
+}
+
+// ── Mobile sheet ────────────────────────────────────────────────────────────
+.sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg);
+  padding: var(--space-6) var(--gutter) var(--space-12);
+  overflow-y: auto;
+}
+
+.sheetTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: calc(var(--header-h) - var(--space-6) * 2 + var(--space-6));
+  margin-block-end: var(--space-12);
+}
+
+.sheetNav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.sheetLink {
+  @include display-caps;
+  @include fluid-type(28px, 40px);
+  padding-block: var(--space-3);
+  color: var(--text);
+  border-block-end: var(--hairline) solid var(--border);
+
+  @include focus-ring(4px);
+
+  &:hover {
+    color: var(--accent-text);
+  }
+}
+
+.sheetFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-block-start: auto;
+  padding-block-start: var(--space-12);
+}

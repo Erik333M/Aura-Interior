@@ -1,0 +1,45 @@
+{
+  "name": "aura-interior",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Aura Interior — made-to-order furniture, Yerevan. Monorepo.",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run build -w @aura/types && concurrently -n api,web -c magenta,yellow \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "npm run dev -w @aura/api",
+    "dev:web": "npm run dev -w @aura/web",
+    "build": "npm run build -w @aura/types && npm run build -w @aura/api && npm run build -w @aura/web",
+    "typecheck": "npm run typecheck --workspaces --if-present && tsc -p scripts/tsconfig.json",
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{ts,tsx,scss,json,md}\"",
+    "db:generate": "npm run db:generate -w @aura/api",
+    "db:push": "npm run db:push -w @aura/api",
+    "db:seed": "npm run db:seed -w @aura/api",
+    "db:reset": "npm run db:reset -w @aura/api",
+    "db:studio": "npm run db:studio -w @aura/api",
+    "media:generate": "tsx scripts/generate-placeholders.ts",
+    "setup": "npm install && npm run db:generate && npm run db:push && npm run media:generate && npm run db:seed",
+    "check:contrast": "tsx scripts/check-contrast.ts",
+    "lint:fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "concurrently": "10.0.5",
+    "eslint": "^10.9.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.5",
+    "globals": "^17.11.0",
+    "prettier": "3.6.2",
+    "sharp": "0.35.4",
+    "tsx": "4.23.12",
+    "typescript": "5.9.3",
+    "typescript-eslint": "^8.68.0"
+  }
+}

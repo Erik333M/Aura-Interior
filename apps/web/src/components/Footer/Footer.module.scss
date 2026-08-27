@@ -1,0 +1,76 @@
+.footer {
+  @include hairline-rule(block-start);
+  margin-block-start: auto;
+  background-color: var(--bg);
+  color: var(--text-dim);
+}
+
+.inner {
+  @include container;
+  display: grid;
+  gap: var(--space-12);
+  padding-block: clamp(48px, 8vw, 96px) var(--space-12);
+
+  @include mq("md") {
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: var(--space-16);
+  }
+}
+
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 34ch;
+}
+
+.tagline {
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.colTitle {
+  @include eyebrow;
+  margin-block-end: var(--space-6);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  list-style: none;
+  padding: 0;
+}
+
+.link {
+  font-size: 14px;
+  color: var(--text-dim);
+  transition: color var(--dur-micro) var(--ease-out);
+
+  @include focus-ring(3px);
+
+  &:hover {
+    color: var(--accent-text);
+  }
+}
+
+.baseline {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-block: var(--space-6);
+  border-block-start: var(--hairline) solid var(--border);
+  font-size: 12px;
+
+  @include mq("md") {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.madeIn {
+  @include eyebrow;
+}

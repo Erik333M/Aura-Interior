@@ -1,0 +1,149 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Aura Interior — design tokens.
+//
+// Emitted as CSS custom properties so light mode is a single attribute swap and
+// motion can interpolate them. This file emits rules: @use it EXACTLY once,
+// from global.scss. Never import it into a component module.
+// ─────────────────────────────────────────────────────────────────────────────
+
+:root {
+  // ── Grounds — pulled from the brand's studio photography ──────────────────
+  --obsidian: #0b0b0d; // page ground (default/dark)
+  --onyx: #141416; // elevated surfaces, cards
+  --graphite: #1e1e21; // borders, dividers on dark
+  --marble: #26262a; // black-marble mid-tone, section bands
+
+  // ── Gold — the brand signature. Three stops so it can render metallic. ────
+  --gold-deep: #7a5d28; // text-safe gold on LIGHT backgrounds
+  --gold: #c6a15b; // primary accent, logo gold
+  --gold-light: #e8d4a2; // highlights, gradient peak
+
+  --gold-metal: linear-gradient(
+    135deg,
+    #7a5d28 0%,
+    #c6a15b 32%,
+    #e8d4a2 50%,
+    #c6a15b 68%,
+    #7a5d28 100%
+  );
+
+  // ── Warm neutrals — the actual furniture colours ──────────────────────────
+  --boucle: #efe8dc; // cream upholstery
+  --sand: #dccfbb;
+  --taupe: #b9afa2;
+  --stone: #8e8a83;
+
+  // ── Light-mode grounds ────────────────────────────────────────────────────
+  --porcelain: #f6f3ee;
+  --alabaster: #eae4da;
+
+  // ── Text ──────────────────────────────────────────────────────────────────
+  --text-on-dark: #f2eee7;
+  --text-on-dark-dim: #a9a29a;
+  --text-on-light: #17161a;
+  --text-on-light-dim: #5e5952;
+
+  // ── Support ───────────────────────────────────────────────────────────────
+  --success: #5b7c5a;
+  --error: #a5544a;
+  --warning: #c08a3e;
+
+  // ── Space — 4px scale ─────────────────────────────────────────────────────
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
+  --space-48: 192px;
+
+  // ── Motion ────────────────────────────────────────────────────────────────
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); // entrances
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 200ms;
+  --dur-standard: 400ms;
+  --dur-hero: 700ms;
+
+  // ── Type ──────────────────────────────────────────────────────────────────
+  --font-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --tracking-caps: 0.08em;
+  --tracking-eyebrow: 0.2em;
+
+  // ── Structure ─────────────────────────────────────────────────────────────
+  --container-max: 1440px;
+  --gutter: clamp(20px, 5vw, 64px);
+  --header-h: 88px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --hairline: 1px;
+
+  // ── Semantic roles — the ONLY things components should reference ──────────
+  // Dark is the default; the [data-theme='light'] block below remaps these and
+  // nothing else, which is why a component never needs to know the theme.
+  --bg: var(--obsidian);
+  --bg-elevated: var(--onyx);
+  --bg-band: var(--marble);
+  --border: var(--graphite);
+  --border-strong: #34343a;
+  --text: var(--text-on-dark);
+  --text-dim: var(--text-on-dark-dim);
+
+  // CONTRAST RULE — the one trap in a gold palette.
+  // --gold (#C6A15B) is 8.1:1 on --obsidian: safe for text at any size on dark.
+  // On light grounds it falls to ~2.4:1 and FAILS. --accent-text therefore
+  // remaps to --gold-deep (5.6:1) in light mode, while --accent stays available
+  // for large display type, rules and decoration only.
+  --accent: var(--gold);
+  --accent-text: var(--gold); // safe for body text in dark mode
+  --accent-hairline: rgb(198 161 91 / 20%);
+  --accent-glow: rgb(198 161 91 / 12%);
+
+  --focus-ring: var(--gold);
+  --overlay: rgb(0 0 0 / 72%);
+  --grain-opacity: 0.03;
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 40%), 0 12px 32px rgb(0 0 0 / 28%);
+  --shadow-lift: 0 2px 4px rgb(0 0 0 / 44%), 0 24px 56px rgb(0 0 0 / 36%);
+}
+
+[data-theme="light"] {
+  --bg: var(--porcelain);
+  --bg-elevated: #fff;
+  --bg-band: var(--alabaster);
+  --border: #d9d1c4;
+  --border-strong: #c2b8a7;
+  --text: var(--text-on-light);
+  --text-dim: var(--text-on-light-dim);
+
+  // See the contrast rule above: gold text must darken on light grounds.
+  --accent: var(--gold-deep);
+  --accent-text: var(--gold-deep); // 5.6:1 on --porcelain
+  --accent-hairline: rgb(122 93 40 / 26%);
+  --accent-glow: rgb(122 93 40 / 8%);
+
+  --gold-metal: linear-gradient(
+    135deg,
+    #5e4720 0%,
+    #7a5d28 32%,
+    #a8873f 50%,
+    #7a5d28 68%,
+    #5e4720 100%
+  );
+
+  --focus-ring: var(--gold-deep);
+  --overlay: rgb(23 22 26 / 56%);
+  --grain-opacity: 0.02;
+
+  --shadow-card: 0 1px 2px rgb(23 22 26 / 6%), 0 12px 32px rgb(23 22 26 / 8%);
+  --shadow-lift: 0 2px 4px rgb(23 22 26 / 8%), 0 24px 56px rgb(23 22 26 / 12%);
+}
+
+// NOTE: there is deliberately no `prefers-color-scheme` block here.
+// The brand is dark. Dark is the default for everyone regardless of OS setting;
+// light exists only as an explicit user toggle, which stamps [data-theme] via
+// the inline script in index.html. Do not "helpfully" add auto-switching.

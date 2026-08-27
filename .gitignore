@@ -1,0 +1,42 @@
+# deps
+node_modules/
+.pnp/
+.pnp.js
+
+# build output
+dist/
+build/
+*.tsbuildinfo
+
+# env — never commit real secrets
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# database
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+apps/api/prisma/*.db*
+
+# generated assets
+apps/web/public/media/generated/
+apps/api/uploads/
+
+# logs
+*.log
+npm-debug.log*
+logs/
+
+# editor / os
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+
+# misc
+coverage/
+.cache/

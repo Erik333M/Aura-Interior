@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="hy" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0B0B0D" />
+    <meta name="color-scheme" content="dark light" />
+
+    <title>Aura Interior — Կահույք պատվերով | Երևան</title>
+    <meta
+      name="description"
+      content="Aura Interior — պատվերով կահույքի արտադրություն Երևանում. մահճակալներ, բազմոցներ, պահարաններ, փափուկ պանելներ։"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+Armenian:wght@300;400;500&family=Noto+Sans+Armenian:wght@400;500&family=Inter:wght@400;500;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+Armenian:wght@300;400;500&family=Noto+Sans+Armenian:wght@400;500&family=Inter:wght@400;500;600&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500&family=Noto+Serif+Armenian:wght@300;400;500&family=Noto+Sans+Armenian:wght@400;500&family=Inter:wght@400;500;600&display=swap"
+      />
+    </noscript>
+
+    <script>
+      // Set the theme before first paint so a dark-default site never flashes white.
+      (function () {
+        try {
+          var t = localStorage.getItem('aura-theme');
+          if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+        } catch (e) {
+          /* private mode — keep the dark default */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
