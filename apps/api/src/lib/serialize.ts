@@ -1,6 +1,8 @@
 import type {
   Category,
   Fabric,
+  Inquiry,
+  InquiryStatus,
   FabricCategory,
   Product,
   ProductImage,
@@ -116,6 +118,27 @@ export function toProject(row: Row): Project {
     year: row.year,
     location: pick(row, 'location'),
     images: (row.images ?? []).map(toImage),
+    createdAt: row.createdAt.toISOString(),
+  };
+}
+
+export function toInquiry(row: Row): Inquiry {
+  return {
+    id: row.id,
+    name: row.name,
+    phone: row.phone,
+    email: row.email ?? null,
+    message: row.message,
+    productId: row.productId ?? null,
+    product: row.product
+      ? { id: row.product.id, slug: row.product.slug, name: pick(row.product, 'name') }
+      : null,
+    fabricId: row.fabricId ?? null,
+    fabric: row.fabric
+      ? { id: row.fabric.id, name: pick(row.fabric, 'name'), hex: row.fabric.hex }
+      : null,
+    customDimensions: row.customDimensions ?? null,
+    status: row.status as InquiryStatus,
     createdAt: row.createdAt.toISOString(),
   };
 }

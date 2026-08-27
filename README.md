@@ -120,6 +120,72 @@ Armenian_ and _Noto Sans Armenian_ first.
 
 ---
 
+## API
+
+```
+GET    /api/products              filters, sort, pagination → { items, total, facets }
+GET    /api/products/:slug        product + images + fabrics + approved reviews
+GET    /api/categories
+GET    /api/fabrics
+GET    /api/projects              interior design portfolio
+GET    /api/reviews?productId=    approved only
+GET    /api/reviews/summary/:id   average + per-star breakdown
+POST   /api/reviews               → PENDING, rate-limited
+POST   /api/inquiries             the conversion endpoint
+GET    /api/search?q=             trilingual, across names, copy and materials
+POST   /api/admin/login           JWT
+GET    /api/admin/me
+CRUD   /api/admin/products        protected
+POST   /api/admin/products/:id/images     multer → sharp
+DELETE /api/admin/products/:id/images/:imageId
+GET    /api/admin/reviews         moderation queue
+PATCH  /api/admin/reviews/:id     approve / reject
+GET    /api/admin/inquiries       inbox
+PATCH  /api/admin/inquiries/:id   status
+GET    /api/admin/stats           dashboard counts
+```
+
+Every body is parsed by Zod before a route sees it, and failures come back as
+per-field messages so forms can render errors inline rather than as one toast:
+
+```json
+{
+  "error": {
+    "code": "BAD_REQUEST",
+    "message": "Please check the highlighted fields",
+    "fields": { "phone": "Phone number is too short" }
+  }
+}
+```
+
+**Enquiries are the conversion path**, so the row is committed _before_ the
+email is attempted and the notification is fired without awaiting it — an SMTP
+outage must never cost a lead. With no `SMTP_HOST` configured the transport logs
+the full message to the console instead: a local developer still sees exactly
+what would have been sent, and a misconfigured deploy is loud rather than
+silently dropping leads.
+
+**Reviews are never published unmoderated.** `POST` always writes `PENDING` and
+answers `202`; only `PATCH /api/admin/reviews/:id` can approve. `authorEmail` is
+returned to admins only.
+
+**Rate limits** are per-route because the reason differs: inquiries 5/15min
+(protect the inbox), reviews 3/hour (protect moderation), login 10/15min
+counting _failures only_ so an admin is never locked out by their own successes,
+uploads 30/min. Both public POSTs also carry a honeypot field — deliberately
+_not_ validated to `max(0)`, since a field error naming `website` would teach a
+bot which input to leave alone. The route answers `201` and stores nothing.
+
+**Login does not leak which half was wrong.** A missing user is compared against
+a dummy hash so the response time matches, and both failure modes return the
+same message.
+
+**Uploads** run the same pipeline as the placeholder generator — AVIF + WebP +
+JPEG at 400/800/1600 plus a blur placeholder — and produce the same filenames,
+so an uploaded photo and a generated placeholder are indistinguishable to
+`ResponsiveImage`. Derivatives are served from `/uploads` with a one-year
+immutable cache, since every filename is UUID-addressed.
+
 ## Catalogue filtering
 
 Every filter lives in the query string, so results are shareable and browser
@@ -297,7 +363,7 @@ provider line.
 | Phase |                                                                                                |                                                             |
 | ----- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
 | 1     | Foundation — monorepo, SCSS system, Prisma schema, 20-product seed, layout shell, i18n routing | **done**                                                    |
-| 2     | Backend API — full REST surface, auth, uploads, rate limiting, mail                            | read endpoints done; **POST/admin pending**                 |
+| 2     | Backend API — full REST surface, auth, uploads, rate limiting, mail                            | **done**                                                    |
 | 3     | Catalogue & filtering                                                                          | **done**                                                    |
 | 4     | Pages — home, product detail, interior design, about, contact, admin                           | pending — hero done, rest of Home + other pages outstanding |
 | 5     | Motion — reveals, text masks, gold shimmer, Lenis, magnetic buttons, cursor                    | **done**                                                    |

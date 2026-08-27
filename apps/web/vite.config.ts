@@ -40,6 +40,11 @@ export default defineConfig(({ mode }) => {
           target: env.VITE_API_URL || 'http://localhost:4000',
           changeOrigin: true,
         },
+        // Admin-uploaded photography is served by the API, not from public/.
+        '/uploads': {
+          target: env.VITE_API_URL || 'http://localhost:4000',
+          changeOrigin: true,
+        },
       },
     },
     build: {

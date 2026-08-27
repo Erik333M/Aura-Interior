@@ -1,5 +1,5 @@
-import type { Category, Fabric, Product } from './models.js';
-import type { FabricCategory, ProductSort } from './enums.js';
+import type { Category, Fabric, Inquiry, Product, Review } from './models.js';
+import type { FabricCategory, InquiryStatus, ProductSort, ReviewStatus } from './enums.js';
 
 /** Every list endpoint returns this shape. */
 export interface Paginated<T> {
@@ -81,3 +81,70 @@ export interface ApiError {
 
 export type CategoryListResponse = Category[];
 export type FabricListResponse = Fabric[];
+
+// ── Search ───────────────────────────────────────────────────────────────────
+export interface SearchResponse {
+  query: string;
+  products: Product[];
+  categories: Category[];
+  total: number;
+}
+
+// ── Admin ────────────────────────────────────────────────────────────────────
+export interface AdminLoginInput {
+  email: string;
+  password: string;
+}
+
+export interface AdminSession {
+  token: string;
+  expiresIn: string;
+  admin: { id: string; email: string };
+}
+
+/** Trilingual copy as submitted by the admin UI. */
+export interface LocalizedInput {
+  hy: string;
+  ru: string;
+  en: string;
+}
+
+export interface AdminProductInput {
+  slug: string;
+  name: LocalizedInput;
+  description: LocalizedInput;
+  defaultMaterial: LocalizedInput;
+  priceFrom: number;
+  categoryId: string;
+  dimensions: { widthCm: number; depthCm: number; heightCm: number };
+  customSizeAvailable: boolean;
+  leadTimeDays: number;
+  featured: boolean;
+  /** Fabric ids this piece can be commissioned in. Replaces the existing set. */
+  fabricIds: string[];
+}
+
+export interface UploadedImage {
+  /** Base path without size or extension — matches the ResponsiveImage contract. */
+  url: string;
+  width: number;
+  height: number;
+  blurhash: string;
+}
+
+export interface AdminInquiryQuery {
+  status?: InquiryStatus;
+  page?: number;
+  pageSize?: number;
+}
+
+export type InquiryListResponse = Paginated<Inquiry>;
+export type AdminReviewListResponse = Paginated<Review & { authorEmail: string }>;
+
+export interface UpdateReviewStatusInput {
+  status: Extract<ReviewStatus, 'APPROVED' | 'REJECTED'>;
+}
+
+export interface UpdateInquiryStatusInput {
+  status: InquiryStatus;
+}
