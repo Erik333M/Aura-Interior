@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import type { Fabric } from '@aura/types';
@@ -11,12 +11,20 @@ import { MagneticButton } from '@/components/MagneticButton';
 import { Reviews } from '@/components/Reviews';
 import { ProductGrid } from '@/components/ProductGrid';
 import { Skeleton } from '@/components/Skeleton';
+import { WishlistButton } from '@/components/WishlistButton';
+import { RecentlyViewed } from '@/components/RecentlyViewed';
+import { Seo } from '@/components/Seo';
+import { recentlyViewedStore } from '@/lib/wishlist';
+import { track } from '@/lib/analytics';
+import { breadcrumbLd, productLd } from '@/lib/jsonld';
 import { NotFound } from './NotFound';
 import styles from './ProductDetail.module.scss';
 
+const INSTAGRAM = import.meta.env['VITE_INSTAGRAM_HANDLE'] ?? 'aura_Interior';
+
 export function ProductDetail() {
   const { slug } = useParams();
-  const { t, tl, price, path, formatNumber } = useI18n();
+  const { t, tl, price, path, formatNumber, locale } = useI18n();
 
   const [fabricId, setFabricId] = useState<string | null>(null);
   const [inquiryOpen, setInquiryOpen] = useState(false);
@@ -29,6 +37,13 @@ export function ProductDetail() {
   });
 
   const product = query.data;
+
+  // Record the view for the "recently viewed" strip on other product pages.
+  useEffect(() => {
+    if (!product) return;
+    recentlyViewedStore.push(product.slug);
+    track('product_viewed', { slug: product.slug, price: product.priceFrom });
+  }, [product]);
 
   // Default to the first available fabric so the enquiry always carries one.
   const selectedFabric: Fabric | undefined = useMemo(() => {
@@ -73,6 +88,28 @@ export function ProductDetail() {
 
   return (
     <div className={styles.page}>
+      <Seo
+        title={`${name} — ${price(product.priceFrom)} | Aura Interior`}
+        description={`${tl(product.description)} ${t.seo.productDescSuffix}`}
+        type="product"
+        {...(product.images[0] ? { image: product.images[0].url } : {})}
+        jsonLd={[
+          productLd(product, locale, product.rating),
+          breadcrumbLd([
+            { name: t.nav.catalogue, path: path('/catalogue') },
+            ...(product.category
+              ? [
+                  {
+                    name: tl(product.category.name),
+                    path: `${path('/catalogue')}?categories=${product.category.slug}`,
+                  },
+                ]
+              : []),
+            { name, path: path(`/catalogue/${product.slug}`) },
+          ]),
+        ]}
+      />
+
       <nav className={styles.crumbs} aria-label="Breadcrumb">
         <Link to={path('/catalogue')} className={styles.crumbLink}>
           {t.nav.catalogue}
@@ -170,14 +207,45 @@ export function ProductDetail() {
             </div>
           </dl>
 
-          <MagneticButton
-            as="button"
-            type="button"
-            className={styles.cta}
-            onClick={() => setInquiryOpen(true)}
+          <div className={styles.ctaRow}>
+            <MagneticButton
+              as="button"
+              type="button"
+              className={styles.cta}
+              onClick={() => {
+                track('inquiry_opened', { slug: product.slug });
+                setInquiryOpen(true);
+              }}
+            >
+              {t.inquiry.cta}
+            </MagneticButton>
+            <WishlistButton slug={product.slug} variant="inline" />
+          </div>
+
+          {/* Instagram DM on every product — customers already order this way,
+              and arriving with the piece named saves them typing it. */}
+          <a
+            className={styles.dmLink}
+            href={`https://ig.me/m/${INSTAGRAM}`}
+            target="_blank"
+            rel="noreferrer noopener"
+            onClick={() => track('instagram_clicked', { slug: product.slug })}
           >
-            {t.inquiry.cta}
-          </MagneticButton>
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" aria-hidden="true">
+              <rect
+                x="3"
+                y="3"
+                width="18"
+                height="18"
+                rx="5"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              />
+              <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.5" />
+              <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" />
+            </svg>
+            {t.footer.instagramDm}
+          </a>
         </div>
       </div>
 
@@ -196,6 +264,8 @@ export function ProductDetail() {
           <ProductGrid products={alsoLike} />
         </section>
       )}
+
+      <RecentlyViewed excludeSlug={product.slug} />
 
       <Modal
         open={inquiryOpen}

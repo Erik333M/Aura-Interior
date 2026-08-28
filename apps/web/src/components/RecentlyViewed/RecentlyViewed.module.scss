@@ -1,0 +1,29 @@
+.section {
+  margin-block-start: var(--space-24);
+  padding-block-start: var(--space-12);
+  border-block-start: var(--hairline) solid var(--accent-hairline);
+}
+
+.title {
+  font-family: var(--font-display);
+  @include fluid-type(24px, 34px);
+  margin-block-end: var(--space-8);
+  color: var(--text);
+}
+
+.rail {
+  display: flex;
+  gap: var(--space-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  list-style: none;
+  padding: 0 0 var(--space-4);
+  margin: 0;
+  scrollbar-width: thin;
+}
+
+.item {
+  flex: none;
+  width: min(58vw, 220px);
+  scroll-snap-align: start;
+}

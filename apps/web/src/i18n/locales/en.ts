@@ -233,9 +233,48 @@ export const en: Dictionary = {
     noItems: 'Nothing here',
     loginFailed: 'Sign-in failed',
   },
+  seo: {
+    homeTitle: 'Made-to-order furniture in Yerevan | Aura Interior',
+    homeDesc:
+      'Furniture manufactured to order in Yerevan — beds, sofas, wardrobes and upholstered wall panels. Your fabric, your dimensions.',
+    catalogueTitle: 'Catalogue — furniture Yerevan | Aura Interior',
+    catalogueDesc:
+      'Browse our made-to-order pieces: beds, poufs, wardrobes, sofas and wall panels.',
+    productDescSuffix: 'Made-to-order furniture in Yerevan.',
+    interiorTitle: 'Interior design in Yerevan | Aura Interior',
+    interiorDesc:
+      'Complete bedroom fit-outs in Yerevan — lighting, wall panelling and made-to-order furniture.',
+    aboutTitle: 'About — furniture workshop in Yerevan | Aura Interior',
+    aboutDesc:
+      'Aura Interior is a furniture manufacturer in Yerevan. Every piece is built to order.',
+    contactTitle: 'Contact — furniture Yerevan | Aura Interior',
+    contactDesc:
+      'Get in touch with Aura Interior in Yerevan for orders, measuring and consultation.',
+    wishlistTitle: 'Saved pieces | Aura Interior',
+    wishlistDesc: 'The furniture you have saved.',
+    notFoundTitle: 'Page not found | Aura Interior',
+  },
+  wishlist: {
+    title: 'Saved',
+    add: 'Save this piece',
+    remove: 'Remove from saved',
+    empty: 'Nothing saved yet',
+    emptyLead: 'Tap the heart on any piece in the catalogue to keep it here.',
+    browse: 'Browse the catalogue',
+    requestAll: 'Request all',
+    requestAllTitle: 'Request your saved pieces',
+    count: 'pieces saved',
+  },
+  recentlyViewed: {
+    title: 'Recently viewed',
+  },
+  float: {
+    whatsapp: 'Message on WhatsApp',
+  },
   notFound: {
     title: 'This page does not exist',
     lead: 'It may have moved, or the address was mistyped.',
     cta: 'Back to home',
+    sketch: 'A piece nobody has commissioned yet',
   },
 };

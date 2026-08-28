@@ -1,0 +1,48 @@
+.float {
+  position: fixed;
+  right: clamp(16px, 3vw, 32px);
+  bottom: calc(clamp(16px, 3vw, 32px) + env(safe-area-inset-bottom));
+  z-index: 300;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: 999px;
+  background-color: var(--accent);
+  color: var(--obsidian);
+  box-shadow: var(--shadow-lift);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  @include focus-ring;
+
+  @include motion-safe {
+    transition:
+      transform var(--dur-standard) var(--ease-out),
+      filter var(--dur-micro) var(--ease-out);
+  }
+
+  &:hover {
+    filter: brightness(1.08);
+
+    @include motion-safe {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// The label is hidden on small screens so the button does not sit over content;
+// the accessible name stays on the anchor either way.
+.label {
+  display: none;
+
+  @include mq("md") {
+    display: inline;
+  }
+}
+
+.icon {
+  flex: none;
+}

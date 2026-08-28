@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { LOCALES, isLocale } from '@aura/types';
 import { dictionaries } from '@/i18n/dictionaries';
 import { useI18n } from '@/i18n';
+import { writeLocale } from '@/lib/locale';
+import { track } from '@/lib/analytics';
 import styles from './LocaleSwitcher.module.scss';
 
 /**
@@ -30,6 +32,11 @@ export function LocaleSwitcher() {
               lang={code}
               hrefLang={code}
               aria-current={isActive ? 'true' : undefined}
+              onClick={() => {
+                // Remember the choice so a later visit to `/` lands here.
+                writeLocale(code);
+                if (!isActive) track('locale_changed', { from: locale, to: code });
+              }}
             >
               {dictionaries[code].meta.localeShort}
             </Link>

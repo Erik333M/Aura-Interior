@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { Suspense, type ReactNode } from 'react';
+import { AnimatePresence, m } from 'framer-motion';
 import { useLocation, useOutlet } from 'react-router-dom';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import styles from './PageTransition.module.scss';
@@ -34,7 +34,7 @@ export function PageTransition({ children }: { children?: ReactNode }) {
 
   return (
     <AnimatePresence mode="wait" initial={false}>
-      <motion.div
+      <m.div
         key={location.pathname}
         className={styles.page}
         variants={variants}
@@ -46,8 +46,11 @@ export function PageTransition({ children }: { children?: ReactNode }) {
           ease: [0.16, 1, 0.3, 1],
         }}
       >
-        {children ?? outlet}
-      </motion.div>
+        {/* Inside the motion element on purpose: a Suspense boundary above it
+            would unmount the whole transition while a route chunk downloads,
+            producing exactly the blank flash the transition exists to avoid. */}
+        <Suspense fallback={<div className={styles.pending} />}>{children ?? outlet}</Suspense>
+      </m.div>
     </AnimatePresence>
   );
 }

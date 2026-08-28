@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import type { FabricCategory } from '@aura/types';
 import { useI18n } from '@/i18n';
+import { Seo } from '@/components/Seo';
 import { catalogueKeys, fetchCategories, fetchFabrics, fetchProducts } from '@/services/catalogue';
 import { toQuery, useProductFilters } from '@/hooks/useProductFilters';
 import { useDebouncedValue } from '@/hooks/useDebouncedValue';
@@ -149,6 +150,14 @@ export function Catalogue() {
 
   return (
     <div className={styles.page}>
+      <Seo
+        title={
+          soleCategory ? `${tl(soleCategory.name)} — ${t.seo.catalogueTitle}` : t.seo.catalogueTitle
+        }
+        description={soleCategory ? tl(soleCategory.description) : t.seo.catalogueDesc}
+        {...(soleCategory?.heroImage ? { image: soleCategory.heroImage } : {})}
+      />
+
       {soleCategory ? (
         <header className={styles.categoryHero}>
           {soleCategory.heroImage && (
@@ -225,7 +234,11 @@ export function Catalogue() {
 
           {!firstLoad && products.length > 0 && (
             <>
-              <ProductGrid products={products} isFetching={productsQuery.isFetching} />
+              <ProductGrid
+                products={products}
+                isFetching={productsQuery.isFetching}
+                heading={t.catalogue.title}
+              />
               <Pagination
                 page={filters.page}
                 pageCount={pageCount}

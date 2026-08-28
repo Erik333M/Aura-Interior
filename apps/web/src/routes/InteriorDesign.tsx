@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useI18n } from '@/i18n';
+import { Seo } from '@/components/Seo';
 import { catalogueKeys, fetchProjects } from '@/services/catalogue';
 import { PageHero } from './PageHero';
 import { ResponsiveImage } from '@/components/ResponsiveImage';
@@ -26,6 +27,7 @@ export function InteriorDesign() {
 
   return (
     <>
+      <Seo title={t.seo.interiorTitle} description={t.seo.interiorDesc} />
       <PageHero eyebrow={t.interior.eyebrow} title={t.interior.title} lead={t.interior.lead} />
 
       <section className={styles.section} aria-labelledby="process-heading">

@@ -324,6 +324,70 @@ Verified in Chrome with the media feature emulated, not assumed:
 Smooth scrolling is itself motion, so Lenis never mounts under `reduce` — the
 page falls back to native scrolling, which is the correct behaviour.
 
+## Business & polish
+
+- **Wishlist** — heart on every card, localStorage-backed, header counter, and a
+  dedicated page whose "request all" opens one enquiry listing every saved piece
+  (far more useful to the workshop than several arriving separately). Built on
+  `useSyncExternalStore`, so the counter and the page share one source of truth
+  without a provider, and a change in one tab shows up in another.
+- **Recently viewed** strip on product pages, resolved against the catalogue the
+  page already loaded rather than one request per slug.
+- **Analytics** — a `track(event, props)` wrapper that knows about no vendor.
+  Events go to `window.dataLayer` and a subscriber list; attaching or swapping a
+  vendor touches no call site. `inquiry_submitted` is the primary conversion.
+- **SEO** — per-page title/description/OG/Twitter, canonical, and hreflang
+  alternates on every page (three URLs serve the same content; without
+  alternates Google picks one and treats the rest as duplicates). JSON-LD:
+  `Organization`, `FurnitureStore` on Contact, `BreadcrumbList`, and `Product`
+  with `AggregateRating` — emitted **only** when approved reviews exist, since a
+  rating with zero reviews is what earns a structured-data penalty.
+- **sitemap.xml + robots.txt** generated at build time (`npm run seo:generate`)
+  from the seed catalogue: 90 URLs, 30 pages × 3 locales, each with reciprocal
+  alternates. Admin and wishlist are disallowed.
+- **WhatsApp float** prefilled in the reader's language, **Instagram DM
+  deep-link on every product** — customers already order through both.
+- **Locale is persisted**: the URL stays the source of truth, but the last
+  explicit choice is remembered so a later visit to `/` lands where you were,
+  falling back to `navigator.languages` before the Armenian default.
+
+### Performance
+
+Route-level code splitting, `LazyMotion` with async `features` (the animation
+runtime loads after first paint), a static app shell inside `#root` so first
+paint does not wait on React, explicit `width`/`height` on all 18 images, and
+`loading="lazy"` on everything except the hero.
+
+Measured with Lighthouse against the production build on a compressed static
+host, mobile emulation, simulated slow 4G:
+
+|                |                                                |
+| -------------- | ---------------------------------------------- |
+| Accessibility  | **100** on every page                          |
+| Best practices | **100** on every page                          |
+| SEO            | **100** on every page                          |
+| Performance    | **85–93** — three pages at 90+, the rest 85–89 |
+| CLS            | 0 to 0.07                                      |
+
+**Performance does not clear 90 on every page, and the reason is structural:**
+this is a client-rendered SPA, so nothing paints until the JS parses, which puts
+a floor under First Contentful Paint that no amount of bundle tuning removes.
+Closing it means prerendering the routes at build time or moving to SSR — a real
+change, not a tweak, and outside the Vite-SPA stack the brief specifies.
+
+Two things measured along the way, kept here so they are not re-litigated:
+
+- **Self-hosting the fonts is slower.** `npm run fonts:fetch` downloads the same
+  faces and writes `public/fonts.css`. It measured LCP 4.7–5.7s and performance
+  75–83, against 3.3–3.7s and 85–93 from Google's CDN — the Armenian Noto
+  subsets are large and one origin serving JS, CSS and fonts is the bottleneck.
+  Kept as an opt-in for privacy or GDPR reasons, with the trade-off documented
+  in `index.html`.
+- **Forcing framer-motion into a manual chunk** overrides LazyMotion's own
+  dynamic import and ships the animation features eagerly again. `features` must
+  also be a **function returning a dynamic import** — passing the imported
+  `domMax` value grew the entry chunk from 34kB to 87kB.
+
 ## The contrast rule
 
 The one trap in a gold palette:
@@ -411,14 +475,14 @@ provider line.
 
 ## Status
 
-| Phase |                                                                                                |                             |
-| ----- | ---------------------------------------------------------------------------------------------- | --------------------------- |
-| 1     | Foundation — monorepo, SCSS system, Prisma schema, 20-product seed, layout shell, i18n routing | **done**                    |
-| 2     | Backend API — full REST surface, auth, uploads, rate limiting, mail                            | **done**                    |
-| 3     | Catalogue & filtering                                                                          | **done**                    |
-| 4     | Pages — home, product detail, interior design, about, contact, admin                           | **done**                    |
-| 5     | Motion — reveals, text masks, gold shimmer, Lenis, magnetic buttons, cursor                    | **done**                    |
-| 6     | Business & polish — SEO, wishlist, analytics, a11y, performance                                | i18n done ahead of schedule |
+| Phase |                                                                                                |          |
+| ----- | ---------------------------------------------------------------------------------------------- | -------- |
+| 1     | Foundation — monorepo, SCSS system, Prisma schema, 20-product seed, layout shell, i18n routing | **done** |
+| 2     | Backend API — full REST surface, auth, uploads, rate limiting, mail                            | **done** |
+| 3     | Catalogue & filtering                                                                          | **done** |
+| 4     | Pages — home, product detail, interior design, about, contact, admin                           | **done** |
+| 5     | Motion — reveals, text masks, gold shimmer, Lenis, magnetic buttons, cursor                    | **done** |
+| 6     | Business & polish — SEO, wishlist, analytics, a11y, performance                                | **done** |
 
 Routes not yet built render an honest placeholder naming the phase that builds
 them, so nothing here can be mistaken for finished work.

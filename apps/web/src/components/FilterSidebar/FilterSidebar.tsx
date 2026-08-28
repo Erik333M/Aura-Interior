@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import {
   FABRIC_CATEGORIES,
   type Category,
@@ -84,7 +84,7 @@ export function FilterSidebar(props: FilterSidebarProps) {
       <AnimatePresence>
         {open && (
           <>
-            <motion.div
+            <m.div
               className={styles.scrim}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -92,7 +92,7 @@ export function FilterSidebar(props: FilterSidebarProps) {
               transition={{ duration: 0.2 }}
               onClick={() => setOpen(false)}
             />
-            <motion.div
+            <m.div
               id="filter-drawer"
               className={styles.drawer}
               role="dialog"
@@ -137,7 +137,7 @@ export function FilterSidebar(props: FilterSidebarProps) {
                   {t.catalogue.showResults} · {props.resultCount}
                 </button>
               </div>
-            </motion.div>
+            </m.div>
           </>
         )}
       </AnimatePresence>

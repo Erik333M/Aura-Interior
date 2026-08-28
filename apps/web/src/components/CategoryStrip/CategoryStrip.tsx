@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import type { Category } from '@aura/types';
 import { useI18n } from '@/i18n';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
@@ -66,7 +66,7 @@ export function CategoryStrip({ categories }: { categories: Category[] }) {
           </h2>
         </div>
 
-        <motion.div ref={trackRef} className={styles.track} style={reduced ? undefined : { x }}>
+        <m.div ref={trackRef} className={styles.track} style={reduced ? undefined : { x }}>
           {categories.map((c) => (
             <Link
               key={c.id}
@@ -93,7 +93,7 @@ export function CategoryStrip({ categories }: { categories: Category[] }) {
               </span>
             </Link>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

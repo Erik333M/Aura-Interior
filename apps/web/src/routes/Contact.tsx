@@ -1,4 +1,6 @@
 import { useI18n } from '@/i18n';
+import { Seo } from '@/components/Seo';
+import { localBusinessLd } from '@/lib/jsonld';
 import { PageHero } from './PageHero';
 import { InquiryForm } from '@/components/InquiryForm';
 import styles from './Contact.module.scss';
@@ -18,6 +20,11 @@ export function Contact() {
 
   return (
     <>
+      <Seo
+        title={t.seo.contactTitle}
+        description={t.seo.contactDesc}
+        jsonLd={[localBusinessLd(locale)]}
+      />
       <PageHero eyebrow={t.contact.eyebrow} title={t.contact.title} lead={t.contact.lead} />
 
       <div className={styles.layout}>

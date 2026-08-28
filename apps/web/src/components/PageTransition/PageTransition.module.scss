@@ -4,3 +4,14 @@
   flex: 1;
   min-height: 0;
 }
+
+// Reserves the page's vertical space while a lazy route chunk downloads.
+// Without this the empty Suspense boundary collapses <main> to zero height,
+// the footer jumps to the top of the viewport, and it jumps back when the
+// chunk lands — measured as 0.62 CLS before this was added.
+.pending {
+  // A FULL viewport, not a fraction: at 78svh the footer still rode up into
+  // view and dropped again when the chunk landed (0.11 CLS). Filling the
+  // viewport keeps the footer below the fold, so its later move is invisible.
+  min-height: calc(100svh - var(--header-h));
+}

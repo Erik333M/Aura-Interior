@@ -1,0 +1,83 @@
+.button {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: var(--boucle);
+  background-color: color-mix(in srgb, var(--obsidian) 55%, transparent);
+  backdrop-filter: blur(6px);
+  border: var(--hairline) solid transparent;
+  transition:
+    color var(--dur-micro) var(--ease-out),
+    border-color var(--dur-micro) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
+
+  @include focus-ring(2px);
+
+  &:hover {
+    border-color: var(--accent-hairline);
+    color: var(--gold);
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
+}
+
+.saved {
+  color: var(--gold);
+  border-color: var(--accent-hairline);
+}
+
+.heart {
+  transition: transform var(--dur-standard) var(--ease-out);
+}
+
+// A small pop when it becomes saved — the one place a flourish is warranted,
+// since the action is otherwise invisible.
+.pop {
+  @include motion-safe {
+    animation: heart-pop 420ms var(--ease-out) 1;
+  }
+}
+
+@keyframes heart-pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.32);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// Standalone variant for the product detail page.
+.inline {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-sm);
+  gap: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  background-color: transparent;
+  backdrop-filter: none;
+  border-color: var(--border-strong);
+  color: var(--text-dim);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  &:hover {
+    color: var(--accent-text);
+    border-color: var(--accent);
+  }
+}

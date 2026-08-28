@@ -12,6 +12,20 @@
       content="Aura Interior — պատվերով կահույքի արտադրություն Երևանում. մահճակալներ, բազմոցներ, պահարաններ, փափուկ պանելներ։"
     />
 
+    <!-- LCP candidate: the hero photograph. Preloaded with the same srcset the
+         <picture> uses, so the browser starts it before React has even parsed. -->
+    <!--
+      FONT DELIVERY — measured, not assumed.
+
+      Google Fonts, loaded async. `npm run fonts:fetch` self-hosts the same
+      faces into public/fonts.css if you would rather not depend on a third
+      party (privacy, GDPR, no external point of failure) — but it measured
+      SLOWER here: LCP 4.7-5.7s self-hosted vs 3.3-3.7s from Google's CDN, and
+      Lighthouse performance 75-83 vs 85-93. The Armenian Noto subsets are
+      large and one origin serving JS + CSS + fonts is the bottleneck.
+
+      Swap the two links below for `/fonts.css` to switch.
+    -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -32,6 +46,46 @@
       />
     </noscript>
 
+    <link
+      rel="preload"
+      as="image"
+      type="image/avif"
+      href="/media/generated/hero-home-1600.avif"
+      imagesrcset="/media/generated/hero-home-400.avif 400w, /media/generated/hero-home-800.avif 800w, /media/generated/hero-home-1600.avif 1600w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
+
+
+    <style>
+      /* Inlined so the shell paints without waiting on the CSS request. Values
+         are duplicated from _tokens.scss on purpose — this runs before any
+         stylesheet has loaded, so it cannot reference the custom properties. */
+      html { background-color: #0b0b0d; }
+      html[data-theme='light'] { background-color: #f6f3ee; }
+      body { margin: 0; }
+      .boot { min-height: 100svh; }
+      .boot-header {
+        display: flex; align-items: center; gap: 12px;
+        height: 72px; padding: 0 clamp(20px, 5vw, 64px);
+        color: #c6a15b;
+      }
+      html[data-theme='light'] .boot-header { color: #7a5d28; }
+      @media (min-width: 1024px) { .boot-header { height: 88px; } }
+      .boot-mark { width: 40px; height: 40px; flex: none; }
+      .boot-word { display: flex; flex-direction: column; line-height: 1; }
+      .boot-name {
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        font-size: 18px; font-weight: 300; letter-spacing: 0.16em; text-transform: uppercase;
+      }
+      .boot-sub {
+        margin-top: 3px; font-family: Inter, system-ui, sans-serif;
+        font-size: 9px; font-weight: 500; letter-spacing: 0.24em;
+        text-transform: uppercase; color: #a9a29a;
+      }
+      html[data-theme='light'] .boot-sub { color: #5e5952; }
+    </style>
+
     <script>
       // Set the theme before first paint so a dark-default site never flashes white.
       (function () {
@@ -45,7 +99,32 @@
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <!--
+      Static app shell. A client-rendered SPA paints nothing until the JS
+      parses, which pinned First Contentful Paint at ~2.5s on throttled mobile.
+      This markup lives INSIDE #root so React clears it on first render, and it
+      reproduces the header's exact height (88px, or 72px under 1024px) plus the
+      page ground — so the swap costs no layout shift.
+
+      Deliberately locale-independent: the wordmark is the same in all three
+      languages, and anything translated would need SSR to be correct here.
+    -->
+    <div id="root">
+      <div class="boot" aria-hidden="true">
+        <div class="boot-header">
+          <svg class="boot-mark" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="23" stroke="currentColor" stroke-width="1" opacity="0.5" />
+            <circle cx="24" cy="24" r="19" stroke="currentColor" stroke-width="0.5" opacity="0.3" />
+            <path d="M15.5 32.5 24 15l8.5 17.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M19.5 27h9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" />
+          </svg>
+          <span class="boot-word">
+            <span class="boot-name">Aura</span>
+            <span class="boot-sub">EVN Furniture</span>
+          </span>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

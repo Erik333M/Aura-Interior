@@ -160,3 +160,46 @@
   margin-block-start: auto;
   padding-block-start: var(--space-12);
 }
+
+// ── Wishlist counter ────────────────────────────────────────────────────────
+.wishlist {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  color: var(--text-dim);
+  border: var(--hairline) solid transparent;
+  border-radius: 50%;
+  transition:
+    color var(--dur-micro) var(--ease-out),
+    border-color var(--dur-micro) var(--ease-out);
+
+  @include focus-ring;
+
+  &:hover {
+    color: var(--accent-text);
+    border-color: var(--accent-hairline);
+  }
+}
+
+.wishlistActive {
+  color: var(--accent-text);
+}
+
+.wishlistCount {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: grid;
+  place-items: center;
+  min-width: 17px;
+  height: 17px;
+  padding-inline: 4px;
+  border-radius: 999px;
+  background-color: var(--accent);
+  color: var(--obsidian);
+  font-size: 10px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}

@@ -1,5 +1,5 @@
 import { useRef, type ElementType, type PointerEvent, type ReactNode } from 'react';
-import { animate, motion, useMotionValue, useSpring } from 'framer-motion';
+import { animate, m, useMotionValue, useSpring } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import styles from './MagneticButton.module.scss';
 
@@ -59,7 +59,7 @@ export function MagneticButton({
   };
 
   return (
-    <motion.span
+    <m.span
       ref={wrapRef}
       className={styles.wrap}
       style={{ x: sx, y: sy }}
@@ -69,6 +69,6 @@ export function MagneticButton({
       <Tag className={className} {...rest}>
         {children}
       </Tag>
-    </motion.span>
+    </m.span>
   );
 }

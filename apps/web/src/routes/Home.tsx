@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useQueries } from '@tanstack/react-query';
 import { useI18n } from '@/i18n';
+import { Seo } from '@/components/Seo';
+import { organizationLd } from '@/lib/jsonld';
 import { catalogueKeys, fetchCategories, fetchProducts, fetchProjects } from '@/services/catalogue';
 import { fetchReviews, reviewKeys } from '@/services/reviews';
+import { ResponsiveImage } from '@/components/ResponsiveImage';
 import { Reveal } from '@/components/Reveal';
 import { SplitText } from '@/components/SplitText';
 import { VignetteFollow } from '@/components/VignetteFollow';
@@ -17,7 +20,7 @@ import { ContactCta } from '@/components/ContactCta';
 import styles from './Home.module.scss';
 
 export function Home() {
-  const { t, path } = useI18n();
+  const { t, path, locale } = useI18n();
 
   // One batch so the page settles in a single pass rather than cascading
   // several independent loading states down the fold.
@@ -40,7 +43,25 @@ export function Home() {
 
   return (
     <>
+      <Seo
+        title={t.seo.homeTitle}
+        description={t.seo.homeDesc}
+        image="/media/generated/hero-home"
+        jsonLd={[organizationLd(locale)]}
+      />
+
       <section className={styles.hero}>
+        <div className={styles.heroMedia}>
+          <ResponsiveImage
+            base="/media/generated/hero-home"
+            alt=""
+            width={1600}
+            height={900}
+            sizes="100vw"
+            priority
+          />
+        </div>
+        <span className={styles.heroScrim} aria-hidden="true" />
         <VignetteFollow />
 
         <div className={styles.heroInner}>

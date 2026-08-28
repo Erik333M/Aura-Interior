@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { useI18n } from '@/i18n';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import styles from './ActiveFilters.module.scss';
@@ -28,7 +28,7 @@ export function ActiveFilters({
     <ul className={styles.wrap} role="list">
       <AnimatePresence initial={false} mode="popLayout">
         {pills.map((pill) => (
-          <motion.li
+          <m.li
             key={pill.key}
             layout={!reduced}
             initial={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.9 }}
@@ -59,7 +59,7 @@ export function ActiveFilters({
               </span>
               <span className="visually-hidden">{`${t.catalogue.remove}: ${pill.label}`}</span>
             </button>
-          </motion.li>
+          </m.li>
         ))}
       </AnimatePresence>
 

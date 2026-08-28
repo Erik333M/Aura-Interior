@@ -1,0 +1,46 @@
+.page {
+  @include container;
+  padding-block: var(--space-12) var(--space-24);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-block-end: var(--space-12);
+}
+
+.eyebrow {
+  @include eyebrow;
+}
+
+.title {
+  font-family: var(--font-display);
+  @include fluid-type(36px, 64px);
+  line-height: 1.05;
+  color: var(--text);
+}
+
+.count {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.requestAll {
+  padding: var(--space-4) var(--space-8);
+  background-color: var(--accent);
+  color: var(--obsidian);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  @include focus-ring;
+
+  &:hover {
+    filter: brightness(1.08);
+  }
+}

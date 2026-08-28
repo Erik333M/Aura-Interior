@@ -1,6 +1,6 @@
 import { useEffect, useRef, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { pauseScroll, resumeScroll } from '@/lib/smoothScroll';
@@ -58,7 +58,7 @@ export function Modal({
     <AnimatePresence>
       {open && (
         <>
-          <motion.div
+          <m.div
             className={styles.scrim}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -67,7 +67,7 @@ export function Modal({
             onClick={onClose}
           />
           <div className={styles.wrap}>
-            <motion.div
+            <m.div
               ref={panelRef}
               className={`${styles.panel} ${wide ? styles.wide : ''}`}
               role="dialog"
@@ -103,7 +103,7 @@ export function Modal({
                 </div>
               )}
               {children}
-            </motion.div>
+            </m.div>
           </div>
         </>
       )}

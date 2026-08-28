@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { useI18n } from '@/i18n';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { pauseScroll, resumeScroll } from '@/lib/smoothScroll';
 import { Logo } from '@/components/Logo';
 import { LocaleSwitcher } from '@/components/LocaleSwitcher';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { useWishlist } from '@/lib/wishlist';
 import styles from './Header.module.scss';
 
 export function Header() {
@@ -14,6 +15,7 @@ export function Header() {
   const { pathname } = useLocation();
   const reduced = useReducedMotion();
 
+  const saved = useWishlist();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const burgerRef = useRef<HTMLButtonElement>(null);
@@ -68,7 +70,10 @@ export function Header() {
     <>
       <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
         <div className={styles.inner}>
-          <Link to={path('/')} className={styles.brand} aria-label="Aura Interior">
+          {/* No aria-label: the wordmark's own text ("Aura · EVN Furniture") is
+              the accessible name. An aria-label that does not contain the
+              visible text fails WCAG 2.5.3 (label in name). */}
+          <Link to={path('/')} className={styles.brand}>
             <Logo />
           </Link>
 
@@ -88,6 +93,27 @@ export function Header() {
             <div className={styles.desktopOnly}>
               <LocaleSwitcher />
             </div>
+            <Link
+              to={path('/wishlist')}
+              className={`${styles.wishlist} ${saved.length > 0 ? styles.wishlistActive : ''}`}
+              aria-label={`${t.nav.wishlist}${saved.length > 0 ? ` (${saved.length})` : ''}`}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                aria-hidden="true"
+              >
+                <path
+                  d="M12 20s-7-4.6-7-9.4A4.1 4.1 0 0 1 12 7.6a4.1 4.1 0 0 1 7 3c0 4.8-7 9.4-7 9.4Z"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              {saved.length > 0 && <span className={styles.wishlistCount}>{saved.length}</span>}
+            </Link>
             <ThemeToggle />
             <button
               ref={burgerRef}
@@ -113,7 +139,7 @@ export function Header() {
 
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
+          <m.div
             id="mobile-menu"
             className={styles.sheet}
             role="dialog"
@@ -150,12 +176,16 @@ export function Header() {
                   {l.label}
                 </Link>
               ))}
+              <Link to={path('/wishlist')} className={styles.sheetLink}>
+                {t.nav.wishlist}
+                {saved.length > 0 ? ` (${saved.length})` : ''}
+              </Link>
             </nav>
 
             <div className={styles.sheetFooter}>
               <LocaleSwitcher />
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

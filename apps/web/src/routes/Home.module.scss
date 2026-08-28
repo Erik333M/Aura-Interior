@@ -8,6 +8,35 @@
   overflow: hidden;
 }
 
+// Full-bleed hero photography. Sits behind everything with a heavy scrim so the
+// headline keeps its contrast whatever the image is — currently generated
+// placeholder art, later a bed on black marble.
+.heroMedia {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(
+      to right,
+      var(--bg) 0%,
+      color-mix(in srgb, var(--bg) 72%, transparent) 45%,
+      transparent 100%
+    ),
+    linear-gradient(to top, var(--bg) 0%, transparent 45%);
+}
+
 .heroInner {
   @include container;
   position: relative;

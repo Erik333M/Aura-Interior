@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import type { Product } from '@aura/types';
 import { useI18n } from '@/i18n';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
@@ -25,7 +25,7 @@ function ParallaxMedia({ product, alt }: { product: Product; alt: string }) {
 
   return (
     <div ref={ref} className={styles.media}>
-      <motion.div className={styles.parallaxInner} style={reduced ? undefined : { y }}>
+      <m.div className={styles.parallaxInner} style={reduced ? undefined : { y }}>
         <ResponsiveImage
           base={image.url}
           alt={alt}
@@ -34,7 +34,7 @@ function ParallaxMedia({ product, alt }: { product: Product; alt: string }) {
           blurhash={image.blurhash}
           sizes="(min-width: 768px) 46vw, 92vw"
         />
-      </motion.div>
+      </m.div>
     </div>
   );
 }

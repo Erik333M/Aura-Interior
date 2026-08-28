@@ -15,7 +15,7 @@
     "dev": "npm run build -w @aura/types && concurrently -n api,web -c magenta,yellow \"npm:dev:api\" \"npm:dev:web\"",
     "dev:api": "npm run dev -w @aura/api",
     "dev:web": "npm run dev -w @aura/web",
-    "build": "npm run build -w @aura/types && npm run build -w @aura/api && npm run build -w @aura/web",
+    "build": "npm run build -w @aura/types && npm run build -w @aura/api && npm run seo:generate && npm run build -w @aura/web",
     "typecheck": "npm run typecheck --workspaces --if-present && tsc -p scripts/tsconfig.json",
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx,scss,json,md}\"",
@@ -27,7 +27,9 @@
     "media:generate": "tsx scripts/generate-placeholders.ts",
     "setup": "npm install && npm run db:generate && npm run db:push && npm run media:generate && npm run db:seed",
     "check:contrast": "tsx scripts/check-contrast.ts",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "seo:generate": "tsx scripts/generate-sitemap.ts",
+    "fonts:fetch": "tsx scripts/fetch-fonts.ts"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -36,6 +38,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.5",
     "globals": "^17.11.0",
+    "lighthouse": "^13.4.1",
     "prettier": "3.6.2",
     "sharp": "0.35.4",
     "tsx": "4.23.12",

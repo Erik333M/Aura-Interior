@@ -5,6 +5,7 @@ import { Footer } from '@/components/Footer';
 import { PageTransition } from '@/components/PageTransition';
 import { SmoothScroll } from '@/components/SmoothScroll';
 import { CustomCursor } from '@/components/CustomCursor';
+import { WhatsAppFloat } from '@/components/WhatsAppFloat';
 import styles from './Layout.module.scss';
 
 /** The persistent chrome. Only the contents of <main> change between routes. */
@@ -21,6 +22,7 @@ export function Layout() {
         <PageTransition />
       </main>
       <Footer />
+      <WhatsAppFloat />
     </div>
   );
 }

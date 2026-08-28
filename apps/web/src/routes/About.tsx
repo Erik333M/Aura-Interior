@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useI18n } from '@/i18n';
+import { Seo } from '@/components/Seo';
 import { catalogueKeys, fetchProducts } from '@/services/catalogue';
 import { PageHero } from './PageHero';
 import { ResponsiveImage } from '@/components/ResponsiveImage';
@@ -21,6 +22,11 @@ export function About() {
 
   return (
     <>
+      <Seo
+        title={t.seo.aboutTitle}
+        description={t.seo.aboutDesc}
+        image="/media/generated/about-workshop"
+      />
       <PageHero eyebrow={t.about.eyebrow} title={t.about.title} lead={t.about.lead} />
 
       <section className={styles.section}>

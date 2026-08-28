@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import type { CreateInquiryInput, Fabric, Product } from '@aura/types';
 import { useI18n } from '@/i18n';
 import { createInquiry } from '@/services/inquiries';
+import { track } from '@/lib/analytics';
 import { ApiRequestError } from '@/services/client';
 import { Field, TextareaField, Honeypot } from '@/components/Field';
 import styles from './InquiryForm.module.scss';
@@ -13,6 +14,8 @@ export interface InquiryFormProps {
   fabric?: Pick<Fabric, 'id' | 'name' | 'hex'> | undefined;
   /** Consultation requests don't need a dimensions field. */
   showDimensions?: boolean;
+  /** Prefilled body — used by the wishlist's bulk enquiry. */
+  initialMessage?: string;
   onSuccess?: () => void;
 }
 
@@ -26,6 +29,7 @@ export function InquiryForm({
   product,
   fabric,
   showDimensions = true,
+  initialMessage = '',
   onSuccess,
 }: InquiryFormProps) {
   const { t, tl } = useI18n();
@@ -34,7 +38,7 @@ export function InquiryForm({
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [dimensions, setDimensions] = useState('');
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(initialMessage);
   const [website, setWebsite] = useState(''); // honeypot
   const [fields, setFields] = useState<Record<string, string>>({});
 
@@ -42,6 +46,13 @@ export function InquiryForm({
     mutationFn: (input: CreateInquiryInput) => createInquiry(input),
     onSuccess: () => {
       setFields({});
+      // THE primary conversion. Everything else on the site is secondary signal.
+      track('inquiry_submitted', {
+        ...(product ? { productId: product.id } : {}),
+        ...(fabric ? { fabricId: fabric.id } : {}),
+        hasDimensions: dimensions.length > 0,
+        bulk: initialMessage.length > 0,
+      });
       onSuccess?.();
     },
     onError: (err: unknown) => {

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Internal tool and personal lists — no value in the index.
+Disallow: /admin
+Disallow: /*/wishlist
+
+Sitemap: https://aurainterior.am/sitemap.xml
