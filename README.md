@@ -171,6 +171,40 @@ in the way of scanning tables. It renders in Armenian, the workshop's language.
   piece. The API supports full CRUD (`POST`/`PUT /api/admin/products`); the
   trilingual create form is not built.
 
+## Deploying
+
+**Frontend — Vercel, works as-is.** `vercel.json` sets the build command,
+output directory, an SPA rewrite (without it `/hy/catalogue/arev-bed` 404s on a
+hard refresh), immutable caching for hashed assets, and security headers.
+Import the repo and it deploys.
+
+**The API needs Postgres.** Serverless filesystems are ephemeral and read-only,
+so the SQLite used locally cannot run there. The schema was kept
+Postgres-portable for exactly this, so the move is a provider swap rather than a
+migration:
+
+```bash
+npm run db:use-postgres          # flips provider in schema.prisma
+# set DATABASE_URL to your postgres:// string (Neon, Supabase, Vercel Postgres)
+npm run db:push && npm run db:seed
+```
+
+`apps/api/src/db.ts` picks the driver adapter from the URL scheme at runtime —
+`postgres://` gets `@prisma/adapter-pg` with a small pool suited to serverless,
+anything else gets better-sqlite3. Nothing else in the codebase changes.
+`api/index.ts` is the Vercel entry: it exports the same Express app the dev
+server uses, so there is no second set of routes to keep in sync.
+
+Environment variables to set in Vercel: `DATABASE_URL`, `JWT_SECRET`,
+`ADMIN_EMAIL`, `ADMIN_PASSWORD`, `WEB_ORIGIN` (your deployed origin), plus the
+`SMTP_*` set if you want enquiry emails. Leave `VITE_API_URL` **empty** — the
+API is same-origin under `/api` on Vercel.
+
+Uploaded product photography is the one thing that will not survive: it writes
+to `apps/api/uploads`, which a serverless host discards between invocations.
+Point it at object storage (S3, R2, Vercel Blob) before using the admin uploader
+in production.
+
 ## API
 
 ```

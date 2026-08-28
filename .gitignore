@@ -40,6 +40,9 @@ logs/
 !.vscode/extensions.json
 *.swp
 
+# vercel
+.vercel
+
 # misc
 coverage/
 .cache/

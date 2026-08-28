@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "version": "0.1.0",
-  "description": "Aura Interior — made-to-order furniture, Yerevan. Monorepo.",
+  "description": "Aura Interior \u2014 made-to-order furniture, Yerevan. Monorepo.",
   "engines": {
     "node": ">=20.19.0"
   },
@@ -29,7 +29,8 @@
     "check:contrast": "tsx scripts/check-contrast.ts",
     "lint:fix": "eslint . --fix",
     "seo:generate": "tsx scripts/generate-sitemap.ts",
-    "fonts:fetch": "tsx scripts/fetch-fonts.ts"
+    "fonts:fetch": "tsx scripts/fetch-fonts.ts",
+    "build:web": "npm run build -w @aura/types && npm run seo:generate && npm run build -w @aura/web"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

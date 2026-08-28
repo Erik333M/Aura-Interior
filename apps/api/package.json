@@ -12,7 +12,9 @@
     "db:push": "dotenv -e ../../.env -- prisma db push",
     "db:seed": "tsx --env-file=../../.env prisma/seed.ts",
     "db:reset": "dotenv -e ../../.env -- prisma db push --force-reset && npm run db:seed",
-    "db:studio": "dotenv -e ../../.env -- prisma studio"
+    "db:studio": "dotenv -e ../../.env -- prisma studio",
+    "db:use-postgres": "node -e \"const f='prisma/schema.prisma',fs=require('fs');fs.writeFileSync(f,fs.readFileSync(f,'utf8').replace(/provider = \\\"sqlite\\\"/,'provider = \\\"postgresql\\\"'));console.log('schema provider -> postgresql')\"",
+    "db:use-sqlite": "node -e \"const f='prisma/schema.prisma',fs=require('fs');fs.writeFileSync(f,fs.readFileSync(f,'utf8').replace(/provider = \\\"postgresql\\\"/,'provider = \\\"sqlite\\\"'));console.log('schema provider -> sqlite')\""
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -20,6 +22,7 @@
   "dependencies": {
     "@aura/types": "*",
     "@prisma/adapter-better-sqlite3": "^7.10.0",
+    "@prisma/adapter-pg": "^7.10.0",
     "@prisma/client": "7.10.0",
     "@types/bcryptjs": "^3.0.0",
     "bcryptjs": "^3.0.2",
