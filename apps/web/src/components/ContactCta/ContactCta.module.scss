@@ -68,19 +68,19 @@
 .primary {
   background-color: var(--accent);
   color: var(--obsidian);
-  transition: filter var(--dur-micro) var(--ease-out);
+
+  @include btn-solid;
 
   &:hover {
-    filter: brightness(1.08);
+    background-color: var(--gold-light);
   }
 }
 
 .secondary {
   border: var(--hairline) solid var(--accent);
   color: var(--accent-text);
-  transition:
-    background-color var(--dur-standard) var(--ease-out),
-    color var(--dur-standard) var(--ease-out);
+
+  @include btn-outline;
 
   &:hover {
     background-color: var(--accent);

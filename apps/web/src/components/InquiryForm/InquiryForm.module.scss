@@ -64,9 +64,13 @@
   // "Sending…" mid-submit.
   min-width: 220px;
   text-align: center;
-  transition: opacity var(--dur-micro) var(--ease-out);
 
   @include focus-ring;
+  @include btn-solid;
+
+  &:hover:not(:disabled) {
+    background-color: var(--gold-light);
+  }
 
   &:disabled {
     opacity: 0.55;

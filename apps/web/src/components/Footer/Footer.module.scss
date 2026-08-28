@@ -45,9 +45,9 @@
 .link {
   font-size: 14px;
   color: var(--text-dim);
-  transition: color var(--dur-micro) var(--ease-out);
 
   @include focus-ring(3px);
+  @include link-underline;
 
   &:hover {
     color: var(--accent-text);

@@ -7,14 +7,12 @@
   border: var(--hairline) solid var(--graphite);
   border-radius: var(--radius-md);
   overflow: hidden;
-  transition:
-    border-color var(--dur-standard) var(--ease-out),
-    box-shadow var(--dur-standard) var(--ease-out);
+
+  @include card-lift;
 
   &:hover,
   &:focus-within {
     border-color: rgb(198 161 91 / 30%);
-    box-shadow: var(--shadow-card);
   }
 }
 
@@ -39,9 +37,10 @@
 .layer {
   position: absolute;
   inset: 0;
+  // Long and soft: a fast scale on a large photograph reads as a jolt.
   transition:
-    opacity var(--dur-standard) var(--ease-out),
-    transform var(--dur-hero) var(--ease-out);
+    opacity 620ms var(--ease-soft),
+    transform 900ms var(--ease-soft);
 }
 
 .primary {
@@ -55,7 +54,7 @@
 @include motion-safe {
   .card:hover .layer,
   .card:focus-within .layer {
-    transform: scale(1.03);
+    transform: scale(1.045);
   }
 
   .card:hover .primary,
@@ -92,6 +91,12 @@
   font-weight: 400;
   line-height: 1.2;
   color: var(--text);
+  transition: color 380ms var(--ease-soft);
+
+  .card:hover &,
+  .card:focus-within & {
+    color: var(--accent-text);
+  }
   @include fluid-type(19px, 23px);
   @include line-clamp(2);
 }

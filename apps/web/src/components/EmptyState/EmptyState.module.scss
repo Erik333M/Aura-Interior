@@ -41,9 +41,8 @@
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  transition:
-    background-color var(--dur-standard) var(--ease-out),
-    color var(--dur-standard) var(--ease-out);
+
+  @include btn-outline;
 
   &:hover {
     background-color: var(--accent);

@@ -141,6 +141,11 @@
   text-transform: uppercase;
 
   @include focus-ring;
+  @include btn-solid;
+
+  &:hover {
+    background-color: var(--gold-light);
+  }
 }
 
 .reset {

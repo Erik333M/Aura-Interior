@@ -207,12 +207,12 @@
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  transition: filter var(--dur-micro) var(--ease-out);
 
   @include focus-ring;
+  @include btn-solid;
 
   &:hover {
-    filter: brightness(1.08);
+    background-color: var(--gold-light);
   }
 }
 

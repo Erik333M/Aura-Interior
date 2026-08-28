@@ -99,9 +99,8 @@
   font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  transition:
-    background-color var(--dur-standard) var(--ease-out),
-    color var(--dur-standard) var(--ease-out);
+
+  @include btn-outline;
 
   &:hover {
     background-color: var(--accent);

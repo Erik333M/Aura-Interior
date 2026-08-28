@@ -39,8 +39,9 @@
   text-transform: uppercase;
 
   @include focus-ring;
+  @include btn-solid;
 
   &:hover {
-    filter: brightness(1.08);
+    background-color: var(--gold-light);
   }
 }

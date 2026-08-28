@@ -51,12 +51,24 @@
   overflow: hidden;
   border: var(--hairline) solid var(--border);
   scroll-snap-align: start;
-  transition: border-color var(--dur-standard) var(--ease-out);
 
   @include focus-ring;
+  @include card-lift(3px);
 
   &:hover {
     border-color: var(--accent-hairline);
+  }
+}
+
+// The photograph drifts in as the card rises, so the two move together.
+.card .image {
+  transition: transform 900ms var(--ease-soft);
+}
+
+@include motion-safe {
+  .card:hover .image,
+  .card:focus-visible .image {
+    transform: scale(1.05);
   }
 }
 

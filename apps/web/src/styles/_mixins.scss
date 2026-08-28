@@ -167,7 +167,11 @@ $breakpoints: (
   color: var(--accent-text);
 
   @supports (background-clip: text) or (-webkit-background-clip: text) {
-    background-image: if($safe, var(--gold-metal-text), var(--gold-metal));
+    @if $safe {
+      background-image: var(--gold-metal-text);
+    } @else {
+      background-image: var(--gold-metal);
+    }
     background-size: 200% 100%;
     background-position: 50% 50%;
     -webkit-background-clip: text;
@@ -296,5 +300,141 @@ $breakpoints: (
   }
   to {
     background-position: 50% 50%;
+  }
+}
+
+// ── Interaction polish ───────────────────────────────────────────────────────
+// Everything here is gated on motion-safe: under reduced motion the colour
+// change still happens, the movement does not.
+
+/// A light sweep that travels across a filled control on hover. This is what
+/// stops a flat gold rectangle reading as plastic — it gives the surface a
+/// direction and a material.
+@mixin sheen($angle: 105deg, $strength: 34%) {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-image: linear-gradient(
+      $angle,
+      transparent 35%,
+      rgb(255 255 255 / #{$strength}) 50%,
+      transparent 65%
+    );
+    background-size: 260% 100%;
+    background-position: 160% 0;
+    opacity: 0;
+  }
+
+  @include motion-safe {
+    &::after {
+      transition:
+        background-position 780ms var(--ease-soft),
+        opacity 220ms linear;
+    }
+
+    &:hover::after,
+    &:focus-visible::after {
+      background-position: -60% 0;
+      opacity: 1;
+    }
+  }
+}
+
+/// Filled primary control. Lifts, blooms, sweeps, and settles back on press.
+@mixin btn-solid {
+  @include sheen;
+  transition:
+    background-color 320ms var(--ease-soft),
+    color 320ms var(--ease-soft),
+    box-shadow 420ms var(--ease-soft),
+    transform 420ms var(--ease-soft);
+
+  @include motion-safe {
+    &:hover {
+      transform: translate3d(0, -2px, 0);
+      box-shadow: var(--shadow-bloom);
+    }
+
+    &:active {
+      transform: translate3d(0, 0, 0) scale(0.985);
+      transition-duration: 120ms;
+      transition-timing-function: var(--ease-back);
+    }
+  }
+}
+
+/// Outlined secondary control. Fills from transparent, with the same lift.
+@mixin btn-outline {
+  @include sheen($strength: 16%);
+  transition:
+    background-color 380ms var(--ease-soft),
+    border-color 320ms var(--ease-soft),
+    color 320ms var(--ease-soft),
+    box-shadow 420ms var(--ease-soft),
+    transform 420ms var(--ease-soft);
+
+  @include motion-safe {
+    &:hover {
+      transform: translate3d(0, -2px, 0);
+      box-shadow: var(--shadow-bloom);
+    }
+
+    &:active {
+      transform: translate3d(0, 0, 0) scale(0.985);
+      transition-duration: 120ms;
+      transition-timing-function: var(--ease-back);
+    }
+  }
+}
+
+/// Card hover: rise, bloom, warm the border. Longer and softer than a button —
+/// a large surface moving quickly reads as jumpy.
+@mixin card-lift($rise: 4px) {
+  transition:
+    border-color 460ms var(--ease-soft),
+    box-shadow 520ms var(--ease-soft),
+    transform 520ms var(--ease-soft);
+
+  @include motion-safe {
+    &:hover,
+    &:focus-within {
+      transform: translate3d(0, -#{$rise}, 0);
+      box-shadow: var(--shadow-bloom);
+    }
+  }
+}
+
+/// Underline that grows from the leading edge instead of appearing all at once.
+@mixin link-underline($color: var(--accent)) {
+  position: relative;
+  transition: color 280ms var(--ease-soft);
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: -2px;
+    height: 1px;
+    background-color: #{$color};
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  @include motion-safe {
+    &::after {
+      transition: transform 420ms var(--ease-soft);
+    }
+
+    &:hover::after,
+    &:focus-visible::after {
+      transform: scaleX(1);
+    }
   }
 }

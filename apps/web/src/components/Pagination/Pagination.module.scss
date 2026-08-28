@@ -17,11 +17,9 @@
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  transition:
-    border-color var(--dur-micro) var(--ease-out),
-    color var(--dur-micro) var(--ease-out);
 
   @include focus-ring(2px);
+  @include btn-outline;
 
   &:hover:not(:disabled) {
     border-color: var(--accent);
