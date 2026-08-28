@@ -1,18 +1,11 @@
-// The section is taller than the viewport; the inner panel pins to the top and
-// the strip slides sideways as you scroll past. Section height therefore
-// controls how long the horizontal travel lasts.
+// A plain horizontal rail. Deliberately NOT scroll-jacked: hijacking vertical
+// scroll to move content sideways fights the reader's intent — down should mean
+// down. The strip moves sideways only when it is actually scrolled sideways
+// (trackpad, shift+wheel, swipe, or the keyboard once focused).
 .section {
-  position: relative;
-  height: 280svh;
-}
-
-.pin {
-  position: sticky;
-  top: 0;
-  height: 100svh;
+  @include section-padding;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: var(--space-8);
   overflow: hidden;
 }
@@ -39,17 +32,25 @@
   display: flex;
   gap: var(--space-6);
   padding-inline: var(--gutter);
-  will-change: transform;
+  // Native horizontal scrolling: momentum, snap, and keyboard support come free.
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  padding-block-end: var(--space-4);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
 }
 
 .card {
   position: relative;
   flex: none;
-  width: min(78vw, 420px);
+  width: min(78vw, 380px);
   aspect-ratio: 3 / 4;
   border-radius: var(--radius-md);
   overflow: hidden;
   border: var(--hairline) solid var(--border);
+  scroll-snap-align: start;
   transition: border-color var(--dur-standard) var(--ease-out);
 
   @include focus-ring;
@@ -93,28 +94,4 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--gold);
-}
-
-// Reduced motion: no pin, no scroll-driven travel — a plain horizontal
-// scroller the user drives themselves.
-@include motion-reduce {
-  .section {
-    height: auto;
-  }
-
-  .pin {
-    position: static;
-    height: auto;
-    padding-block: var(--space-16);
-  }
-
-  .track {
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    transform: none !important;
-  }
-
-  .card {
-    scroll-snap-align: start;
-  }
 }
