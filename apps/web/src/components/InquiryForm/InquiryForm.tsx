@@ -16,6 +16,8 @@ export interface InquiryFormProps {
   showDimensions?: boolean;
   /** Prefilled body — used by the wishlist's bulk enquiry. */
   initialMessage?: string;
+  /** Prefilled dimensions — the product page passes the configured size. */
+  initialDimensions?: string;
   onSuccess?: () => void;
 }
 
@@ -30,6 +32,7 @@ export function InquiryForm({
   fabric,
   showDimensions = true,
   initialMessage = '',
+  initialDimensions = '',
   onSuccess,
 }: InquiryFormProps) {
   const { t, tl } = useI18n();
@@ -37,7 +40,7 @@ export function InquiryForm({
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-  const [dimensions, setDimensions] = useState('');
+  const [dimensions, setDimensions] = useState(initialDimensions);
   const [message, setMessage] = useState(initialMessage);
   const [website, setWebsite] = useState(''); // honeypot
   const [fields, setFields] = useState<Record<string, string>>({});

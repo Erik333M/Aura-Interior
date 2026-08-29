@@ -5,6 +5,9 @@ import type { Fabric } from '@aura/types';
 import { useI18n } from '@/i18n';
 import { catalogueKeys, fetchProduct, fetchProducts } from '@/services/catalogue';
 import { Gallery } from '@/components/Gallery';
+import { Configurator, type Configuration } from '@/components/Configurator';
+import { describeConfiguration } from '@/lib/describeConfiguration';
+import { presetsFor, matchPreset } from '@/lib/sizes';
 import { Modal } from '@/components/Modal';
 import { InquiryForm } from '@/components/InquiryForm';
 import { MagneticButton } from '@/components/MagneticButton';
@@ -24,9 +27,9 @@ const INSTAGRAM = import.meta.env['VITE_INSTAGRAM_HANDLE'] ?? 'aura_Interior';
 
 export function ProductDetail() {
   const { slug } = useParams();
-  const { t, tl, price, path, formatNumber, locale } = useI18n();
+  const { t, tl, price, path, locale } = useI18n();
 
-  const [fabricId, setFabricId] = useState<string | null>(null);
+  const [config, setConfig] = useState<Configuration | null>(null);
   const [inquiryOpen, setInquiryOpen] = useState(false);
 
   const query = useQuery({
@@ -45,11 +48,26 @@ export function ProductDetail() {
     track('product_viewed', { slug: product.slug, price: product.priceFrom });
   }, [product]);
 
-  // Default to the first available fabric so the enquiry always carries one.
+  // Seed the configuration from the product's own defaults, matching a standard
+  // size where one fits, so the page opens on a valid, buildable spec rather
+  // than an empty form.
+  const configuration: Configuration | null = useMemo(() => {
+    if (!product) return null;
+    if (config) return config;
+    const preset = matchPreset(presetsFor(product.category?.slug), product.dimensions);
+    return {
+      sizeId: preset?.id ?? 'custom',
+      widthCm: product.dimensions.widthCm,
+      depthCm: product.dimensions.depthCm,
+      heightCm: product.dimensions.heightCm,
+      fabricId: product.fabrics[0]?.id ?? null,
+    };
+  }, [product, config]);
+
   const selectedFabric: Fabric | undefined = useMemo(() => {
     if (!product) return undefined;
-    return product.fabrics.find((f) => f.id === fabricId) ?? product.fabrics[0];
-  }, [product, fabricId]);
+    return product.fabrics.find((f) => f.id === configuration?.fabricId) ?? product.fabrics[0];
+  }, [product, configuration]);
 
   const related = useQuery({
     queryKey: catalogueKeys.products({
@@ -81,7 +99,6 @@ export function ProductDetail() {
   if (!product) return <NotFound />;
 
   const name = tl(product.name);
-  const { widthCm, depthCm, heightCm } = product.dimensions;
 
   // Exclude the piece being viewed from its own "you may also like".
   const alsoLike = (related.data?.items ?? []).filter((p) => p.id !== product.id).slice(0, 4);
@@ -145,59 +162,14 @@ export function ProductDetail() {
 
           <p className={styles.note}>{t.product.madeToOrderNote}</p>
 
-          {product.fabrics.length > 0 && (
-            <fieldset className={styles.fabrics}>
-              <legend className={styles.fabricsLegend}>{t.product.chooseFabric}</legend>
-              <ul className={styles.swatchRow} role="list">
-                {product.fabrics.map((f) => {
-                  const checked = selectedFabric?.id === f.id;
-                  return (
-                    <li key={f.id}>
-                      <input
-                        className={styles.swatchInput}
-                        type="radio"
-                        name="fabric"
-                        id={`fabric-${f.id}`}
-                        checked={checked}
-                        onChange={() => setFabricId(f.id)}
-                      />
-                      <label
-                        htmlFor={`fabric-${f.id}`}
-                        className={`${styles.swatchLabel} ${checked ? styles.swatchSelected : ''}`}
-                        style={{ backgroundColor: f.hex }}
-                        title={tl(f.name)}
-                      >
-                        <span className="visually-hidden">{tl(f.name)}</span>
-                      </label>
-                    </li>
-                  );
-                })}
-              </ul>
-              {selectedFabric && (
-                <p className={styles.selectedName}>
-                  <span className={styles.selectedNameLabel}>{t.product.selectedFabric}: </span>
-                  {tl(selectedFabric.name)}
-                </p>
-              )}
-            </fieldset>
+          {configuration && (
+            <Configurator product={product} value={configuration} onChange={setConfig} />
           )}
 
           <dl className={styles.specs}>
             <div className={styles.specRow}>
-              <dt className={styles.specKey}>{t.product.dimensions}</dt>
-              <dd className={styles.specValue}>
-                {formatNumber(widthCm)} × {formatNumber(depthCm)} × {formatNumber(heightCm)} cm
-              </dd>
-            </div>
-            <div className={styles.specRow}>
               <dt className={styles.specKey}>{t.product.material}</dt>
               <dd className={styles.specValue}>{tl(product.defaultMaterial)}</dd>
-            </div>
-            <div className={styles.specRow}>
-              <dt className={styles.specKey}>{t.product.leadTime}</dt>
-              <dd className={styles.specValue}>
-                {product.leadTimeDays} {t.common.days}
-              </dd>
             </div>
             <div className={styles.specRow}>
               <dt className={styles.specKey}>{t.product.customSize}</dt>
@@ -277,6 +249,20 @@ export function ProductDetail() {
         <InquiryForm
           product={{ id: product.id, name: product.name }}
           {...(selectedFabric ? { fabric: selectedFabric } : {})}
+          {...(configuration
+            ? {
+                initialDimensions: `${configuration.widthCm} × ${configuration.depthCm} × ${configuration.heightCm} ${t.configurator.cm}`,
+                initialMessage: describeConfiguration(
+                  configuration,
+                  selectedFabric ? tl(selectedFabric.name) : undefined,
+                  {
+                    size: t.configurator.size,
+                    fabric: t.configurator.fabric,
+                    cm: t.configurator.cm,
+                  },
+                ),
+              }
+            : {})}
         />
       </Modal>
     </div>
