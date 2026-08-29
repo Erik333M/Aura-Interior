@@ -160,7 +160,13 @@ export function ProductDetail() {
 
           <p className={styles.description}>{tl(product.description)}</p>
 
-          <p className={styles.note}>{t.product.madeToOrderNote}</p>
+          {/* A mattress has no fabric or colour choice — promising one here
+              would contradict the configurator directly below it. */}
+          <p className={styles.note}>
+            {product.fabrics.length > 0
+              ? t.product.madeToOrderNote
+              : t.product.madeToOrderNoteSizeOnly}
+          </p>
 
           {configuration && (
             <Configurator product={product} value={configuration} onChange={setConfig} />

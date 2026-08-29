@@ -32,6 +32,16 @@ const BED: SizePreset[] = [
   { id: '200', label: '200 × 220', widthCm: 200, depthCm: 220, note: 'super king' },
 ];
 
+/** Mattress sizes are the supplier's stock sizes, not the bed frame's. */
+const MATTRESS: SizePreset[] = [
+  { id: '90', label: '90 × 190', widthCm: 90, depthCm: 190, note: 'single' },
+  { id: '120', label: '120 × 190', widthCm: 120, depthCm: 190, note: 'small double' },
+  { id: '140', label: '140 × 190', widthCm: 140, depthCm: 190, note: 'double' },
+  { id: '160', label: '160 × 190', widthCm: 160, depthCm: 190, note: 'queen' },
+  { id: '180', label: '180 × 190', widthCm: 180, depthCm: 190, note: 'king' },
+  { id: '200', label: '200 × 200', widthCm: 200, depthCm: 200, note: 'super king' },
+];
+
 const SOFA: SizePreset[] = [
   { id: '2', label: '2 ', widthCm: 165, note: 'seats' },
   { id: '3', label: '3', widthCm: 220, note: 'seats' },
@@ -55,6 +65,7 @@ const PANEL: SizePreset[] = [
 
 const PRESETS: Record<string, SizePreset[]> = {
   beds: BED,
+  mattresses: MATTRESS,
   sofas: SOFA,
   wardrobes: WARDROBE,
   'headboards-panels': PANEL,

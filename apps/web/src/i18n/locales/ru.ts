@@ -104,6 +104,7 @@ export const ru: Dictionary = {
     previous: 'Предыдущее фото',
     next: 'Следующее фото',
     alsoLike: 'Вам может понравиться',
+    madeToOrderNoteSizeOnly: 'Эта модель изготавливается на заказ по вашим размерам.',
     madeToOrderNote: 'Эта модель изготавливается на заказ. Ткань, цвет и размеры выбираете вы.',
   },
   inquiry: {
