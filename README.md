@@ -178,6 +178,17 @@ output directory, an SPA rewrite (without it `/hy/catalogue/arev-bed` 404s on a
 hard refresh), immutable caching for hashed assets, and security headers.
 Import the repo and it deploys.
 
+**Static mode — the catalogue with no backend.** `VITE_STATIC_DATA=1` (set in
+`vercel.json`) makes the site read a JSON snapshot from `public/data` instead of
+the API. `npm run data:generate` builds it from the _same_ seed data the
+database uses, so the two cannot drift. `services/static.ts` reimplements the
+API's filtering, sorting, pagination and facet rules over that snapshot, so
+greying-out and counts behave identically.
+
+It is a read-only shop window. Enquiries hand off to WhatsApp with everything
+the customer typed already in the message — which is how Aura takes orders today
+— and reviews and admin still need the real API.
+
 **The API needs Postgres.** Serverless filesystems are ephemeral and read-only,
 so the SQLite used locally cannot run there. The schema was kept
 Postgres-portable for exactly this, so the move is a provider swap rather than a

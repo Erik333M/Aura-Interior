@@ -4,16 +4,10 @@
   "outputDirectory": "apps/web/dist",
   "installCommand": "npm install",
   "framework": null,
-  "rewrites": [
-    {
-      "comment": "SPA fallback. Vercel serves real files first, so /assets, /media, /fonts, sitemap.xml and robots.txt are unaffected — this only catches client-side routes like /hy/catalogue/arev-bed, which would otherwise 404 on a hard refresh.",
-      "source": "/((?!api/).*)",
-      "destination": "/index.html"
-    }
-  ],
+  "build": { "env": { "VITE_STATIC_DATA": "1" } },
+  "rewrites": [{ "source": "/((?!api/).*)", "destination": "/index.html" }],
   "headers": [
     {
-      "comment": "Hashed filenames, so they can never go stale.",
       "source": "/assets/(.*)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     },
@@ -22,11 +16,10 @@
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     },
     {
-      "source": "/fonts/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "source": "/data/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=300, must-revalidate" }]
     },
     {
-      "comment": "index.html must revalidate or a deploy never reaches returning visitors.",
       "source": "/index.html",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
     },
