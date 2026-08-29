@@ -3,6 +3,7 @@ import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import { DEFAULT_LOCALE } from '@aura/types';
 import { I18nProvider } from '@/i18n';
 import { LocaleLayout } from '@/routes/LocaleLayout';
+import { ProductRedirect } from '@/routes/ProductRedirect';
 import { RouteError } from '@/components/RouteError';
 import { readLocale } from '@/lib/locale';
 import { Home } from '@/routes/Home';
@@ -70,6 +71,7 @@ const router = createBrowserRouter(
         { index: true, element: <Home /> },
         { path: 'catalogue', element: <Catalogue /> },
         { path: 'catalogue/:slug', element: <ProductDetail /> },
+        { path: 'product/:slug', element: <ProductRedirect /> },
         { path: 'interior-design', element: <InteriorDesign /> },
         { path: 'about', element: <About /> },
         { path: 'contact', element: <Contact /> },

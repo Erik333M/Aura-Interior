@@ -84,17 +84,23 @@ export function Configurator({ product, value, onChange }: ConfiguratorProps) {
   // Derived rather than a mutating counter: a piece with no size choice starts
   // its colour step at 01, not 02.
   const showSizeStep = presets.length > 0 || product.customSizeAvailable;
-  const sizeStepNo = '01';
-  const colourStepNo = showSizeStep ? '02' : '01';
+  const showColourStep = product.fabrics.length > 0;
+  // A mattress has no fabric options, so size is its only decision — numbering a
+  // single step "01" implies a step 02 that never comes.
+  const numbered = showSizeStep && showColourStep;
+  const sizeStepNo = numbered ? '01' : null;
+  const colourStepNo = numbered ? '02' : null;
 
   return (
     <div className={styles.wrap}>
       {showSizeStep && (
         <fieldset className={styles.step}>
           <legend className={styles.legend}>
-            <span className={styles.stepNum}>
-              {t.configurator.step} {sizeStepNo}
-            </span>
+            {sizeStepNo && (
+              <span className={styles.stepNum}>
+                {t.configurator.step} {sizeStepNo}
+              </span>
+            )}
             <span className={styles.legendText}>{t.configurator.chooseSize}</span>
           </legend>
 
@@ -188,12 +194,14 @@ export function Configurator({ product, value, onChange }: ConfiguratorProps) {
         </fieldset>
       )}
 
-      {product.fabrics.length > 0 && (
+      {showColourStep && (
         <fieldset className={styles.step}>
           <legend className={styles.legend}>
-            <span className={styles.stepNum}>
-              {t.configurator.step} {colourStepNo}
-            </span>
+            {colourStepNo && (
+              <span className={styles.stepNum}>
+                {t.configurator.step} {colourStepNo}
+              </span>
+            )}
             <span className={styles.legendText}>{t.configurator.chooseColour}</span>
           </legend>
           <p className={styles.hint}>

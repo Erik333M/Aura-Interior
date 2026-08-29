@@ -32,19 +32,29 @@
 }
 
 .categoryOverlay {
-  position: relative;
+  // Absolute, not in flow: as a flex child its height was its content's, so the
+  // veil stopped where the text stopped and left the top of a white product
+  // shot untouched.
+  position: absolute;
+  inset: 0;
   z-index: 1;
-  width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   gap: var(--space-3);
   padding: var(--space-8);
-  background-image: linear-gradient(
-    to top,
-    rgb(11 11 13 / 90%) 0%,
-    rgb(11 11 13 / 45%) 55%,
-    transparent 100%
-  );
+  // TWO layers, not one. The bottom-up gradient alone assumed dark studio
+  // photography; supplier product shots are on white, which blew out the top of
+  // the band and broke the dark-luxe register. The flat veil underneath keeps
+  // any source image in range, and costs dark photos only a little depth.
+  background-image:
+    linear-gradient(
+      to top,
+      rgb(11 11 13 / 92%) 0%,
+      rgb(11 11 13 / 55%) 55%,
+      rgb(11 11 13 / 22%) 100%
+    ),
+    linear-gradient(rgb(11 11 13 / 34%), rgb(11 11 13 / 34%));
 }
 
 .categoryName {

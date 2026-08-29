@@ -10,6 +10,12 @@ import type { SeedProduct } from './types.js';
  *
  * Prices are AMD starting points ("from N ֏"), never fixed SKU prices.
  */
+/**
+ * Retail multiple applied to Paylak's wholesale mattress cost.
+ * PLACEHOLDER — set this to Aura's real margin before launch.
+ */
+const MATTRESS_MARKUP = 2;
+
 export const products: SeedProduct[] = [
   // ───────────────────────── Beds — 450,000–1,400,000 ֏ ─────────────────────
   {
@@ -490,6 +496,332 @@ export const products: SeedProduct[] = [
       hy: 'Ամբողջ պատը ծածկող փափուկ պանելների համակարգ՝ թաքնված LED գծերով կարերի միջև։ Չափվում և տեղադրվում է մեր կողմից։',
       ru: 'Система мягких панелей во всю стену со скрытыми LED-линиями между швами. Замер и монтаж — с нашей стороны.',
       en: 'A full-wall upholstered panel system with concealed LED lines running between the seams. We measure and install.',
+    },
+  },
+
+  // ───────────────────────── Mattresses ─────────────────────────────────────
+  //
+  // Thirteen models sourced from Paylak, quoted 17 Aug 2026 (Telegram).
+  //
+  // PRICING — READ BEFORE LAUNCH. The "SUPPLIER COST" comment on each entry is
+  // what the mattress costs Aura, not what it sells for. `priceFrom` is that
+  // cost times MATTRESS_MARKUP. The 2 default is a placeholder, not a
+  // researched margin — set it to your real retail multiple. The supplier also
+  // said to expect roughly 15–20k AMD on top of every quoted cost.
+  //
+  // heightCm is a plausible spec, not a measured one — confirm with Paylak.
+  // Full per-size cost tables: ~/Desktop/aura-interiors-inventory.xlsx.
+
+  {
+    // SUPPLIER COST (AMD, mattress only): 90x190 = 140.000 · 160x190 = 215.000 · 170x190 = 230.000 · 190x200 = 260.000
+    slug: 'sipan-mattress',
+    categorySlug: 'mattresses',
+    priceFrom: 140_000 * MATTRESS_MARKUP,
+    widthCm: 90,
+    depthCm: 190,
+    heightCm: 24,
+    customSizeAvailable: true,
+    leadTimeDays: 14,
+    featured: true,
+    fabricSlugs: [],
+    name: { hy: 'Սիփան', ru: 'Сипан', en: 'Sipan' },
+    material: {
+      hy: 'Գրպանավոր զսպանակներ, օրթոպեդիկ',
+      ru: 'Независимые пружины, ортопедический',
+      en: 'Pocket springs, orthopedic',
+    },
+    desc: {
+      hy: 'Օրթոպեդիկ ներքնակ՝ անկախ գրպանավոր զսպանակներով, որոնք առանձին են արձագանքում մարմնի յուրաքանչյուր հատվածին։ Առկա է 4 չափսով։',
+      ru: 'Ортопедический матрас на независимых пружинах в чехлах — каждая зона реагирует отдельно. Доступен в 4 размерах.',
+      en: 'An orthopedic mattress on independently pocketed springs, so each zone responds on its own. Available in 4 sizes.',
+    },
+  },
+  {
+    // SUPPLIER COST (AMD, mattress only): 90x190 = 90.000 · 160x190 = 130.000 · 180x190 = 140.000 · 190x200 = 165.000 · 200x200 = 175.000
+    slug: 'aragats-mattress',
+    categorySlug: 'mattresses',
+    priceFrom: 90_000 * MATTRESS_MARKUP,
+    widthCm: 90,
+    depthCm: 190,
+    heightCm: 24,
+    customSizeAvailable: true,
+    leadTimeDays: 14,
+    featured: false,
+    fabricSlugs: [],
+    name: { hy: 'Արագած', ru: 'Арагац', en: 'Aragats' },
+    material: {
+      hy: 'Գրպանավոր զսպանակներ, օրթոպեդիկ',
+      ru: 'Независимые пружины, ортопедический',
+      en: 'Pocket springs, orthopedic',
+    },
+    desc: {
+      hy: 'Օրթոպեդիկ ներքնակ՝ անկախ գրպանավոր զսպանակներով, որոնք առանձին են արձագանքում մարմնի յուրաքանչյուր հատվածին։ Առկա է 5 չափսով։',
+      ru: 'Ортопедический матрас на независимых пружинах в чехлах — каждая зона реагирует отдельно. Доступен в 5 размерах.',
+      en: 'An orthopedic mattress on independently pocketed springs, so each zone responds on its own. Available in 5 sizes.',
+    },
+  },
+  {
+    // SUPPLIER COST (AMD, mattress only): 90x190 = 105.000 · 160x190 = 140.000 · 180x190 = 160.000 · 200x200 = 180.000
+    slug: 'shirak-mattress',
+    categorySlug: 'mattresses',
+    priceFrom: 105_000 * MATTRESS_MARKUP,
+    widthCm: 90,
+    depthCm: 190,
+    heightCm: 24,
+    customSizeAvailable: true,
+    leadTimeDays: 14,
+    featured: false,
+    fabricSlugs: [],
+    name: { hy: 'Շիրակ', ru: 'Ширак', en: 'Shirak' },
+    material: {
+      hy: 'Գրպանավոր զսպանակներ, օրթոպեդիկ',
+      ru: 'Независимые пружины, ортопедический',
+      en: 'Pocket springs, orthopedic',
+    },
+    desc: {
+      hy: 'Օրթոպեդիկ ներքնակ՝ անկախ գրպանավոր զսպանակներով, որոնք առանձին են արձագանքում մարմնի յուրաքանչյուր հատվածին։ Առկա է 4 չափսով։',
+      ru: 'Ортопедический матрас на независимых пружинах в чехлах — каждая зона реагирует отдельно. Доступен в 4 размерах.',
+      en: 'An orthopedic mattress on independently pocketed springs, so each zone responds on its own. Available in 4 sizes.',
+    },
+  },
+  {
+    // SUPPLIER COST (AMD, mattress only): 90x190 = 90.000 · 160x190 = 135.000 · 180x190 = 150.000 · 200x200 = 165.000
+    slug: 'syunik-mattress',
+    categorySlug: 'mattresses',
+    priceFrom: 90_000 * MATTRESS_MARKUP,
+    widthCm: 90,
+    depthCm: 190,
+    heightCm: 24,
+    customSizeAvailable: true,
+    leadTimeDays: 14,
+    featured: false,
+    fabricSlugs: [],
+    name: { hy: 'Սյունիք', ru: 'Сюник', en: 'Syunik' },
+    material: {
+      hy: 'Գրպանավոր զսպանակներ, օրթոպեդիկ',
+      ru: 'Независимые пружины, ортопедический',
+      en: 'Pocket springs, orthopedic',
+    },
+    desc: {
+      hy: 'Օրթոպեդիկ ներքնակ՝ անկախ գրպանավոր զսպանակներով, որոնք առանձին են արձագանքում մարմնի յուրաքանչյուր հատվածին։ Առկա է 4 չափսով։',
+      ru: 'Ортопедический матрас на независимых пружинах в чехлах — каждая зона реагирует отдельно. Доступен в 4 размерах.',
+      en: 'An orthopedic mattress on independently pocketed springs, so each zone responds on its own. Available in 4 sizes.',
+    },
+  },
+  {
+    // SUPPLIER COST (AMD, mattress only): 90x190 = 190.000 · 160x190 = 299.000 · 180x190 = 340.000 · 190x200 = 360.000 · 200x200 = 370.000
+    slug: 'vayk-mattress',
+    categorySlug: 'mattresses',
+    priceFrom: 190_000 * MATTRESS_MARKUP,
+    widthCm: 90,
+    depthCm: 190,
+    heightCm: 24,
+    customSizeAvailable: true,
+    leadTimeDays: 14,
+    featured: true,
+    fabricSlugs: [],
+    name: { hy: 'Վայք', ru: 'Вайк', en: 'Vayk' },
+    material: {
+      hy: 'Գրպանավոր զսպանակներ, օրթոպեդիկ',
+      ru: 'Независимые пружины, ортопедический',
+      en: 'Pocket springs, orthopedic',
+    },
+    desc: {
+      hy: 'Օրթոպեդիկ ներքնակ՝ անկախ գրպանավոր զսպանակներով, որոնք առանձին են արձագանքում մարմնի յուրաքանչյուր հատվածին։ Առկա է 5 չափսով։',
+      ru: 'Ортопедический матрас на независимых пружинах в чехлах — каждая зона реагирует отдельно. Доступен в 5 размерах.',
+      en: 'An orthopedic mattress on independently pocketed springs, so each zone responds on its own. Available in 5 sizes.',
+    },
+  },
+  {
+    // SUPPLIER COST (AMD, mattress only): 90x190 = 40.000 · 140x190 = 55.000 · 160x190 = 65.000 · 180x190 = 75.000 · 190x200 = 80.000 · 200x200 = 90.000
+    slug: 'lori-mattress',
+    categorySlug: 'mattresses',
+    priceFrom: 40_000 * MATTRESS_MARKUP,
+    widthCm: 90,
+    depthCm: 190,
+    heightCm: 18,
+    customSizeAvailable: true,
+    leadTimeDays: 10,
+    featured: false,
+    fabricSlugs: [],
+    name: { hy: 'Լոռի', ru: 'Лори', en: 'Lori' },
+    material: {
+      hy: 'Բոնել զսպանակներ, ստանդարտ',
+      ru: 'Пружины боннель, стандартный',
+      en: 'Bonnell springs, standard',
+    },
+    desc: {
+      hy: 'Ստանդարտ զսպանակավոր ներքնակ՝ ամենօրյա օգտագործման համար։ Առկա է 6 չափսով։',
+      ru: 'Стандартный пружинный матрас для повседневного использования. Доступен в 6 размерах.',
+      en: 'A standard sprung mattress for everyday use. Available in 6 sizes.',
+    },
+  },
+  {
+    // SUPPLIER COST (AMD, mattress only): 90x190 = 42.000 · 140x190 = 63.000 · 160x190 = 72.000 · 180x190 = 75.000 · 190x200 = 90.000 · 200x200 = 100.000
+    slug: 'tavush-mattress',
+    categorySlug: 'mattresses',
+    priceFrom: 42_000 * MATTRESS_MARKUP,
+    widthCm: 90,
+    depthCm: 190,
+    heightCm: 18,
+    customSizeAvailable: true,
+    leadTimeDays: 10,
+    featured: false,
+    fabricSlugs: [],
+    name: { hy: 'Տավուշ', ru: 'Тавуш', en: 'Tavush' },
+    material: {
+      hy: 'Բոնել զսպանակներ, ստանդարտ',
+      ru: 'Пружины боннель, стандартный',
+      en: 'Bonnell springs, standard',
+    },
+    desc: {
+      hy: 'Ստանդարտ զսպանակավոր ներքնակ՝ ամենօրյա օգտագործման համար։ Առկա է 6 չափսով։',
+      ru: 'Стандартный пружинный матрас для повседневного использования. Доступен в 6 размерах.',
+      en: 'A standard sprung mattress for everyday use. Available in 6 sizes.',
+    },
+  },
+  {
+    // SUPPLIER COST (AMD, mattress only): 90x190 = 60.000 · 140x190 = 90.000 · 160x190 = 100.000 · 180x190 = 110.000 · 200x200 = 120.000
+    slug: 'kotayk-mattress',
+    categorySlug: 'mattresses',
+    priceFrom: 60_000 * MATTRESS_MARKUP,
+    widthCm: 90,
+    depthCm: 190,
+    heightCm: 18,
+    customSizeAvailable: true,
+    leadTimeDays: 10,
+    featured: false,
+    fabricSlugs: [],
+    name: { hy: 'Կոտայք', ru: 'Котайк', en: 'Kotayk' },
+    material: {
+      hy: 'Բոնել զսպանակներ, ստանդարտ',
+      ru: 'Пружины боннель, стандартный',
+      en: 'Bonnell springs, standard',
+    },
+    desc: {
+      hy: 'Ստանդարտ զսպանակավոր ներքնակ՝ ամենօրյա օգտագործման համար։ Առկա է 5 չափսով։',
+      ru: 'Стандартный пружинный матрас для повседневного использования. Доступен в 5 размерах.',
+      en: 'A standard sprung mattress for everyday use. Available in 5 sizes.',
+    },
+  },
+  {
+    // SUPPLIER COST (AMD, mattress only): 90x190 = 50.000 · 120x140 = 60.000 · 140x190 = 70.000 · 160x190 = 80.000 · 180x190 = 90.000 · 200x200 = 100.000
+    slug: 'armavir-mattress',
+    categorySlug: 'mattresses',
+    priceFrom: 50_000 * MATTRESS_MARKUP,
+    widthCm: 90,
+    depthCm: 190,
+    heightCm: 18,
+    customSizeAvailable: true,
+    leadTimeDays: 10,
+    featured: false,
+    fabricSlugs: [],
+    name: { hy: 'Արմավիր', ru: 'Армавир', en: 'Armavir' },
+    material: {
+      hy: 'Բոնել զսպանակներ, ստանդարտ',
+      ru: 'Пружины боннель, стандартный',
+      en: 'Bonnell springs, standard',
+    },
+    desc: {
+      hy: 'Ստանդարտ զսպանակավոր ներքնակ՝ ամենօրյա օգտագործման համար։ Առկա է 6 չափսով։',
+      ru: 'Стандартный пружинный матрас для повседневного использования. Доступен в 6 размерах.',
+      en: 'A standard sprung mattress for everyday use. Available in 6 sizes.',
+    },
+  },
+  {
+    // SUPPLIER COST (AMD, mattress only): 90x190 = 30.000 · 120x190 = 35.000 · 140x190 = 40.000 · 160x190 = 45.000 · 180x190 = 50.000 · 190x190 = 55.000 · 200x200 = 60.000
+    slug: 'artashat-mattress',
+    categorySlug: 'mattresses',
+    priceFrom: 30_000 * MATTRESS_MARKUP,
+    widthCm: 90,
+    depthCm: 190,
+    heightCm: 18,
+    customSizeAvailable: true,
+    leadTimeDays: 10,
+    featured: true,
+    fabricSlugs: [],
+    name: { hy: 'Արտաշատ', ru: 'Арташат', en: 'Artashat' },
+    material: {
+      hy: 'Բոնել զսպանակներ, ստանդարտ',
+      ru: 'Пружины боннель, стандартный',
+      en: 'Bonnell springs, standard',
+    },
+    desc: {
+      hy: 'Ստանդարտ զսպանակավոր ներքնակ՝ ամենօրյա օգտագործման համար։ Առկա է 7 չափսով։',
+      ru: 'Стандартный пружинный матрас для повседневного использования. Доступен в 7 размерах.',
+      en: 'A standard sprung mattress for everyday use. Available in 7 sizes.',
+    },
+  },
+  {
+    // SUPPLIER COST (AMD, mattress only): 90x190 = 65.000 · 120x190 = 90.000 · 140x190 = 100.000 · 160x190 = 110.000 · 180x190 = 120.000 · 200x200 = 140.000
+    slug: 'goris-mattress',
+    categorySlug: 'mattresses',
+    priceFrom: 65_000 * MATTRESS_MARKUP,
+    widthCm: 90,
+    depthCm: 190,
+    heightCm: 18,
+    customSizeAvailable: true,
+    leadTimeDays: 10,
+    featured: false,
+    fabricSlugs: [],
+    name: { hy: 'Գորիս', ru: 'Горис', en: 'Goris' },
+    material: {
+      hy: 'Բոնել զսպանակներ, ստանդարտ',
+      ru: 'Пружины боннель, стандартный',
+      en: 'Bonnell springs, standard',
+    },
+    desc: {
+      hy: 'Ստանդարտ զսպանակավոր ներքնակ՝ ամենօրյա օգտագործման համար։ Առկա է 6 չափսով։',
+      ru: 'Стандартный пружинный матрас для повседневного использования. Доступен в 6 размерах.',
+      en: 'A standard sprung mattress for everyday use. Available in 6 sizes.',
+    },
+  },
+  {
+    // SUPPLIER COST (AMD, mattress only): 90x190 = 78.000 · 120x190 = 95.000 · 140x190 = 105.000 · 160x190 = 125.000 · 180x190 = 135.000 · 200x200 = 150.000
+    slug: 'jermuk-mattress',
+    categorySlug: 'mattresses',
+    priceFrom: 78_000 * MATTRESS_MARKUP,
+    widthCm: 90,
+    depthCm: 190,
+    heightCm: 18,
+    customSizeAvailable: true,
+    leadTimeDays: 10,
+    featured: false,
+    fabricSlugs: [],
+    name: { hy: 'Ջերմուկ', ru: 'Джермук', en: 'Jermuk' },
+    material: {
+      hy: 'Բոնել զսպանակներ, ստանդարտ',
+      ru: 'Пружины боннель, стандартный',
+      en: 'Bonnell springs, standard',
+    },
+    desc: {
+      hy: 'Ստանդարտ զսպանակավոր ներքնակ՝ ամենօրյա օգտագործման համար։ Առկա է 6 չափսով։',
+      ru: 'Стандартный пружинный матрас для повседневного использования. Доступен в 6 размерах.',
+      en: 'A standard sprung mattress for everyday use. Available in 6 sizes.',
+    },
+  },
+  {
+    // SUPPLIER COST (AMD, mattress only): 90x190 = 53.000 · 120x190 = 64.000 · 140x190 = 74.000 · 160x190 = 85.000 · 180x190 = 90.000 · 190x200 = 100.000 · 200x200 = 110.000
+    slug: 'sisian-mattress',
+    categorySlug: 'mattresses',
+    priceFrom: 53_000 * MATTRESS_MARKUP,
+    widthCm: 90,
+    depthCm: 190,
+    heightCm: 24,
+    customSizeAvailable: true,
+    leadTimeDays: 14,
+    featured: false,
+    fabricSlugs: [],
+    name: { hy: 'Սիսիան', ru: 'Сисиан', en: 'Sisian' },
+    material: {
+      hy: 'Գրպանավոր զսպանակներ, օրթոպեդիկ',
+      ru: 'Независимые пружины, ортопедический',
+      en: 'Pocket springs, orthopedic',
+    },
+    desc: {
+      hy: 'Օրթոպեդիկ ներքնակ՝ անկախ գրպանավոր զսպանակներով, որոնք առանձին են արձագանքում մարմնի յուրաքանչյուր հատվածին։ Առկա է 7 չափսով։',
+      ru: 'Ортопедический матрас на независимых пружинах в чехлах — каждая зона реагирует отдельно. Доступен в 7 размерах.',
+      en: 'An orthopedic mattress on independently pocketed springs, so each zone responds on its own. Available in 7 sizes.',
     },
   },
 ];

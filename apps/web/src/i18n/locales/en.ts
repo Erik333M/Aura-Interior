@@ -104,6 +104,7 @@ export const en: Dictionary = {
     previous: 'Previous image',
     next: 'Next image',
     alsoLike: 'You may also like',
+    madeToOrderNoteSizeOnly: 'This piece is made to order in the dimensions you choose.',
     madeToOrderNote:
       'This piece is made to order. You choose the fabric, the colour and the dimensions.',
   },

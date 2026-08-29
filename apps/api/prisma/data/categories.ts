@@ -16,8 +16,18 @@ export const categories: SeedCategory[] = [
     },
   },
   {
-    slug: 'poufs-ottomans',
+    slug: 'mattresses',
     sortOrder: 2,
+    name: { hy: 'Ներքնակներ', ru: 'Матрасы', en: 'Mattresses' },
+    desc: {
+      hy: 'Օրթոպեդիկ և ստանդարտ ներքնակներ՝ գրպանավոր զսպանակներով և փրփուրի շերտերով։ Բոլոր չափսերը՝ 90x190-ից մինչև 200x200։',
+      ru: 'Ортопедические и стандартные матрасы с независимыми пружинами и слоями пены. Все размеры — от 90x190 до 200x200.',
+      en: 'Orthopedic and standard mattresses with pocket springs and foam layers. Every size from 90x190 up to 200x200.',
+    },
+  },
+  {
+    slug: 'poufs-ottomans',
+    sortOrder: 3,
     name: { hy: 'Փուֆեր և Օտոմաններ', ru: 'Пуфы и Оттоманки', en: 'Poufs & Ottomans' },
     desc: {
       hy: 'Կլոր և գլանաձև փուֆեր բուկլե և թավշյա գործվածքով՝ որպես նստատեղ կամ ոտնատակ։',
@@ -27,7 +37,7 @@ export const categories: SeedCategory[] = [
   },
   {
     slug: 'wardrobes',
-    sortOrder: 3,
+    sortOrder: 4,
     name: { hy: 'Պահարաններ', ru: 'Шкафы и Гардеробные', en: 'Wardrobes & Closets' },
     desc: {
       hy: 'Կողպակավոր, բացվող և մուտքով գարդերոբներ՝ նախագծված ձեր սենյակի չափսերին ճշգրիտ։',
@@ -37,7 +47,7 @@ export const categories: SeedCategory[] = [
   },
   {
     slug: 'sofas',
-    sortOrder: 4,
+    sortOrder: 5,
     name: { hy: 'Բազմոցներ', ru: 'Диваны', en: 'Sofas' },
     desc: {
       hy: 'Մոդուլային և խորը նստատեղով բազմոցներ բուկլե գործվածքով՝ հավաքված ձեր հյուրասենյակի համար։',
@@ -47,7 +57,7 @@ export const categories: SeedCategory[] = [
   },
   {
     slug: 'headboards-panels',
-    sortOrder: 5,
+    sortOrder: 6,
     name: {
       hy: 'Գլխամասեր և Պատի պանելներ',
       ru: 'Изголовья и Стеновые панели',
@@ -61,7 +71,7 @@ export const categories: SeedCategory[] = [
   },
   {
     slug: 'interior-design',
-    sortOrder: 6,
+    sortOrder: 7,
     isService: true,
     name: { hy: 'Ինտերիերի դիզայն', ru: 'Дизайн интерьера', en: 'Interior Design' },
     desc: {
