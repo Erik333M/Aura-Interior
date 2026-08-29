@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "version": "0.1.0",
-  "description": "Aura Interior \u2014 made-to-order furniture, Yerevan. Monorepo.",
+  "description": "Aura Interior — made-to-order furniture, Yerevan. Monorepo.",
   "engines": {
     "node": ">=20.19.0"
   },

@@ -6,13 +6,20 @@ import { ApiRequestError } from '@/services/client';
 import { Field } from '@/components/Field';
 import styles from './Admin.module.scss';
 
+/**
+ * Password-only sign-in. There is one operator, so an email field asked for a
+ * value that identified nobody.
+ *
+ * The hidden username input is not decoration: without it password managers
+ * cannot associate a saved credential with this form, and Chrome warns about
+ * it. It carries the site name rather than a real account.
+ */
 export function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
   const { t } = useI18n();
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const mutation = useMutation({
-    mutationFn: () => login({ email, password }),
+    mutationFn: () => login({ password }),
     onSuccess: (session) => {
       writeToken(session.token);
       onSuccess();
@@ -29,19 +36,23 @@ export function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
       <form className={styles.loginCard} onSubmit={submit} noValidate>
         <h1 className={styles.loginTitle}>Aura · {t.admin.title}</h1>
 
-        <Field
-          label={t.admin.email}
-          type="email"
+        <input
+          type="text"
+          name="username"
           autoComplete="username"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value="aura-admin"
+          readOnly
+          hidden
+          aria-hidden="true"
+          tabIndex={-1}
         />
+
         <Field
           label={t.admin.password}
           type="password"
           autoComplete="current-password"
           required
+          autoFocus
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />

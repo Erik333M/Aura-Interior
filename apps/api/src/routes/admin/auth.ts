@@ -11,27 +11,37 @@ import { requireAdmin } from '../../middleware/auth.js';
 
 export const adminAuthRouter: Router = Router();
 
+/**
+ * Password-only sign-in.
+ *
+ * There is one operator — the workshop — so an email field asked for a value
+ * that identified nobody. The password still verifies against the bcrypt hash
+ * seeded from ADMIN_PASSWORD; it is never compared in plaintext.
+ *
+ * Trade-off worth naming: with no username, an attacker only has to guess one
+ * secret rather than two. The rate limit on this route (10 failures / 15 min,
+ * successes not counted) is what carries that weight, so do not loosen it.
+ */
 adminAuthRouter.post('/login', loginLimiter, async (req, res, next) => {
   try {
-    const { email, password } = parseOrThrow(adminLoginSchema, req.body);
+    const { password } = parseOrThrow(adminLoginSchema, req.body);
 
-    const admin = await prisma.adminUser.findUnique({ where: { email } });
+    const admin = await prisma.adminUser.findFirst({ orderBy: { createdAt: 'asc' } });
 
-    // Compare against a dummy hash when the user is missing so the response
-    // time does not reveal whether an email exists.
+    // Compare against a dummy hash when no admin row exists, so a
+    // misconfigured deploy does not answer noticeably faster than a wrong
+    // password and advertise that fact.
     const hash =
       admin?.passwordHash ?? '$2a$12$invalidinvalidinvalidinvalidinvalidinvalidinvalidinv';
     const ok = await verifyPassword(password, hash);
 
     if (!admin || !ok) {
-      // One message for both failure modes — never confirm which half was wrong.
-      throw new HttpError(401, 'INVALID_CREDENTIALS', 'Email or password is incorrect');
+      throw new HttpError(401, 'INVALID_CREDENTIALS', 'Incorrect password');
     }
 
     const body: AdminSession = {
       token: signAdminToken({ sub: admin.id, email: admin.email }),
       expiresIn: env.JWT_EXPIRES_IN,
-      admin: { id: admin.id, email: admin.email },
     };
     res.json(body);
   } catch (err) {
@@ -39,7 +49,7 @@ adminAuthRouter.post('/login', loginLimiter, async (req, res, next) => {
   }
 });
 
-/** Lets the admin UI check a stored token without a full page of data. */
+/** Lets the admin UI check a stored token without fetching a page of data. */
 adminAuthRouter.get('/me', requireAdmin, (req, res) => {
-  res.json({ admin: { id: req.admin?.sub, email: req.admin?.email } });
+  res.json({ admin: { id: req.admin?.sub } });
 });

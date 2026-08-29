@@ -50,7 +50,7 @@ export function login(input: AdminLoginInput): Promise<AdminSession> {
   return request<AdminSession>('/admin/login', { method: 'POST', body: JSON.stringify(input) });
 }
 
-export function me(): Promise<{ admin: { id: string; email: string } }> {
+export function me(): Promise<{ admin: { id: string } }> {
   return request('/admin/me', { headers: auth() });
 }
 

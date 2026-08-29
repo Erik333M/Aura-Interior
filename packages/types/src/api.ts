@@ -91,15 +91,14 @@ export interface SearchResponse {
 }
 
 // ── Admin ────────────────────────────────────────────────────────────────────
+/** Password only — there is a single operator, so there is nothing to identify. */
 export interface AdminLoginInput {
-  email: string;
   password: string;
 }
 
 export interface AdminSession {
   token: string;
   expiresIn: string;
-  admin: { id: string; email: string };
 }
 
 /** Trilingual copy as submitted by the admin UI. */

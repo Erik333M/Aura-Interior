@@ -46,8 +46,9 @@ export const createReviewSchema = z.object({
   website: z.string().max(200).optional(),
 });
 
+// Password only. With no username to guess, brute-forcing is cheaper, so the
+// rate limit on this route matters more than it did — see middleware/rateLimit.
 export const adminLoginSchema = z.object({
-  email: z.string().trim().min(3).max(200),
   password: z.string().min(1).max(200),
 });
 
