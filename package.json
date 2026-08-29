@@ -30,7 +30,7 @@
     "lint:fix": "eslint . --fix",
     "seo:generate": "tsx scripts/generate-sitemap.ts",
     "fonts:fetch": "tsx scripts/fetch-fonts.ts",
-    "build:web": "npm run build -w @aura/types && npm run seo:generate && npm run data:generate && npm run build -w @aura/web",
+    "build:web": "npm run build -w @aura/types && npm run media:generate && npm run seo:generate && npm run data:generate && npm run build -w @aura/web",
     "data:generate": "tsx scripts/generate-static-data.ts"
   },
   "devDependencies": {
