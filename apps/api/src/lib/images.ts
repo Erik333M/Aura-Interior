@@ -19,6 +19,8 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const UPLOAD_DIR = path.resolve(HERE, '../../uploads');
 
 const WIDTHS = [400, 800, 1600] as const;
+/** See scripts/generate-placeholders.ts — effort above 1 buys kB and costs seconds. */
+const AVIF_EFFORT = 1;
 const MAX_WIDTH = Math.max(...WIDTHS);
 /** Product photography is portrait — furniture stands up. */
 const DEFAULT_RATIO = 4 / 5;
@@ -59,7 +61,7 @@ export async function processUpload(
       const resized = () => sharp(master).resize(w, h, { fit: 'cover' });
       return [
         resized()
-          .avif({ quality: 55, effort: 4 })
+          .avif({ quality: 55, effort: AVIF_EFFORT })
           .toFile(path.join(UPLOAD_DIR, `${key}-${w}.avif`)),
         resized()
           .webp({ quality: 72 })
