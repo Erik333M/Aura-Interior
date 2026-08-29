@@ -14,7 +14,7 @@ import type { SeedProduct } from './types.js';
  * Retail multiple applied to Paylak's wholesale mattress cost.
  * PLACEHOLDER — set this to Aura's real margin before launch.
  */
-const MATTRESS_MARKUP = 2;
+export const MATTRESS_MARKUP = 2;
 
 export const products: SeedProduct[] = [
   // ───────────────────────── Beds — 450,000–1,400,000 ֏ ─────────────────────
@@ -514,6 +514,13 @@ export const products: SeedProduct[] = [
 
   {
     // SUPPLIER COST (AMD, mattress only): 90x190 = 140.000 · 160x190 = 215.000 · 170x190 = 230.000 · 190x200 = 260.000
+    // Parsed into sizeCosts below — retail is cost * MATTRESS_MARKUP.
+    sizeCosts: [
+      { widthCm: 90, depthCm: 190, cost: 140000 },
+      { widthCm: 160, depthCm: 190, cost: 215000 },
+      { widthCm: 170, depthCm: 190, cost: 230000 },
+      { widthCm: 190, depthCm: 200, cost: 260000 },
+    ],
     slug: 'sipan-mattress',
     categorySlug: 'mattresses',
     priceFrom: 140_000 * MATTRESS_MARKUP,
@@ -538,6 +545,14 @@ export const products: SeedProduct[] = [
   },
   {
     // SUPPLIER COST (AMD, mattress only): 90x190 = 90.000 · 160x190 = 130.000 · 180x190 = 140.000 · 190x200 = 165.000 · 200x200 = 175.000
+    // Parsed into sizeCosts below — retail is cost * MATTRESS_MARKUP.
+    sizeCosts: [
+      { widthCm: 90, depthCm: 190, cost: 90000 },
+      { widthCm: 160, depthCm: 190, cost: 130000 },
+      { widthCm: 180, depthCm: 190, cost: 140000 },
+      { widthCm: 190, depthCm: 200, cost: 165000 },
+      { widthCm: 200, depthCm: 200, cost: 175000 },
+    ],
     slug: 'aragats-mattress',
     categorySlug: 'mattresses',
     priceFrom: 90_000 * MATTRESS_MARKUP,
@@ -562,6 +577,13 @@ export const products: SeedProduct[] = [
   },
   {
     // SUPPLIER COST (AMD, mattress only): 90x190 = 105.000 · 160x190 = 140.000 · 180x190 = 160.000 · 200x200 = 180.000
+    // Parsed into sizeCosts below — retail is cost * MATTRESS_MARKUP.
+    sizeCosts: [
+      { widthCm: 90, depthCm: 190, cost: 105000 },
+      { widthCm: 160, depthCm: 190, cost: 140000 },
+      { widthCm: 180, depthCm: 190, cost: 160000 },
+      { widthCm: 200, depthCm: 200, cost: 180000 },
+    ],
     slug: 'shirak-mattress',
     categorySlug: 'mattresses',
     priceFrom: 105_000 * MATTRESS_MARKUP,
@@ -586,6 +608,13 @@ export const products: SeedProduct[] = [
   },
   {
     // SUPPLIER COST (AMD, mattress only): 90x190 = 90.000 · 160x190 = 135.000 · 180x190 = 150.000 · 200x200 = 165.000
+    // Parsed into sizeCosts below — retail is cost * MATTRESS_MARKUP.
+    sizeCosts: [
+      { widthCm: 90, depthCm: 190, cost: 90000 },
+      { widthCm: 160, depthCm: 190, cost: 135000 },
+      { widthCm: 180, depthCm: 190, cost: 150000 },
+      { widthCm: 200, depthCm: 200, cost: 165000 },
+    ],
     slug: 'syunik-mattress',
     categorySlug: 'mattresses',
     priceFrom: 90_000 * MATTRESS_MARKUP,
@@ -610,6 +639,14 @@ export const products: SeedProduct[] = [
   },
   {
     // SUPPLIER COST (AMD, mattress only): 90x190 = 190.000 · 160x190 = 299.000 · 180x190 = 340.000 · 190x200 = 360.000 · 200x200 = 370.000
+    // Parsed into sizeCosts below — retail is cost * MATTRESS_MARKUP.
+    sizeCosts: [
+      { widthCm: 90, depthCm: 190, cost: 190000 },
+      { widthCm: 160, depthCm: 190, cost: 299000 },
+      { widthCm: 180, depthCm: 190, cost: 340000 },
+      { widthCm: 190, depthCm: 200, cost: 360000 },
+      { widthCm: 200, depthCm: 200, cost: 370000 },
+    ],
     slug: 'vayk-mattress',
     categorySlug: 'mattresses',
     priceFrom: 190_000 * MATTRESS_MARKUP,
@@ -634,6 +671,15 @@ export const products: SeedProduct[] = [
   },
   {
     // SUPPLIER COST (AMD, mattress only): 90x190 = 40.000 · 140x190 = 55.000 · 160x190 = 65.000 · 180x190 = 75.000 · 190x200 = 80.000 · 200x200 = 90.000
+    // Parsed into sizeCosts below — retail is cost * MATTRESS_MARKUP.
+    sizeCosts: [
+      { widthCm: 90, depthCm: 190, cost: 40000 },
+      { widthCm: 140, depthCm: 190, cost: 55000 },
+      { widthCm: 160, depthCm: 190, cost: 65000 },
+      { widthCm: 180, depthCm: 190, cost: 75000 },
+      { widthCm: 190, depthCm: 200, cost: 80000 },
+      { widthCm: 200, depthCm: 200, cost: 90000 },
+    ],
     slug: 'lori-mattress',
     categorySlug: 'mattresses',
     priceFrom: 40_000 * MATTRESS_MARKUP,
@@ -658,6 +704,15 @@ export const products: SeedProduct[] = [
   },
   {
     // SUPPLIER COST (AMD, mattress only): 90x190 = 42.000 · 140x190 = 63.000 · 160x190 = 72.000 · 180x190 = 75.000 · 190x200 = 90.000 · 200x200 = 100.000
+    // Parsed into sizeCosts below — retail is cost * MATTRESS_MARKUP.
+    sizeCosts: [
+      { widthCm: 90, depthCm: 190, cost: 42000 },
+      { widthCm: 140, depthCm: 190, cost: 63000 },
+      { widthCm: 160, depthCm: 190, cost: 72000 },
+      { widthCm: 180, depthCm: 190, cost: 75000 },
+      { widthCm: 190, depthCm: 200, cost: 90000 },
+      { widthCm: 200, depthCm: 200, cost: 100000 },
+    ],
     slug: 'tavush-mattress',
     categorySlug: 'mattresses',
     priceFrom: 42_000 * MATTRESS_MARKUP,
@@ -682,6 +737,14 @@ export const products: SeedProduct[] = [
   },
   {
     // SUPPLIER COST (AMD, mattress only): 90x190 = 60.000 · 140x190 = 90.000 · 160x190 = 100.000 · 180x190 = 110.000 · 200x200 = 120.000
+    // Parsed into sizeCosts below — retail is cost * MATTRESS_MARKUP.
+    sizeCosts: [
+      { widthCm: 90, depthCm: 190, cost: 60000 },
+      { widthCm: 140, depthCm: 190, cost: 90000 },
+      { widthCm: 160, depthCm: 190, cost: 100000 },
+      { widthCm: 180, depthCm: 190, cost: 110000 },
+      { widthCm: 200, depthCm: 200, cost: 120000 },
+    ],
     slug: 'kotayk-mattress',
     categorySlug: 'mattresses',
     priceFrom: 60_000 * MATTRESS_MARKUP,
@@ -706,6 +769,15 @@ export const products: SeedProduct[] = [
   },
   {
     // SUPPLIER COST (AMD, mattress only): 90x190 = 50.000 · 120x140 = 60.000 · 140x190 = 70.000 · 160x190 = 80.000 · 180x190 = 90.000 · 200x200 = 100.000
+    // Parsed into sizeCosts below — retail is cost * MATTRESS_MARKUP.
+    sizeCosts: [
+      { widthCm: 90, depthCm: 190, cost: 50000 },
+      { widthCm: 120, depthCm: 140, cost: 60000 },
+      { widthCm: 140, depthCm: 190, cost: 70000 },
+      { widthCm: 160, depthCm: 190, cost: 80000 },
+      { widthCm: 180, depthCm: 190, cost: 90000 },
+      { widthCm: 200, depthCm: 200, cost: 100000 },
+    ],
     slug: 'armavir-mattress',
     categorySlug: 'mattresses',
     priceFrom: 50_000 * MATTRESS_MARKUP,
@@ -730,6 +802,16 @@ export const products: SeedProduct[] = [
   },
   {
     // SUPPLIER COST (AMD, mattress only): 90x190 = 30.000 · 120x190 = 35.000 · 140x190 = 40.000 · 160x190 = 45.000 · 180x190 = 50.000 · 190x190 = 55.000 · 200x200 = 60.000
+    // Parsed into sizeCosts below — retail is cost * MATTRESS_MARKUP.
+    sizeCosts: [
+      { widthCm: 90, depthCm: 190, cost: 30000 },
+      { widthCm: 120, depthCm: 190, cost: 35000 },
+      { widthCm: 140, depthCm: 190, cost: 40000 },
+      { widthCm: 160, depthCm: 190, cost: 45000 },
+      { widthCm: 180, depthCm: 190, cost: 50000 },
+      { widthCm: 190, depthCm: 190, cost: 55000 },
+      { widthCm: 200, depthCm: 200, cost: 60000 },
+    ],
     slug: 'artashat-mattress',
     categorySlug: 'mattresses',
     priceFrom: 30_000 * MATTRESS_MARKUP,
@@ -754,6 +836,15 @@ export const products: SeedProduct[] = [
   },
   {
     // SUPPLIER COST (AMD, mattress only): 90x190 = 65.000 · 120x190 = 90.000 · 140x190 = 100.000 · 160x190 = 110.000 · 180x190 = 120.000 · 200x200 = 140.000
+    // Parsed into sizeCosts below — retail is cost * MATTRESS_MARKUP.
+    sizeCosts: [
+      { widthCm: 90, depthCm: 190, cost: 65000 },
+      { widthCm: 120, depthCm: 190, cost: 90000 },
+      { widthCm: 140, depthCm: 190, cost: 100000 },
+      { widthCm: 160, depthCm: 190, cost: 110000 },
+      { widthCm: 180, depthCm: 190, cost: 120000 },
+      { widthCm: 200, depthCm: 200, cost: 140000 },
+    ],
     slug: 'goris-mattress',
     categorySlug: 'mattresses',
     priceFrom: 65_000 * MATTRESS_MARKUP,
@@ -778,6 +869,15 @@ export const products: SeedProduct[] = [
   },
   {
     // SUPPLIER COST (AMD, mattress only): 90x190 = 78.000 · 120x190 = 95.000 · 140x190 = 105.000 · 160x190 = 125.000 · 180x190 = 135.000 · 200x200 = 150.000
+    // Parsed into sizeCosts below — retail is cost * MATTRESS_MARKUP.
+    sizeCosts: [
+      { widthCm: 90, depthCm: 190, cost: 78000 },
+      { widthCm: 120, depthCm: 190, cost: 95000 },
+      { widthCm: 140, depthCm: 190, cost: 105000 },
+      { widthCm: 160, depthCm: 190, cost: 125000 },
+      { widthCm: 180, depthCm: 190, cost: 135000 },
+      { widthCm: 200, depthCm: 200, cost: 150000 },
+    ],
     slug: 'jermuk-mattress',
     categorySlug: 'mattresses',
     priceFrom: 78_000 * MATTRESS_MARKUP,
@@ -802,6 +902,16 @@ export const products: SeedProduct[] = [
   },
   {
     // SUPPLIER COST (AMD, mattress only): 90x190 = 53.000 · 120x190 = 64.000 · 140x190 = 74.000 · 160x190 = 85.000 · 180x190 = 90.000 · 190x200 = 100.000 · 200x200 = 110.000
+    // Parsed into sizeCosts below — retail is cost * MATTRESS_MARKUP.
+    sizeCosts: [
+      { widthCm: 90, depthCm: 190, cost: 53000 },
+      { widthCm: 120, depthCm: 190, cost: 64000 },
+      { widthCm: 140, depthCm: 190, cost: 74000 },
+      { widthCm: 160, depthCm: 190, cost: 85000 },
+      { widthCm: 180, depthCm: 190, cost: 90000 },
+      { widthCm: 190, depthCm: 200, cost: 100000 },
+      { widthCm: 200, depthCm: 200, cost: 110000 },
+    ],
     slug: 'sisian-mattress',
     categorySlug: 'mattresses',
     priceFrom: 53_000 * MATTRESS_MARKUP,

@@ -102,6 +102,12 @@ export function toProduct(row: Row): Product {
     featured: row.featured,
     createdAt: row.createdAt.toISOString(),
     images: (row.images ?? []).map(toImage),
+    sizes: (row.sizes ?? []).map((z: Row) => ({
+      id: z.id,
+      widthCm: z.widthCm,
+      depthCm: z.depthCm,
+      priceFrom: z.priceFrom,
+    })),
     // ProductFabric is a join row; unwrap it to the fabric itself.
     fabrics: (row.fabrics ?? []).map((pf: Row) => toFabric(pf.fabric ?? pf)),
     ...(row.reviews ? { reviews: approved.map((r) => toReview(r as Row)) } : {}),

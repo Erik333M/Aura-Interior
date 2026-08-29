@@ -12,6 +12,7 @@ export const adminProductsRouter: Router = Router();
 const include = {
   category: true,
   images: { orderBy: { sortOrder: 'asc' } },
+  sizes: { orderBy: { sortOrder: 'asc' } },
   fabrics: { include: { fabric: true } },
 } as const;
 

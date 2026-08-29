@@ -11,6 +11,7 @@ export const productsRouter: Router = Router();
 const listInclude = {
   category: true,
   images: { orderBy: { sortOrder: 'asc' } },
+  sizes: { orderBy: { sortOrder: 'asc' } },
   fabrics: { include: { fabric: true } },
 } as const;
 

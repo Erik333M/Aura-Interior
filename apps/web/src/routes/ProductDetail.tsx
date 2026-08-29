@@ -54,6 +54,19 @@ export function ProductDetail() {
   const configuration: Configuration | null = useMemo(() => {
     if (!product) return null;
     if (config) return config;
+    // A priced product opens on its cheapest size, so the headline matches the
+    // "from" price the customer clicked through from on the card.
+    const cheapest = product.sizes[0];
+    if (cheapest) {
+      return {
+        sizeId: cheapest.id,
+        widthCm: cheapest.widthCm,
+        depthCm: cheapest.depthCm,
+        heightCm: product.dimensions.heightCm,
+        fabricId: product.fabrics[0]?.id ?? null,
+        priceForSize: cheapest.priceFrom,
+      };
+    }
     const preset = matchPreset(presetsFor(product.category?.slug), product.dimensions);
     return {
       sizeId: preset?.id ?? 'custom',
@@ -61,6 +74,7 @@ export function ProductDetail() {
       depthCm: product.dimensions.depthCm,
       heightCm: product.dimensions.heightCm,
       fabricId: product.fabrics[0]?.id ?? null,
+      priceForSize: null,
     };
   }, [product, config]);
 
@@ -154,7 +168,13 @@ export function ProductDetail() {
           <h1 className={styles.title}>{name}</h1>
 
           <div className={styles.priceRow}>
-            <span className={styles.price}>{price(product.priceFrom)}</span>
+            {/* Follows the selected size: an exact price once a real table entry
+                is chosen, a "from" while the size is still open. */}
+            <span className={styles.price}>
+              {configuration?.priceForSize != null
+                ? price(configuration.priceForSize, false)
+                : price(product.priceFrom)}
+            </span>
             <span className={styles.madeToOrder}>{t.common.madeToOrder}</span>
           </div>
 

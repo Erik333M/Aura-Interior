@@ -48,6 +48,7 @@ searchRouter.get('/', async (req, res, next) => {
         include: {
           category: true,
           images: { orderBy: { sortOrder: 'asc' }, take: 1 },
+          sizes: { orderBy: { sortOrder: 'asc' } },
           fabrics: { include: { fabric: true } },
         },
         orderBy: [{ featured: 'desc' }, { priceFrom: 'asc' }],

@@ -288,6 +288,7 @@ export const en: Dictionary = {
     size: 'Size',
     colour: 'Colour',
     fabric: 'Fabric',
+    priceForSize: 'Price for this size. Includes delivery within Yerevan.',
     priceNote: 'The final price depends on the size and fabric. We confirm it after your request.',
     customSizeNotAvailable: 'This piece comes in one standard size.',
     swatchesNote: 'swatches available',

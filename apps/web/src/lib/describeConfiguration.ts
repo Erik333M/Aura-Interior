@@ -4,8 +4,15 @@ import type { Configuration } from '@/components/Configurator';
 export function describeConfiguration(
   config: Configuration,
   fabricName: string | undefined,
-  labels: { size: string; fabric: string; cm: string },
+  labels: { size: string; fabric: string; cm: string; price?: string },
+  formattedPrice?: string,
 ): string {
-  const size = `${labels.size}: ${config.widthCm} × ${config.depthCm} × ${config.heightCm} ${labels.cm}`;
-  return fabricName ? `${size}\n${labels.fabric}: ${fabricName}` : size;
+  const lines = [
+    `${labels.size}: ${config.widthCm} × ${config.depthCm} × ${config.heightCm} ${labels.cm}`,
+  ];
+  if (fabricName) lines.push(`${labels.fabric}: ${fabricName}`);
+  // Include the price the customer was actually looking at, so a quote can be
+  // checked against what the site showed rather than reconstructed.
+  if (formattedPrice && labels.price) lines.push(`${labels.price}: ${formattedPrice}`);
+  return lines.join('\n');
 }

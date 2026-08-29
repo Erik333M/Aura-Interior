@@ -285,6 +285,7 @@ export const ru: Dictionary = {
     size: 'Размер',
     colour: 'Цвет',
     fabric: 'Ткань',
+    priceForSize: 'Цена за этот размер. Включает доставку по Еревану.',
     priceNote: 'Итоговая цена зависит от размера и ткани. Подтвердим после запроса.',
     customSizeNotAvailable: 'Эта модель только в стандартном размере.',
     swatchesNote: 'образцов доступно',
