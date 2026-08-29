@@ -205,7 +205,7 @@ async function render(job: Job): Promise<ManifestEntry> {
           .avif({ quality: 55, effort: AVIF_EFFORT })
           .toFile(path.join(OUT_DIR, `${job.key}-${w}.avif`)),
         resized()
-          .webp({ quality: 72 })
+          .webp({ quality: 72, effort: WEBP_EFFORT })
           .toFile(path.join(OUT_DIR, `${job.key}-${w}.webp`)),
         resized()
           .jpeg({ quality: 78, mozjpeg: true })
