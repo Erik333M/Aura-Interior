@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import type { CreateInquiryInput, Fabric, Product } from '@aura/types';
 import { useI18n } from '@/i18n';
 import { createInquiry } from '@/services/inquiries';
+import { STATIC_MODE } from '@/services/catalogue';
 import { track } from '@/lib/analytics';
 import { ApiRequestError } from '@/services/client';
 import { Field, TextareaField, Honeypot } from '@/components/Field';
@@ -46,7 +47,36 @@ export function InquiryForm({
   const [fields, setFields] = useState<Record<string, string>>({});
 
   const mutation = useMutation({
-    mutationFn: (input: CreateInquiryInput) => createInquiry(input),
+    mutationFn: async (input: CreateInquiryInput) => {
+      /**
+       * Static deploys have no API to receive an enquiry. Rather than fail — or
+       * worse, look like it succeeded and drop the lead — the enquiry is handed
+       * to WhatsApp with everything the customer typed already in the message.
+       * That is how Aura takes orders today anyway, so nothing is lost.
+       */
+      if (STATIC_MODE) {
+        const lines = [
+          product ? `${t.inquiry.piece}: ${tl(product.name)}` : null,
+          fabric ? `${t.inquiry.fabric}: ${tl(fabric.name)}` : null,
+          input.customDimensions ? `${t.inquiry.customDimensions}: ${input.customDimensions}` : null,
+          '',
+          input.message,
+          '',
+          `${t.inquiry.name}: ${input.name}`,
+          `${t.inquiry.phone}: ${input.phone}`,
+          input.email ? `${t.inquiry.email}: ${input.email}` : null,
+        ].filter((l): l is string => l !== null);
+
+        const number = import.meta.env['VITE_WHATSAPP_NUMBER'];
+        const text = encodeURIComponent(lines.join('\n'));
+        const url = number
+          ? `https://wa.me/${number}?text=${text}`
+          : `https://ig.me/m/${import.meta.env['VITE_INSTAGRAM_HANDLE'] ?? 'aura_Interior'}`;
+        window.open(url, '_blank', 'noopener,noreferrer');
+        return { id: 'whatsapp', status: 'HANDED_OFF', message: '' };
+      }
+      return createInquiry(input);
+    },
     onSuccess: () => {
       setFields({});
       // THE primary conversion. Everything else on the site is secondary signal.
