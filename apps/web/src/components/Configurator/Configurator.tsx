@@ -1,16 +1,18 @@
 import { useId, useMemo } from 'react';
 import { FABRIC_CATEGORIES, type Fabric, type FabricCategory, type Product } from '@aura/types';
 import { useI18n } from '@/i18n';
-import { presetsFor, type SizePreset } from '@/lib/sizes';
+import { presetsFor } from '@/lib/sizes';
 import styles from './Configurator.module.scss';
 
 export interface Configuration {
-  /** Preset id, or 'custom'. */
+  /** A ProductSize id, a preset id, or 'custom'. */
   sizeId: string;
   widthCm: number;
   depthCm: number;
   heightCm: number;
   fabricId: string | null;
+  /** Price for the chosen size, when the product has a real price table. */
+  priceForSize: number | null;
 }
 
 export interface ConfiguratorProps {
@@ -45,8 +47,39 @@ export function Configurator({ product, value, onChange }: ConfiguratorProps) {
   const { t, tl, price, formatNumber } = useI18n();
   const groupId = useId();
 
-  const presets = presetsFor(product.category?.slug);
   const isCustom = value.sizeId === 'custom';
+
+  /**
+   * Where the supplier gave a real price table we offer THOSE sizes, priced —
+   * that is the whole point: picking a size changes the price, the way any
+   * marketplace behaves. Only when a product has no table do we fall back to
+   * the generic category presets, which are unpriced because inventing a
+   * per-size price would be a lie the customer pays for.
+   */
+  const priced = product.sizes.length > 0;
+  const options: Array<{
+    id: string;
+    label: string;
+    note?: string;
+    widthCm: number;
+    depthCm: number;
+    price: number | null;
+  }> = priced
+    ? product.sizes.map((z) => ({
+        id: z.id,
+        label: `${z.widthCm} × ${z.depthCm}`,
+        widthCm: z.widthCm,
+        depthCm: z.depthCm,
+        price: z.priceFrom,
+      }))
+    : presetsFor(product.category?.slug).map((preset) => ({
+        id: preset.id,
+        label: preset.label,
+        ...(preset.note ? { note: preset.note } : {}),
+        widthCm: preset.widthCm,
+        depthCm: preset.depthCm ?? product.dimensions.depthCm,
+        price: null,
+      }));
 
   // Fabrics grouped by type so the customer sees "velvet" as a decision rather
   // than a wall of undifferentiated circles.
@@ -67,23 +100,25 @@ export function Configurator({ product, value, onChange }: ConfiguratorProps) {
   const selectedFabric: Fabric | undefined =
     product.fabrics.find((f) => f.id === value.fabricId) ?? product.fabrics[0];
 
-  const applyPreset = (p: SizePreset): void =>
+  const applyOption = (o: (typeof options)[number]): void =>
     onChange({
       ...value,
-      sizeId: p.id,
-      widthCm: p.widthCm,
-      depthCm: p.depthCm ?? product.dimensions.depthCm,
+      sizeId: o.id,
+      widthCm: o.widthCm,
+      depthCm: o.depthCm,
       heightCm: product.dimensions.heightCm,
+      priceForSize: o.price,
     });
 
   const setDim = (key: 'widthCm' | 'depthCm' | 'heightCm', raw: string): void => {
     const n = Number.parseInt(raw, 10);
-    onChange({ ...value, sizeId: 'custom', [key]: Number.isFinite(n) ? n : 0 });
+    // A custom size has no table entry, so it is quoted rather than priced.
+    onChange({ ...value, sizeId: 'custom', priceForSize: null, [key]: Number.isFinite(n) ? n : 0 });
   };
 
   // Derived rather than a mutating counter: a piece with no size choice starts
   // its colour step at 01, not 02.
-  const showSizeStep = presets.length > 0 || product.customSizeAvailable;
+  const showSizeStep = options.length > 0 || product.customSizeAvailable;
   const showColourStep = product.fabrics.length > 0;
   // A mattress has no fabric options, so size is its only decision — numbering a
   // single step "01" implies a step 02 that never comes.
@@ -104,26 +139,30 @@ export function Configurator({ product, value, onChange }: ConfiguratorProps) {
             <span className={styles.legendText}>{t.configurator.chooseSize}</span>
           </legend>
 
-          {presets.length > 0 && (
+          {options.length > 0 && (
             <ul className={styles.chips} role="list">
-              {presets.map((p) => {
-                const selected = value.sizeId === p.id;
+              {options.map((o) => {
+                const selected = value.sizeId === o.id;
                 return (
-                  <li key={p.id}>
+                  <li key={o.id}>
                     <input
                       className={styles.native}
                       type="radio"
                       name={`${groupId}-size`}
-                      id={`${groupId}-size-${p.id}`}
+                      id={`${groupId}-size-${o.id}`}
                       checked={selected}
-                      onChange={() => applyPreset(p)}
+                      onChange={() => applyOption(o)}
                     />
                     <label
-                      htmlFor={`${groupId}-size-${p.id}`}
+                      htmlFor={`${groupId}-size-${o.id}`}
                       className={`${styles.chip} ${selected ? styles.chipSelected : ''}`}
                     >
-                      <span className={styles.chipLabel}>{p.label}</span>
-                      {p.note && <span className={styles.chipNote}>{p.note}</span>}
+                      <span className={styles.chipLabel}>{o.label}</span>
+                      {o.price !== null ? (
+                        <span className={styles.chipPrice}>{price(o.price, false)}</span>
+                      ) : (
+                        o.note && <span className={styles.chipNote}>{o.note}</span>
+                      )}
                     </label>
                   </li>
                 );
@@ -137,7 +176,7 @@ export function Configurator({ product, value, onChange }: ConfiguratorProps) {
                     name={`${groupId}-size`}
                     id={`${groupId}-size-custom`}
                     checked={isCustom}
-                    onChange={() => onChange({ ...value, sizeId: 'custom' })}
+                    onChange={() => onChange({ ...value, sizeId: 'custom', priceForSize: null })}
                   />
                   <label
                     htmlFor={`${groupId}-size-custom`}
@@ -153,7 +192,7 @@ export function Configurator({ product, value, onChange }: ConfiguratorProps) {
 
           {/* Custom inputs appear only once custom is chosen, or when the piece
               has no presets at all and made-to-order is the only route. */}
-          {product.customSizeAvailable && (isCustom || presets.length === 0) && (
+          {product.customSizeAvailable && (isCustom || options.length === 0) && (
             <>
               <p className={styles.hint}>{t.configurator.customHint}</p>
               <div className={styles.custom}>
@@ -188,7 +227,7 @@ export function Configurator({ product, value, onChange }: ConfiguratorProps) {
             </>
           )}
 
-          {!product.customSizeAvailable && presets.length === 0 && (
+          {!product.customSizeAvailable && options.length === 0 && (
             <p className={styles.hint}>{t.configurator.customSizeNotAvailable}</p>
           )}
         </fieldset>
@@ -281,9 +320,16 @@ export function Configurator({ product, value, onChange }: ConfiguratorProps) {
 
         <div className={styles.price}>
           <span className={styles.summaryKey}>{t.catalogue.price}</span>
-          <span className={styles.priceValue}>{price(product.priceFrom)}</span>
+          <span className={styles.priceValue}>
+            {value.priceForSize !== null
+              ? // A real table entry: an exact price, not a "from".
+                price(value.priceForSize, false)
+              : price(product.priceFrom)}
+          </span>
         </div>
-        <p className={styles.priceNote}>{t.configurator.priceNote}</p>
+        <p className={styles.priceNote}>
+          {value.priceForSize !== null ? t.configurator.priceForSize : t.configurator.priceNote}
+        </p>
       </div>
     </div>
   );

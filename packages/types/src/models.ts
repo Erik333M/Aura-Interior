@@ -37,6 +37,15 @@ export interface Dimensions {
   heightCm: number;
 }
 
+/** A size the customer can buy, with the price for that size. */
+export interface ProductSize {
+  id: string;
+  widthCm: number;
+  depthCm: number;
+  /** Retail price in AMD for this exact size. */
+  priceFrom: number;
+}
+
 export interface Product {
   id: string;
   slug: string;
@@ -53,6 +62,12 @@ export interface Product {
   featured: boolean;
   createdAt: string;
   images: ProductImage[];
+  /**
+   * Priced sizes, cheapest first. Empty means the piece is quoted from
+   * `priceFrom` and made to the customer's dimensions — the UI must not
+   * invent a price per size in that case.
+   */
+  sizes: ProductSize[];
   fabrics: Fabric[];
   reviews?: Review[];
   rating?: RatingSummary;

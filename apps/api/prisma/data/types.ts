@@ -21,6 +21,14 @@ export interface SeedFabric {
   sortOrder: number;
 }
 
+/** One purchasable size with its own price. */
+export interface SeedSizeCost {
+  widthCm: number;
+  depthCm: number;
+  /** Wholesale cost in AMD. Retail is this times the category markup. */
+  cost: number;
+}
+
 export interface SeedProduct {
   slug: string;
   name: L10n;
@@ -36,6 +44,12 @@ export interface SeedProduct {
   featured: boolean;
   /** Slugs from the fabric library that this piece can be commissioned in. */
   fabricSlugs: string[];
+  /**
+   * Real per-size price table, where the supplier gave one. Absent means the
+   * piece is quoted from `priceFrom` and sized to order — the UI shows the size
+   * chips without prices rather than inventing them.
+   */
+  sizeCosts?: SeedSizeCost[];
 }
 
 export interface SeedProject {

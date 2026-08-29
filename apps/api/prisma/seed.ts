@@ -13,7 +13,7 @@ import { prisma } from '../src/db.js';
 import { env } from '../src/env.js';
 import { categories } from './data/categories.js';
 import { fabrics } from './data/fabrics.js';
-import { products } from './data/products.js';
+import { MATTRESS_MARKUP, products } from './data/products.js';
 import { projects } from './data/projects.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -229,6 +229,24 @@ async function main(): Promise<void> {
           sortOrder: n,
         },
       });
+    }
+
+    // Priced sizes, where the supplier gave a real table. Replaced wholesale so
+    // re-seeding never leaves a stale size behind.
+    await prisma.productSize.deleteMany({ where: { productId: product.id } });
+    if (p.sizeCosts?.length) {
+      const sorted = [...p.sizeCosts].sort((a, b) => a.cost - b.cost);
+      for (const [i, size] of sorted.entries()) {
+        await prisma.productSize.create({
+          data: {
+            productId: product.id,
+            widthCm: size.widthCm,
+            depthCm: size.depthCm,
+            priceFrom: size.cost * MATTRESS_MARKUP,
+            sortOrder: i,
+          },
+        });
+      }
     }
 
     await prisma.productFabric.deleteMany({ where: { productId: product.id } });
