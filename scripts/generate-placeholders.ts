@@ -70,11 +70,15 @@ const RATIO = {
   swatch: 1,
 } as const;
 
+type Shape = 'block' | 'sofa' | 'panel';
+
 interface Job {
   key: string;
   label: string;
   eyebrow: string;
   ratio: number;
+  /** Silhouette drawn in the generated art when there is no photograph. */
+  shape?: Shape;
   /** Swatch tiles render as flat fabric colour rather than a studio scene. */
   swatchHex?: string;
 }
@@ -94,6 +98,42 @@ function hashOf(key: string): number {
 function vary(key: string, salt: number, min: number, max: number): number {
   const h = hashOf(key + ':' + salt);
   return min + ((h % 1000) / 1000) * (max - min);
+}
+
+/**
+ * A category-appropriate outline for the pieces still without photography.
+ * A single grey rectangle read as a missing image; a recognisable silhouette
+ * reads as art awaiting a photo.
+ */
+function silhouette(shape: Shape, x: number, y: number, w: number, h: number, r: number): string {
+  const stroke = 'stroke="#C6A15B" stroke-opacity="0.32" stroke-width="1"';
+  if (shape === 'sofa') {
+    const armW = w * 0.13;
+    const backH = h * 0.52;
+    return `
+  <rect x="${x}" y="${y + backH * 0.55}" width="${w}" height="${h - backH * 0.55}" rx="${r * 0.5}" fill="url(#piece)"/>
+  <rect x="${x}" y="${y}" width="${w}" height="${backH}" rx="${r}" fill="url(#piece)"/>
+  <rect x="${x}" y="${y + backH * 0.3}" width="${armW}" height="${h - backH * 0.3}" rx="${r * 0.6}" fill="url(#piece)"/>
+  <rect x="${x + w - armW}" y="${y + backH * 0.3}" width="${armW}" height="${h - backH * 0.3}" rx="${r * 0.6}" fill="url(#piece)"/>
+  <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="none" ${stroke}/>`;
+  }
+  if (shape === 'panel') {
+    // Vertical channels, which is what an upholstered panel actually is.
+    const cols = 7;
+    const gap = w / cols;
+    const lines = Array.from(
+      { length: cols - 1 },
+      (_, i) =>
+        `<line x1="${x + gap * (i + 1)}" y1="${y + 6}" x2="${x + gap * (i + 1)}" y2="${y + h - 6}" ${stroke}/>`,
+    ).join('\n  ');
+    return `
+  <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r * 0.4}" fill="url(#piece)"/>
+  ${lines}
+  <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r * 0.4}" fill="none" ${stroke}/>`;
+  }
+  return `
+  <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="url(#piece)"/>
+  <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="none" ${stroke}/>`;
 }
 
 const esc = (s: string) =>
@@ -121,6 +161,7 @@ function sceneSvg(job: Job, w: number, h: number): string {
 </svg>`;
   }
 
+  const shape = job.shape ?? 'block';
   const cx = vary(key, 1, 34, 66);
   const cy = vary(key, 2, 26, 44);
   const floorY = h * 0.74;
@@ -142,13 +183,13 @@ function sceneSvg(job: Job, w: number, h: number): string {
       <stop offset="100%" stop-color="#141416"/>
     </linearGradient>
     <radialGradient id="lamp" cx="${cx}%" cy="${cy}%" r="62%">
-      <stop offset="0%" stop-color="#C6A15B" stop-opacity="0.26"/>
-      <stop offset="55%" stop-color="#C6A15B" stop-opacity="0.06"/>
+      <stop offset="0%" stop-color="#C6A15B" stop-opacity="0.38"/>
+      <stop offset="55%" stop-color="#C6A15B" stop-opacity="0.10"/>
       <stop offset="100%" stop-color="#C6A15B" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="piece" x1="0" y1="0" x2="0.3" y2="1">
-      <stop offset="0%" stop-color="#3A3A40"/>
-      <stop offset="100%" stop-color="#1A1A1D"/>
+      <stop offset="0%" stop-color="#6E6A63"/>
+      <stop offset="100%" stop-color="#2E2C2A"/>
     </linearGradient>
     <radialGradient id="contact" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#000" stop-opacity="0.62"/>
@@ -160,9 +201,7 @@ function sceneSvg(job: Job, w: number, h: number): string {
   <rect width="${w}" height="${h}" fill="url(#lamp)"/>
 
   <ellipse cx="${w / 2}" cy="${floorY + objH * 0.05}" rx="${objW * 0.62}" ry="${objH * 0.1}" fill="url(#contact)"/>
-  <rect x="${objX}" y="${objY}" width="${objW}" height="${objH}" rx="${radius}" fill="url(#piece)"/>
-  <rect x="${objX}" y="${objY}" width="${objW}" height="${objH}" rx="${radius}"
-        fill="none" stroke="#C6A15B" stroke-opacity="0.18" stroke-width="1"/>
+  ${silhouette(shape, objX, objY, objW, objH, radius)}
   <line x1="0" y1="${floorY}" x2="${w}" y2="${floorY}" stroke="#C6A15B" stroke-opacity="0.12" stroke-width="1"/>
 
   <rect x="${inset}" y="${inset}" width="${w - inset * 2}" height="${h - inset * 2}"

@@ -14,7 +14,26 @@ import type { SeedProduct } from './types.js';
  * Retail multiple applied to Paylak's wholesale mattress cost.
  * PLACEHOLDER — set this to Aura's real margin before launch.
  */
-export const MATTRESS_MARKUP = 2;
+/**
+ * Retail = (supplier cost + SUPPLIER_SURCHARGE) * MATTRESS_MARKUP, rounded to
+ * the nearest 1,000 AMD.
+ *
+ * The old flat x2 was a placeholder that did two things wrong: 2.0 is well
+ * above a normal furniture retail multiple, and it ignored the surcharge the
+ * supplier said to expect on every quoted cost. 1.45 is a realistic wholesale
+ * -> retail multiple for this market.
+ *
+ * STILL AN ESTIMATE. Confirm both numbers with Paylak before quoting.
+ */
+export const MATTRESS_MARKUP = 1.45;
+
+/** The supplier said to expect roughly 15-20k AMD on top of every quoted cost. */
+export const SUPPLIER_SURCHARGE = 18_000;
+
+/** Retail price for a given wholesale cost, rounded to a sane shelf number. */
+export function retailFromCost(cost: number): number {
+  return Math.round(((cost + SUPPLIER_SURCHARGE) * MATTRESS_MARKUP) / 1000) * 1000;
+}
 
 export const products: SeedProduct[] = [
   // ───────────────────────── Beds — 450,000–1,400,000 ֏ ─────────────────────
@@ -523,7 +542,7 @@ export const products: SeedProduct[] = [
     ],
     slug: 'sipan-mattress',
     categorySlug: 'mattresses',
-    priceFrom: 140_000 * MATTRESS_MARKUP,
+    priceFrom: retailFromCost(140_000),
     widthCm: 90,
     depthCm: 190,
     heightCm: 24,
@@ -555,7 +574,7 @@ export const products: SeedProduct[] = [
     ],
     slug: 'aragats-mattress',
     categorySlug: 'mattresses',
-    priceFrom: 90_000 * MATTRESS_MARKUP,
+    priceFrom: retailFromCost(90_000),
     widthCm: 90,
     depthCm: 190,
     heightCm: 24,
@@ -586,7 +605,7 @@ export const products: SeedProduct[] = [
     ],
     slug: 'shirak-mattress',
     categorySlug: 'mattresses',
-    priceFrom: 105_000 * MATTRESS_MARKUP,
+    priceFrom: retailFromCost(105_000),
     widthCm: 90,
     depthCm: 190,
     heightCm: 24,
@@ -617,7 +636,7 @@ export const products: SeedProduct[] = [
     ],
     slug: 'syunik-mattress',
     categorySlug: 'mattresses',
-    priceFrom: 90_000 * MATTRESS_MARKUP,
+    priceFrom: retailFromCost(90_000),
     widthCm: 90,
     depthCm: 190,
     heightCm: 24,
@@ -649,7 +668,7 @@ export const products: SeedProduct[] = [
     ],
     slug: 'vayk-mattress',
     categorySlug: 'mattresses',
-    priceFrom: 190_000 * MATTRESS_MARKUP,
+    priceFrom: retailFromCost(190_000),
     widthCm: 90,
     depthCm: 190,
     heightCm: 24,
@@ -682,7 +701,7 @@ export const products: SeedProduct[] = [
     ],
     slug: 'lori-mattress',
     categorySlug: 'mattresses',
-    priceFrom: 40_000 * MATTRESS_MARKUP,
+    priceFrom: retailFromCost(40_000),
     widthCm: 90,
     depthCm: 190,
     heightCm: 18,
@@ -715,7 +734,7 @@ export const products: SeedProduct[] = [
     ],
     slug: 'tavush-mattress',
     categorySlug: 'mattresses',
-    priceFrom: 42_000 * MATTRESS_MARKUP,
+    priceFrom: retailFromCost(42_000),
     widthCm: 90,
     depthCm: 190,
     heightCm: 18,
@@ -747,7 +766,7 @@ export const products: SeedProduct[] = [
     ],
     slug: 'kotayk-mattress',
     categorySlug: 'mattresses',
-    priceFrom: 60_000 * MATTRESS_MARKUP,
+    priceFrom: retailFromCost(60_000),
     widthCm: 90,
     depthCm: 190,
     heightCm: 18,
@@ -780,7 +799,7 @@ export const products: SeedProduct[] = [
     ],
     slug: 'armavir-mattress',
     categorySlug: 'mattresses',
-    priceFrom: 50_000 * MATTRESS_MARKUP,
+    priceFrom: retailFromCost(50_000),
     widthCm: 90,
     depthCm: 190,
     heightCm: 18,
@@ -814,7 +833,7 @@ export const products: SeedProduct[] = [
     ],
     slug: 'artashat-mattress',
     categorySlug: 'mattresses',
-    priceFrom: 30_000 * MATTRESS_MARKUP,
+    priceFrom: retailFromCost(30_000),
     widthCm: 90,
     depthCm: 190,
     heightCm: 18,
@@ -847,7 +866,7 @@ export const products: SeedProduct[] = [
     ],
     slug: 'goris-mattress',
     categorySlug: 'mattresses',
-    priceFrom: 65_000 * MATTRESS_MARKUP,
+    priceFrom: retailFromCost(65_000),
     widthCm: 90,
     depthCm: 190,
     heightCm: 18,
@@ -880,7 +899,7 @@ export const products: SeedProduct[] = [
     ],
     slug: 'jermuk-mattress',
     categorySlug: 'mattresses',
-    priceFrom: 78_000 * MATTRESS_MARKUP,
+    priceFrom: retailFromCost(78_000),
     widthCm: 90,
     depthCm: 190,
     heightCm: 18,
@@ -914,7 +933,7 @@ export const products: SeedProduct[] = [
     ],
     slug: 'sisian-mattress',
     categorySlug: 'mattresses',
-    priceFrom: 53_000 * MATTRESS_MARKUP,
+    priceFrom: retailFromCost(53_000),
     widthCm: 90,
     depthCm: 190,
     heightCm: 24,

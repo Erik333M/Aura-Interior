@@ -17,7 +17,7 @@ import { fileURLToPath } from 'node:url';
 
 import { categories } from '../apps/api/prisma/data/categories.js';
 import { fabrics } from '../apps/api/prisma/data/fabrics.js';
-import { MATTRESS_MARKUP, products } from '../apps/api/prisma/data/products.js';
+import { products, retailFromCost } from '../apps/api/prisma/data/products.js';
 import { projects } from '../apps/api/prisma/data/projects.js';
 import { reviewSeeds } from '../apps/api/prisma/data/reviews.js';
 
@@ -92,7 +92,7 @@ async function main(): Promise<void> {
         id: `size_${p.slug}_${z.widthCm}x${z.depthCm}`,
         widthCm: z.widthCm,
         depthCm: z.depthCm,
-        priceFrom: z.cost * MATTRESS_MARKUP,
+        priceFrom: retailFromCost(z.cost),
         sortOrder: i,
       }));
 
@@ -158,17 +158,18 @@ async function main(): Promise<void> {
 
   await writeFile(path.join(OUT, 'reviews.json'), JSON.stringify(builtReviews));
   await writeFile(path.join(OUT, 'products.json'), JSON.stringify(built));
-  await writeFile(
-    path.join(OUT, 'categories.json'),
-    JSON.stringify([...categoryById.values()]),
-  );
+  await writeFile(path.join(OUT, 'categories.json'), JSON.stringify([...categoryById.values()]));
   await writeFile(path.join(OUT, 'fabrics.json'), JSON.stringify([...fabricBySlug.values()]));
   await writeFile(path.join(OUT, 'projects.json'), JSON.stringify(builtProjects));
 
-  console.log(`✔ ${built.length} products, ${categoryById.size} categories, ` +
-    `${fabricBySlug.size} fabrics, ${builtProjects.length} projects → apps/web/public/data`);
-  console.log(`  priced sizes: ${built.reduce((n, p) => n + p.sizes.length, 0)}, ` +
-    `approved reviews: ${builtReviews.length}`);
+  console.log(
+    `✔ ${built.length} products, ${categoryById.size} categories, ` +
+      `${fabricBySlug.size} fabrics, ${builtProjects.length} projects → apps/web/public/data`,
+  );
+  console.log(
+    `  priced sizes: ${built.reduce((n, p) => n + p.sizes.length, 0)}, ` +
+      `approved reviews: ${builtReviews.length}`,
+  );
 }
 
 main().catch((err: unknown) => {

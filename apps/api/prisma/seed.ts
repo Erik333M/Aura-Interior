@@ -13,7 +13,7 @@ import { prisma } from '../src/db.js';
 import { env } from '../src/env.js';
 import { categories } from './data/categories.js';
 import { fabrics } from './data/fabrics.js';
-import { MATTRESS_MARKUP, products } from './data/products.js';
+import { products, retailFromCost } from './data/products.js';
 import { projects } from './data/projects.js';
 import { reviewSeeds } from './data/reviews.js';
 
@@ -38,8 +38,6 @@ async function loadManifest(): Promise<Record<string, ManifestEntry>> {
     process.exit(1);
   }
 }
-
-
 
 async function main(): Promise<void> {
   const manifest = await loadManifest();
@@ -171,7 +169,7 @@ async function main(): Promise<void> {
             productId: product.id,
             widthCm: size.widthCm,
             depthCm: size.depthCm,
-            priceFrom: size.cost * MATTRESS_MARKUP,
+            priceFrom: retailFromCost(size.cost),
             sortOrder: i,
           },
         });

@@ -120,7 +120,9 @@ export async function staticProducts(q: ProductQuery = {}): Promise<ProductListR
   const histogram = new Array<number>(PRICE_BUCKETS).fill(0);
   for (const p of pricePool) {
     const idx =
-      span > 0 ? Math.min(PRICE_BUCKETS - 1, Math.floor(((p.priceFrom - min) / span) * PRICE_BUCKETS)) : 0;
+      span > 0
+        ? Math.min(PRICE_BUCKETS - 1, Math.floor(((p.priceFrom - min) / span) * PRICE_BUCKETS))
+        : 0;
     histogram[idx] = (histogram[idx] ?? 0) + 1;
   }
 
