@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { CATEGORY_ALIASES } from '@/lib/slugAliases';
 import {
   FABRIC_CATEGORIES,
   PRODUCT_SORTS,
@@ -59,7 +60,8 @@ export function parseFilters(params: URLSearchParams): FilterState {
   );
 
   return {
-    categories: readList(params, 'categories'),
+    // Old category slugs in a shared URL resolve to the current one.
+    categories: readList(params, 'categories').map((c) => CATEGORY_ALIASES[c] ?? c),
     fabricCategories,
     fabrics: readList(params, 'fabrics'),
     priceMin: readInt(params, 'priceMin'),

@@ -277,7 +277,14 @@ async function main(): Promise<void> {
   await prisma.review.deleteMany({});
   for (const r of reviewSeeds) {
     const productId = productIds.get(r.slug);
-    if (!productId) continue;
+    // Skipping silently is what let a rename delete every review without a
+    // word. A review pointing at a product that does not exist is a data
+    // error, so say so.
+    if (!productId) {
+      throw new Error(
+        `Review by "${r.authorName}" references product "${r.slug}", which is not in products.ts.`,
+      );
+    }
     await prisma.review.create({
       data: {
         productId,

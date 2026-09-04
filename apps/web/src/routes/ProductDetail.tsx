@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import type { Fabric } from '@aura/types';
 import { useI18n } from '@/i18n';
@@ -8,6 +8,7 @@ import { Gallery } from '@/components/Gallery';
 import { Configurator, type Configuration } from '@/components/Configurator';
 import { describeConfiguration } from '@/lib/describeConfiguration';
 import { presetsFor, matchPreset } from '@/lib/sizes';
+import { SLUG_ALIASES } from '@/lib/slugAliases';
 import { Modal } from '@/components/Modal';
 import { InquiryForm } from '@/components/InquiryForm';
 import { MagneticButton } from '@/components/MagneticButton';
@@ -32,10 +33,14 @@ export function ProductDetail() {
   const [config, setConfig] = useState<Configuration | null>(null);
   const [inquiryOpen, setInquiryOpen] = useState(false);
 
+  // A renamed piece keeps working on its old URL. Checked before the fetch, so
+  // a stale link never even shows a flash of "not found".
+  const alias = slug ? SLUG_ALIASES[slug] : undefined;
+
   const query = useQuery({
     queryKey: catalogueKeys.product(slug ?? ''),
     queryFn: () => fetchProduct(slug ?? ''),
-    enabled: Boolean(slug),
+    enabled: Boolean(slug) && !alias,
     retry: false,
   });
 
@@ -96,6 +101,7 @@ export function ProductDetail() {
     enabled: Boolean(product?.category),
   });
 
+  if (alias) return <Navigate to={path(`/catalogue/${alias}`)} replace />;
   if (query.isError) return <NotFound />;
 
   if (query.isPending) {
