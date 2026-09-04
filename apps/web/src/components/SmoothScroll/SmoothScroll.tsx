@@ -14,7 +14,7 @@ import { registerLenis, scrollToTop } from '@/lib/smoothScroll';
  */
 export function SmoothScroll() {
   const reduced = useReducedMotion();
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
 
   useEffect(() => {
     if (reduced) {
@@ -45,11 +45,30 @@ export function SmoothScroll() {
     };
   }, [reduced]);
 
+  /**
+   * Stop the browser restoring the previous scroll position on reload.
+   *
+   * The default 'auto' means a refresh drops you back where you were, halfway
+   * down a page whose content has just been re-fetched — and on a route the
+   * browser has seen before, a fresh navigation can land mid-page too.
+   */
+  useEffect(() => {
+    if (!('scrollRestoration' in window.history)) return;
+    const previous = window.history.scrollRestoration;
+    window.history.scrollRestoration = 'manual';
+    return () => {
+      window.history.scrollRestoration = previous;
+    };
+  }, []);
+
   // A new route must start at the top, and instantly — smoothly scrolling up
   // through the outgoing page during a route transition looks like a bug.
+  // Keyed on search too: /catalogue?categories=beds is a different view of the
+  // page, and leaving the reader halfway down someone else's results is
+  // disorienting.
   useEffect(() => {
     scrollToTop();
-  }, [pathname]);
+  }, [pathname, search]);
 
   return null;
 }

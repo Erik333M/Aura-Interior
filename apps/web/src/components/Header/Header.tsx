@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { AnimatePresence, m } from 'framer-motion';
 import { useI18n } from '@/i18n';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-import { pauseScroll, resumeScroll } from '@/lib/smoothScroll';
+import { pauseScroll, resumeScroll, scrollToTop } from '@/lib/smoothScroll';
 import { Logo } from '@/components/Logo';
 import { LocaleSwitcher } from '@/components/LocaleSwitcher';
 import { ThemeToggle } from '@/components/ThemeToggle';
@@ -73,7 +73,16 @@ export function Header() {
           {/* No aria-label: the wordmark's own text ("Aura · EVN Furniture") is
               the accessible name. An aria-label that does not contain the
               visible text fails WCAG 2.5.3 (label in name). */}
-          <Link to={path('/')} className={styles.brand}>
+          <Link
+            to={path('/')}
+            className={styles.brand}
+            onClick={() => {
+              // Clicking the logo on the home page is a no-op for the router,
+              // so nothing would happen. Treat it as "take me back to the top",
+              // which is what the gesture means.
+              if (pathname === path('/')) scrollToTop();
+            }}
+          >
             <Logo />
           </Link>
 

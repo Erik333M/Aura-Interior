@@ -185,7 +185,7 @@ export const products: SeedProduct[] = [
   // ─────────────────────────── Poufs (soft seating) ──────────────────────────
   // Single price point across the range — see SOFT_SEATING_PRICE.
   {
-    slug: 'kamar-pouf',
+    slug: 'cherry-pouf',
     categorySlug: 'soft-seating',
     priceFrom: 8_000,
     widthCm: 45,
@@ -195,7 +195,7 @@ export const products: SeedProduct[] = [
     leadTimeDays: 14,
     featured: false,
     fabricSlugs: ['boucle-cream', 'boucle-sand', 'boucle-ash', 'velvet-taupe'],
-    name: { hy: 'Կամար', ru: 'Камар', en: 'Kamar' },
+    name: { hy: 'Cherry', ru: 'Cherry', en: 'Cherry' },
     material: {
       hy: 'Բուկլե, բարձր խտության փրփուր',
       ru: 'Букле, пена высокой плотности',
@@ -208,7 +208,7 @@ export const products: SeedProduct[] = [
     },
   },
   {
-    slug: 'vardi-pouf',
+    slug: 'sansi-pouf',
     categorySlug: 'soft-seating',
     priceFrom: 8_000,
     widthCm: 60,
@@ -218,7 +218,7 @@ export const products: SeedProduct[] = [
     leadTimeDays: 14,
     featured: true,
     fabricSlugs: ['boucle-cream', 'boucle-sand', 'velvet-rosewood', 'velvet-olive'],
-    name: { hy: 'Վարդի', ru: 'Варди', en: 'Vardi' },
+    name: { hy: 'Sansi', ru: 'Sansi', en: 'Sansi' },
     material: {
       hy: 'Բուկլե, ամրացված հիմք',
       ru: 'Букле, усиленное основание',
@@ -231,7 +231,7 @@ export const products: SeedProduct[] = [
     },
   },
   {
-    slug: 'gugark-pouf',
+    slug: 'pearl-pouf',
     categorySlug: 'soft-seating',
     priceFrom: 8_000,
     widthCm: 100,
@@ -241,7 +241,7 @@ export const products: SeedProduct[] = [
     leadTimeDays: 18,
     featured: false,
     fabricSlugs: ['boucle-ash', 'linen-stone', 'velvet-graphite', 'leather-cognac'],
-    name: { hy: 'Գուգարք', ru: 'Гугарк', en: 'Gugark' },
+    name: { hy: 'Pearl', ru: 'Pearl', en: 'Pearl' },
     material: {
       hy: 'Կտավատ կամ կաշի, փայտե կմախք',
       ru: 'Лён или кожа, деревянный каркас',
@@ -254,7 +254,7 @@ export const products: SeedProduct[] = [
     },
   },
   {
-    slug: 'karin-pouf',
+    slug: 'aster-pouf',
     categorySlug: 'soft-seating',
     priceFrom: 8_000,
     widthCm: 120,
@@ -264,22 +264,22 @@ export const products: SeedProduct[] = [
     leadTimeDays: 21,
     featured: false,
     fabricSlugs: ['boucle-cream', 'velvet-taupe', 'velvet-graphite', 'leather-onyx'],
-    name: { hy: 'Կարին', ru: 'Карин', en: 'Karin' },
+    name: { hy: 'Aster', ru: 'Aster', en: 'Aster' },
     material: {
       hy: 'Բուկլե, պահեստավորմամբ հիմք',
       ru: 'Букле, основание с хранением',
       en: 'Bouclé with a storage base',
     },
     desc: {
-      hy: 'Երկար փուֆ՝ բացվող կափարիչով և ամբողջ երկարությամբ պահեստավորմամբ։ Հաճախ պատվիրվում է Սևան մահճակալի հետ։',
-      ru: 'Длинный пуф с откидной крышкой и хранением по всей длине. Часто заказывают вместе с кроватью Севан.',
-      en: 'A long pouf with a lifting lid and storage along its full length. Often ordered alongside the Sevan bed.',
+      hy: 'Երկար փուֆ՝ բացվող կափարիչով և ամբողջ երկարությամբ պահեստավորմամբ։ Հաճախ պատվիրվում է Belmont մահճակալի հետ։',
+      ru: 'Длинный пуф с откидной крышкой и хранением по всей длине. Часто заказывают вместе с кроватью Belmont.',
+      en: 'A long pouf with a lifting lid and storage along its full length. Often ordered alongside the Belmont bed.',
     },
   },
 
   // ────────────────────── Wardrobes — 350,000–900,000 ֏ ─────────────────────
   {
-    slug: 'zangak-wardrobe',
+    slug: 'cambridge-wardrobe',
     categorySlug: 'wardrobes',
     priceFrom: 350_000,
     widthCm: 150,
@@ -289,7 +289,7 @@ export const products: SeedProduct[] = [
     leadTimeDays: 30,
     featured: false,
     fabricSlugs: ['linen-oat', 'linen-stone'],
-    name: { hy: 'Զանգակ', ru: 'Зангак', en: 'Zangak' },
+    name: { hy: 'Cambridge', ru: 'Cambridge', en: 'Cambridge' },
     material: {
       hy: 'MDF՝ փայլատ ծածկույթով, փափուկ ճակատներ',
       ru: 'МДФ с матовым покрытием, мягкие фасады',
@@ -302,7 +302,7 @@ export const products: SeedProduct[] = [
     },
   },
   {
-    slug: 'masis-wardrobe',
+    slug: 'richmond-wardrobe',
     categorySlug: 'wardrobes',
     priceFrom: 620_000,
     widthCm: 240,
@@ -312,7 +312,7 @@ export const products: SeedProduct[] = [
     leadTimeDays: 35,
     featured: true,
     fabricSlugs: ['linen-oat', 'linen-charcoal', 'boucle-ash'],
-    name: { hy: 'Մասիս', ru: 'Масис', en: 'Masis' },
+    name: { hy: 'Richmond', ru: 'Richmond', en: 'Richmond' },
     material: {
       hy: 'Սահող ճակատներ՝ հայելիով և փափուկ պանելով',
       ru: 'Раздвижные фасады с зеркалом и мягкой панелью',
@@ -325,7 +325,7 @@ export const products: SeedProduct[] = [
     },
   },
   {
-    slug: 'areni-wardrobe',
+    slug: 'ashford-wardrobe',
     categorySlug: 'wardrobes',
     priceFrom: 480_000,
     widthCm: 180,
@@ -335,7 +335,7 @@ export const products: SeedProduct[] = [
     leadTimeDays: 30,
     featured: false,
     fabricSlugs: ['linen-stone', 'linen-charcoal'],
-    name: { hy: 'Արենի', ru: 'Арени', en: 'Areni' },
+    name: { hy: 'Ashford', ru: 'Ashford', en: 'Ashford' },
     material: {
       hy: 'Ընկույզի երեսպատում, փայլատ ապակի',
       ru: 'Ореховый шпон, матовое стекло',
@@ -348,7 +348,7 @@ export const products: SeedProduct[] = [
     },
   },
   {
-    slug: 'tatev-wardrobe',
+    slug: 'waverly-wardrobe',
     categorySlug: 'wardrobes',
     priceFrom: 900_000,
     widthCm: 320,
@@ -358,7 +358,7 @@ export const products: SeedProduct[] = [
     leadTimeDays: 45,
     featured: true,
     fabricSlugs: ['boucle-ash', 'linen-charcoal', 'velvet-graphite'],
-    name: { hy: 'Տաթև', ru: 'Татев', en: 'Tatev' },
+    name: { hy: 'Waverly', ru: 'Waverly', en: 'Waverly' },
     material: {
       hy: 'Մուտքով գարդերոբ՝ ալյումինե պրոֆիլ, ապակի',
       ru: 'Гардеробная: алюминиевый профиль, стекло',
@@ -373,7 +373,7 @@ export const products: SeedProduct[] = [
 
   // ───────────────────────── Sofas — 620,000–1,100,000 ֏ ────────────────────
   {
-    slug: 'garni-sofa',
+    slug: 'kensington-sofa',
     categorySlug: 'sofas',
     priceFrom: 780_000,
     widthCm: 240,
@@ -383,7 +383,7 @@ export const products: SeedProduct[] = [
     leadTimeDays: 35,
     featured: true,
     fabricSlugs: ['boucle-cream', 'boucle-sand', 'boucle-ash', 'velvet-taupe', 'linen-oat'],
-    name: { hy: 'Գառնի', ru: 'Гарни', en: 'Garni' },
+    name: { hy: 'Kensington', ru: 'Kensington', en: 'Kensington' },
     material: {
       hy: 'Բուկլե, փետուրով լցոնված բարձեր',
       ru: 'Букле, подушки с пуховым наполнением',
@@ -396,7 +396,7 @@ export const products: SeedProduct[] = [
     },
   },
   {
-    slug: 'noravank-sofa',
+    slug: 'hampton-sofa',
     categorySlug: 'sofas',
     priceFrom: 1_100_000,
     widthCm: 320,
@@ -406,7 +406,7 @@ export const products: SeedProduct[] = [
     leadTimeDays: 45,
     featured: true,
     fabricSlugs: ['boucle-cream', 'boucle-ash', 'velvet-graphite', 'linen-stone'],
-    name: { hy: 'Նորավանք', ru: 'Нораванк', en: 'Noravank' },
+    name: { hy: 'Hampton', ru: 'Hampton', en: 'Hampton' },
     material: {
       hy: 'Մոդուլային բուկլե համակարգ',
       ru: 'Модульная система из букле',
@@ -419,7 +419,7 @@ export const products: SeedProduct[] = [
     },
   },
   {
-    slug: 'dilijan-sofa',
+    slug: 'berkeley-sofa',
     categorySlug: 'sofas',
     priceFrom: 620_000,
     widthCm: 200,
@@ -429,7 +429,7 @@ export const products: SeedProduct[] = [
     leadTimeDays: 30,
     featured: false,
     fabricSlugs: ['linen-oat', 'linen-stone', 'velvet-olive', 'boucle-sand'],
-    name: { hy: 'Դիլիջան', ru: 'Дилижан', en: 'Dilijan' },
+    name: { hy: 'Berkeley', ru: 'Berkeley', en: 'Berkeley' },
     material: {
       hy: 'Կտավատ, հաճարենու ոտքեր',
       ru: 'Лён, буковые ножки',
@@ -442,7 +442,7 @@ export const products: SeedProduct[] = [
     },
   },
   {
-    slug: 'amberd-sofa',
+    slug: 'sloane-sofa',
     categorySlug: 'sofas',
     priceFrom: 950_000,
     widthCm: 280,
@@ -452,7 +452,7 @@ export const products: SeedProduct[] = [
     leadTimeDays: 40,
     featured: false,
     fabricSlugs: ['velvet-graphite', 'velvet-rosewood', 'leather-cognac', 'leather-onyx'],
-    name: { hy: 'Ամբերդ', ru: 'Амберд', en: 'Amberd' },
+    name: { hy: 'Sloane', ru: 'Sloane', en: 'Sloane' },
     material: {
       hy: 'Թավիշ կամ կաշի, մետաղական հիմք',
       ru: 'Бархат или кожа, металлическое основание',
@@ -467,7 +467,7 @@ export const products: SeedProduct[] = [
 
   // ────────────── Headboards & Wall Panels — 180,000–520,000 ֏ ──────────────
   {
-    slug: 'erebuni-headboard',
+    slug: 'mayfair-headboard',
     categorySlug: 'headboards-panels',
     priceFrom: 180_000,
     widthCm: 160,
@@ -477,7 +477,7 @@ export const products: SeedProduct[] = [
     leadTimeDays: 21,
     featured: false,
     fabricSlugs: ['boucle-cream', 'boucle-sand', 'velvet-taupe', 'linen-oat', 'velvet-graphite'],
-    name: { hy: 'Էրեբունի', ru: 'Эребуни', en: 'Erebuni' },
+    name: { hy: 'Mayfair', ru: 'Mayfair', en: 'Mayfair' },
     material: {
       hy: 'Փափուկ պանել՝ պատին ամրացվող',
       ru: 'Мягкая панель с настенным креплением',
@@ -490,7 +490,7 @@ export const products: SeedProduct[] = [
     },
   },
   {
-    slug: 'zvartnots-panel',
+    slug: 'regent-panel',
     categorySlug: 'headboards-panels',
     priceFrom: 520_000,
     widthCm: 400,
@@ -506,7 +506,7 @@ export const products: SeedProduct[] = [
       'linen-charcoal',
       'velvet-olive',
     ],
-    name: { hy: 'Զվարթնոց', ru: 'Звартноц', en: 'Zvartnots' },
+    name: { hy: 'Regent', ru: 'Regent', en: 'Regent' },
     material: {
       hy: 'Փափուկ պատի համակարգ՝ LED լուսավորությամբ',
       ru: 'Система стеновых панелей с LED-подсветкой',

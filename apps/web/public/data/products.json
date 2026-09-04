@@ -545,9 +545,9 @@
     ]
   },
   {
-    "id": "prod_kamar-pouf",
-    "slug": "kamar-pouf",
-    "name": { "hy": "Կամար", "ru": "Камар", "en": "Kamar" },
+    "id": "prod_cherry-pouf",
+    "slug": "cherry-pouf",
+    "name": { "hy": "Cherry", "ru": "Cherry", "en": "Cherry" },
     "description": {
       "hy": "Փոքր գլանաձև փուֆ՝ ամենօրյա օգտագործման համար։ Բավական թեթև է մի ձեռքով տեղափոխելու համար։",
       "ru": "Небольшой цилиндрический пуф для повседневного использования. Достаточно лёгкий, чтобы переставить одной рукой.",
@@ -580,8 +580,8 @@
     "createdAt": "2026-01-01T00:00:00.000Z",
     "images": [
       {
-        "id": "img_kamar-pouf_1",
-        "url": "/media/generated/product-kamar-pouf-1",
+        "id": "img_cherry-pouf_1",
+        "url": "/media/generated/product-cherry-pouf-1",
         "alt": "",
         "width": 1600,
         "height": 2000,
@@ -589,8 +589,8 @@
         "sortOrder": 1
       },
       {
-        "id": "img_kamar-pouf_2",
-        "url": "/media/generated/product-kamar-pouf-2",
+        "id": "img_cherry-pouf_2",
+        "url": "/media/generated/product-cherry-pouf-2",
         "alt": "",
         "width": 1600,
         "height": 2000,
@@ -631,9 +631,9 @@
     ]
   },
   {
-    "id": "prod_vardi-pouf",
-    "slug": "vardi-pouf",
-    "name": { "hy": "Վարդի", "ru": "Варди", "en": "Vardi" },
+    "id": "prod_sansi-pouf",
+    "slug": "sansi-pouf",
+    "name": { "hy": "Sansi", "ru": "Sansi", "en": "Sansi" },
     "description": {
       "hy": "Կլոր փուֆ՝ կենտրոնական կարով, որը գործվածքը հավաքում է վարդի պես։ Ամենաշատ պատվիրվող փոքր կտորը։",
       "ru": "Круглый пуф с центральной стяжкой, собирающей ткань подобно розе. Самая заказываемая небольшая позиция.",
@@ -666,8 +666,8 @@
     "createdAt": "2026-01-01T00:00:00.000Z",
     "images": [
       {
-        "id": "img_vardi-pouf_1",
-        "url": "/media/generated/product-vardi-pouf-1",
+        "id": "img_sansi-pouf_1",
+        "url": "/media/generated/product-sansi-pouf-1",
         "alt": "",
         "width": 1600,
         "height": 2000,
@@ -675,8 +675,8 @@
         "sortOrder": 1
       },
       {
-        "id": "img_vardi-pouf_2",
-        "url": "/media/generated/product-vardi-pouf-2",
+        "id": "img_sansi-pouf_2",
+        "url": "/media/generated/product-sansi-pouf-2",
         "alt": "",
         "width": 1600,
         "height": 2000,
@@ -721,9 +721,9 @@
     ]
   },
   {
-    "id": "prod_gugark-pouf",
-    "slug": "gugark-pouf",
-    "name": { "hy": "Գուգարք", "ru": "Гугарк", "en": "Gugark" },
+    "id": "prod_pearl-pouf",
+    "slug": "pearl-pouf",
+    "name": { "hy": "Pearl", "ru": "Pearl", "en": "Pearl" },
     "description": {
       "hy": "Ուղղանկյուն փուֆ՝ մահճակալի ոտքի մոտ դնելու համար։ Կարող է պատրաստվել ներսում պահեստավորմամբ։",
       "ru": "Прямоугольный пуф для установки в изножье кровати. Может быть изготовлена с внутренним отсеком для хранения.",
@@ -756,8 +756,8 @@
     "createdAt": "2026-01-01T00:00:00.000Z",
     "images": [
       {
-        "id": "img_gugark-pouf_1",
-        "url": "/media/generated/product-gugark-pouf-1",
+        "id": "img_pearl-pouf_1",
+        "url": "/media/generated/product-pearl-pouf-1",
         "alt": "",
         "width": 1600,
         "height": 2000,
@@ -765,8 +765,8 @@
         "sortOrder": 1
       },
       {
-        "id": "img_gugark-pouf_2",
-        "url": "/media/generated/product-gugark-pouf-2",
+        "id": "img_pearl-pouf_2",
+        "url": "/media/generated/product-pearl-pouf-2",
         "alt": "",
         "width": 1600,
         "height": 2000,
@@ -807,13 +807,13 @@
     ]
   },
   {
-    "id": "prod_karin-pouf",
-    "slug": "karin-pouf",
-    "name": { "hy": "Կարին", "ru": "Карин", "en": "Karin" },
+    "id": "prod_aster-pouf",
+    "slug": "aster-pouf",
+    "name": { "hy": "Aster", "ru": "Aster", "en": "Aster" },
     "description": {
-      "hy": "Երկար փուֆ՝ բացվող կափարիչով և ամբողջ երկարությամբ պահեստավորմամբ։ Հաճախ պատվիրվում է Սևան մահճակալի հետ։",
-      "ru": "Длинный пуф с откидной крышкой и хранением по всей длине. Часто заказывают вместе с кроватью Севан.",
-      "en": "A long pouf with a lifting lid and storage along its full length. Often ordered alongside the Sevan bed."
+      "hy": "Երկար փուֆ՝ բացվող կափարիչով և ամբողջ երկարությամբ պահեստավորմամբ։ Հաճախ պատվիրվում է Belmont մահճակալի հետ։",
+      "ru": "Длинный пуф с откидной крышкой и хранением по всей длине. Часто заказывают вместе с кроватью Belmont.",
+      "en": "A long pouf with a lifting lid and storage along its full length. Often ordered alongside the Belmont bed."
     },
     "priceFrom": 8000,
     "categoryId": "cat_soft-seating",
@@ -842,8 +842,8 @@
     "createdAt": "2026-01-01T00:00:00.000Z",
     "images": [
       {
-        "id": "img_karin-pouf_1",
-        "url": "/media/generated/product-karin-pouf-1",
+        "id": "img_aster-pouf_1",
+        "url": "/media/generated/product-aster-pouf-1",
         "alt": "",
         "width": 1600,
         "height": 2000,
@@ -851,8 +851,8 @@
         "sortOrder": 1
       },
       {
-        "id": "img_karin-pouf_2",
-        "url": "/media/generated/product-karin-pouf-2",
+        "id": "img_aster-pouf_2",
+        "url": "/media/generated/product-aster-pouf-2",
         "alt": "",
         "width": 1600,
         "height": 2000,
@@ -893,9 +893,9 @@
     ]
   },
   {
-    "id": "prod_zangak-wardrobe",
-    "slug": "zangak-wardrobe",
-    "name": { "hy": "Զանգակ", "ru": "Зангак", "en": "Zangak" },
+    "id": "prod_cambridge-wardrobe",
+    "slug": "cambridge-wardrobe",
+    "name": { "hy": "Cambridge", "ru": "Cambridge", "en": "Cambridge" },
     "description": {
       "hy": "Երկդռնանի բացվող պահարան՝ փափուկ ճակատներով և փայլատ սև բռնակներով։ Ներսը՝ ձեր պահանջով։",
       "ru": "Двухдверный распашной шкаф с мягкими фасадами и матовой чёрной фурнитурой. Наполнение — по вашему запросу.",
@@ -928,8 +928,8 @@
     "createdAt": "2026-01-01T00:00:00.000Z",
     "images": [
       {
-        "id": "img_zangak-wardrobe_1",
-        "url": "/media/generated/product-zangak-wardrobe-1",
+        "id": "img_cambridge-wardrobe_1",
+        "url": "/media/generated/product-cambridge-wardrobe-1",
         "alt": "",
         "width": 1600,
         "height": 2000,
@@ -937,8 +937,8 @@
         "sortOrder": 1
       },
       {
-        "id": "img_zangak-wardrobe_2",
-        "url": "/media/generated/product-zangak-wardrobe-2",
+        "id": "img_cambridge-wardrobe_2",
+        "url": "/media/generated/product-cambridge-wardrobe-2",
         "alt": "",
         "width": 1600,
         "height": 2000,
@@ -965,9 +965,9 @@
     ]
   },
   {
-    "id": "prod_masis-wardrobe",
-    "slug": "masis-wardrobe",
-    "name": { "hy": "Մասիս", "ru": "Масис", "en": "Masis" },
+    "id": "prod_richmond-wardrobe",
+    "slug": "richmond-wardrobe",
+    "name": { "hy": "Richmond", "ru": "Richmond", "en": "Richmond" },
     "description": {
       "hy": "Երեք սահող ճակատ՝ մեկը հայելի, երկուսը՝ փափուկ։ Ուղեկցվում է ամբողջ բարձրության ներքին լուսավորությամբ։",
       "ru": "Три раздвижных фасада: один зеркальный, два мягких. Внутренняя подсветка по всей высоте.",
@@ -1000,8 +1000,8 @@
     "createdAt": "2026-01-01T00:00:00.000Z",
     "images": [
       {
-        "id": "img_masis-wardrobe_1",
-        "url": "/media/generated/product-masis-wardrobe-1",
+        "id": "img_richmond-wardrobe_1",
+        "url": "/media/generated/product-richmond-wardrobe-1",
         "alt": "",
         "width": 1600,
         "height": 2000,
@@ -1009,8 +1009,8 @@
         "sortOrder": 1
       },
       {
-        "id": "img_masis-wardrobe_2",
-        "url": "/media/generated/product-masis-wardrobe-2",
+        "id": "img_richmond-wardrobe_2",
+        "url": "/media/generated/product-richmond-wardrobe-2",
         "alt": "",
         "width": 1600,
         "height": 2000,
@@ -1044,9 +1044,9 @@
     ]
   },
   {
-    "id": "prod_areni-wardrobe",
-    "slug": "areni-wardrobe",
-    "name": { "hy": "Արենի", "ru": "Арени", "en": "Areni" },
+    "id": "prod_ashford-wardrobe",
+    "slug": "ashford-wardrobe",
+    "name": { "hy": "Ashford", "ru": "Ashford", "en": "Ashford" },
     "description": {
       "hy": "Բացվող պահարան՝ ընկույզի երեսպատմամբ և փայլատ ապակե ներդիրներով։ Տաք տարբերակը մուգ ինտերիերի համար։",
       "ru": "Распашной шкаф с ореховым шпоном и вставками из матового стекла. Тёплый вариант для тёмного интерьера.",
@@ -1079,8 +1079,8 @@
     "createdAt": "2026-01-01T00:00:00.000Z",
     "images": [
       {
-        "id": "img_areni-wardrobe_1",
-        "url": "/media/generated/product-areni-wardrobe-1",
+        "id": "img_ashford-wardrobe_1",
+        "url": "/media/generated/product-ashford-wardrobe-1",
         "alt": "",
         "width": 1600,
         "height": 2000,
@@ -1088,8 +1088,8 @@
         "sortOrder": 1
       },
       {
-        "id": "img_areni-wardrobe_2",
-        "url": "/media/generated/product-areni-wardrobe-2",
+        "id": "img_ashford-wardrobe_2",
+        "url": "/media/generated/product-ashford-wardrobe-2",
         "alt": "",
         "width": 1600,
         "height": 2000,
@@ -1116,9 +1116,9 @@
     ]
   },
   {
-    "id": "prod_tatev-wardrobe",
-    "slug": "tatev-wardrobe",
-    "name": { "hy": "Տաթև", "ru": "Татев", "en": "Tatev" },
+    "id": "prod_waverly-wardrobe",
+    "slug": "waverly-wardrobe",
+    "name": { "hy": "Waverly", "ru": "Waverly", "en": "Waverly" },
     "description": {
       "hy": "Մուտքով գարդերոբի ամբողջական համակարգ՝ բաց դարակներով, ապակե դռներով և ինտեգրված լուսավորությամբ։ Չափվում է տեղում։",
       "ru": "Полная система гардеробной: открытые полки, стеклянные двери и встроенное освещение. Замер на объекте.",
@@ -1151,8 +1151,8 @@
     "createdAt": "2026-01-01T00:00:00.000Z",
     "images": [
       {
-        "id": "img_tatev-wardrobe_1",
-        "url": "/media/generated/product-tatev-wardrobe-1",
+        "id": "img_waverly-wardrobe_1",
+        "url": "/media/generated/product-waverly-wardrobe-1",
         "alt": "",
         "width": 1600,
         "height": 2000,
@@ -1160,8 +1160,8 @@
         "sortOrder": 1
       },
       {
-        "id": "img_tatev-wardrobe_2",
-        "url": "/media/generated/product-tatev-wardrobe-2",
+        "id": "img_waverly-wardrobe_2",
+        "url": "/media/generated/product-waverly-wardrobe-2",
         "alt": "",
         "width": 1600,
         "height": 2000,
@@ -1195,9 +1195,9 @@
     ]
   },
   {
-    "id": "prod_garni-sofa",
-    "slug": "garni-sofa",
-    "name": { "hy": "Գառնի", "ru": "Гарни", "en": "Garni" },
+    "id": "prod_kensington-sofa",
+    "slug": "kensington-sofa",
+    "name": { "hy": "Kensington", "ru": "Kensington", "en": "Kensington" },
     "description": {
       "hy": "Երեքտեղանոց բազմոց՝ խորը նստատեղով և ցածր թիկնակով։ Բարձերը շարժական են, կարելի է վերալիցքավորել։",
       "ru": "Трёхместный диван с глубокой посадкой и низкой спинкой. Подушки съёмные, наполнение обновляется.",
@@ -1230,21 +1230,21 @@
     "createdAt": "2026-01-01T00:00:00.000Z",
     "images": [
       {
-        "id": "img_garni-sofa_1",
-        "url": "/media/generated/product-garni-sofa-1",
+        "id": "img_kensington-sofa_1",
+        "url": "/media/generated/product-kensington-sofa-1",
         "alt": "",
         "width": 1600,
         "height": 2000,
-        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAIBAwQG/8QAHRAAAgEFAQEAAAAAAAAAAAAAAAIBAxESITEEQf/EABYBAQEBAAAAAAAAAAAAAAAAAAEAAv/EABURAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIRAxEAPwDmacXkvZLKJ41V5nL4aakJjOzNLBPQFZtyAgI8pwdqjW6VgKQBIEn/2Q==",
+        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGQAAAwADAAAAAAAAAAAAAAAAAAEDBAUG/8QAHRAAAwACAgMAAAAAAAAAAAAAAAECAxEEIRIxMv/EABYBAQEBAAAAAAAAAAAAAAAAAAABAv/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AOaiNiudGRxXL35FMyxuX0ZVrmAqfbA0iuO2vT0OrevokgYC0AwA/9k=",
         "sortOrder": 1
       },
       {
-        "id": "img_garni-sofa_2",
-        "url": "/media/generated/product-garni-sofa-2",
+        "id": "img_kensington-sofa_2",
+        "url": "/media/generated/product-kensington-sofa-2",
         "alt": "",
         "width": 1600,
         "height": 2000,
-        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGgAAAwADAQAAAAAAAAAAAAAAAAECAwQFBv/EABsQAAMBAAMBAAAAAAAAAAAAAAABAhEDITEE/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A81EaK5w2Plqd7L53Dh9IyrnMBN9gaRmi3PgXbz3SEJgTgFAB/9k=",
+        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAIBAwQG/8QAHBAAAwACAwEAAAAAAAAAAAAAAAECAxEEITES/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDmcU/T0i68TU70Jw6Svs1ZsqcMisD9AV12AQY25fT0PVtr0rAogCQA/9k=",
         "sortOrder": 2
       }
     ],
@@ -1288,9 +1288,9 @@
     ]
   },
   {
-    "id": "prod_noravank-sofa",
-    "slug": "noravank-sofa",
-    "name": { "hy": "Նորավանք", "ru": "Нораванк", "en": "Noravank" },
+    "id": "prod_hampton-sofa",
+    "slug": "hampton-sofa",
+    "name": { "hy": "Hampton", "ru": "Hampton", "en": "Hampton" },
     "description": {
       "hy": "Մոդուլային անկյունային բազմոց՝ հավաքվում է ձեր հյուրասենյակի ձևով։ Մոդուլները կարելի է ավելացնել հետագայում։",
       "ru": "Модульный угловой диван, который собирается под форму вашей гостиной. Модули можно докупить позже.",
@@ -1323,21 +1323,21 @@
     "createdAt": "2026-01-01T00:00:00.000Z",
     "images": [
       {
-        "id": "img_noravank-sofa_1",
-        "url": "/media/generated/product-noravank-sofa-1",
+        "id": "img_hampton-sofa_1",
+        "url": "/media/generated/product-hampton-sofa-1",
         "alt": "",
         "width": 1600,
         "height": 2000,
-        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGQABAQADAQAAAAAAAAAAAAAAAgABAwUG/8QAHBAAAwADAQEBAAAAAAAAAAAAAAECAxEhMQQS/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A89inZjNOhfJa/XTdnuXD4jKuc/SC30jSHFOXx6Fd016AgDohEB//2Q==",
+        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAMBAgQG/8QAHRAAAgICAwEAAAAAAAAAAAAAAAECEQMhBBMxIv/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFREBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhEDEQA/AOWhFyelY7qlXhbgySu0aZ5VTJVYHHYEzf0wAXjk4vToa5uvbEklRLewKgB//9k=",
         "sortOrder": 1
       },
       {
-        "id": "img_noravank-sofa_2",
-        "url": "/media/generated/product-noravank-sofa-2",
+        "id": "img_hampton-sofa_2",
+        "url": "/media/generated/product-hampton-sofa-2",
         "alt": "",
         "width": 1600,
         "height": 2000,
-        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGQABAAIDAAAAAAAAAAAAAAAAAAEDBAUG/8QAHBAAAwADAAMAAAAAAAAAAAAAAAECAxEhBBIx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDmMc7LKxtIeG179MrNcuHwite10Cn0BEY6cvj0WVb19KiSiGAAP//Z",
+        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGQAAAwADAAAAAAAAAAAAAAAAAAIDAQQG/8QAHBAAAgEFAQAAAAAAAAAAAAAAAAECAxESITEE/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A5unC4VIWKeWSy2U9OGDa6ZVoPoGG9gaQ8JOL0NOba7cmAC2AYAP/2Q==",
         "sortOrder": 2
       }
     ],
@@ -1374,9 +1374,9 @@
     ]
   },
   {
-    "id": "prod_dilijan-sofa",
-    "slug": "dilijan-sofa",
-    "name": { "hy": "Դիլիջան", "ru": "Дилижан", "en": "Dilijan" },
+    "id": "prod_berkeley-sofa",
+    "slug": "berkeley-sofa",
+    "name": { "hy": "Berkeley", "ru": "Berkeley", "en": "Berkeley" },
     "description": {
       "hy": "Երկտեղանոց բազմոց՝ ուղիղ գծերով և տեսանելի փայտե ոտքերով։ Ամենափոքր տարածքի տարբերակը։",
       "ru": "Двухместный диван с прямыми линиями и открытыми деревянными ножками. Вариант для небольшой площади.",
@@ -1409,21 +1409,21 @@
     "createdAt": "2026-01-01T00:00:00.000Z",
     "images": [
       {
-        "id": "img_dilijan-sofa_1",
-        "url": "/media/generated/product-dilijan-sofa-1",
+        "id": "img_berkeley-sofa_1",
+        "url": "/media/generated/product-berkeley-sofa-1",
         "alt": "",
         "width": 1600,
         "height": 2000,
-        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGQABAAMBAQAAAAAAAAAAAAAAAAEDBAIG/8QAHhAAAwACAQUAAAAAAAAAAAAAAAECESEDBBITIjH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABURAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIRAxEAPwDy0LJd49DpJm6fcarUKXglVga2CafswBzx04eiyrePuSkkqDewQAP/2Q==",
+        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAAAgADBAb/xAAbEAADAAIDAAAAAAAAAAAAAAAAAQIRIQMEMf/EABYBAQEBAAAAAAAAAAAAAAAAAAABAv/EABURAQEAAAAAAAAAAAAAAAAAAABB/9oADAMBAAIRAxEAPwDznFORcs4Qes07wzfsTKhtPZmq4X6QW9kaQopy9Du6a9yZkAcEIgP/2Q==",
         "sortOrder": 1
       },
       {
-        "id": "img_dilijan-sofa_2",
-        "url": "/media/generated/product-dilijan-sofa-2",
+        "id": "img_berkeley-sofa_2",
+        "url": "/media/generated/product-berkeley-sofa-2",
         "alt": "",
         "width": 1600,
         "height": 2000,
-        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGAABAQADAAAAAAAAAAAAAAAAAgADBQb/xAAcEAADAAIDAQAAAAAAAAAAAAAAAQIDIQQREkH/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDn8UekDNDn4Pi5Oq2ZeTkTxsyrXt7ILeyNIc05ehXdNbYCAPRCID//2Q==",
+        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAIDAQUG/8QAGxAAAwEAAwEAAAAAAAAAAAAAAAECEQMhMQT/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDzPHOjXGIr8bnXpblqHL6RlXNfoBT7YGkPx258eDXbz3SSNYCsDQA//9k=",
         "sortOrder": 2
       }
     ],
@@ -1460,9 +1460,9 @@
     ]
   },
   {
-    "id": "prod_amberd-sofa",
-    "slug": "amberd-sofa",
-    "name": { "hy": "Ամբերդ", "ru": "Амберд", "en": "Amberd" },
+    "id": "prod_sloane-sofa",
+    "slug": "sloane-sofa",
+    "name": { "hy": "Sloane", "ru": "Sloane", "en": "Sloane" },
     "description": {
       "hy": "Ցածր, երկար բազմոց՝ ալիքաձև թիկնակով և փայլատ սև մետաղյա հիմքով։ Ամենաճարտարապետական մոդելը։",
       "ru": "Низкий длинный диван с каналами на спинке и матовым чёрным металлическим основанием. Самая архитектурная модель.",
@@ -1495,21 +1495,21 @@
     "createdAt": "2026-01-01T00:00:00.000Z",
     "images": [
       {
-        "id": "img_amberd-sofa_1",
-        "url": "/media/generated/product-amberd-sofa-1",
+        "id": "img_sloane-sofa_1",
+        "url": "/media/generated/product-sloane-sofa-1",
         "alt": "",
         "width": 1600,
         "height": 2000,
-        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAMBAgQG/8QAHRAAAwACAgMAAAAAAAAAAAAAAAECAxEhIgQSMf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFREBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhEDEQA/AOWjkesfBTw/V5Oy2bclQpekSrGFrTAKrsAC4py+BlW9fdigKiWwIAD/2Q==",
+        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAECAwQG/8QAGxAAAwEAAwEAAAAAAAAAAAAAAAECEQMhMQT/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAVEQEBAAAAAAAAAAAAAAAAAAAAIf/aAAwDAQACEQMRAD8A5njnSy4xC+XKvGaOdQoeGarA/QE32BpDinL6J3yNr3SsAEwGAH//2Q==",
         "sortOrder": 1
       },
       {
-        "id": "img_amberd-sofa_2",
-        "url": "/media/generated/product-amberd-sofa-2",
+        "id": "img_sloane-sofa_2",
+        "url": "/media/generated/product-sloane-sofa-2",
         "alt": "",
         "width": 1600,
         "height": 2000,
-        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGQABAQEAAwAAAAAAAAAAAAAAAgADAQUG/8QAHBAAAgIDAQEAAAAAAAAAAAAAAAIBEQMhMQQS/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A85iWznKlC8bx9TZvmdZSdQZV109IMzsjSGjys6E7tXbMyANEIgP/2Q==",
+        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAIBAwQG/8QAHRAAAwACAgMAAAAAAAAAAAAAAAECAxESIQQiMf/EABYBAQEBAAAAAAAAAAAAAAAAAAEAAv/EABURAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIRAxEAPwDl8a2zTw9dlfhcXT5LZryVCl6RmlhpdgLVdsBRYpw+h6yVr6VgIQBIEn//2Q==",
         "sortOrder": 2
       }
     ],
@@ -1550,9 +1550,9 @@
     ]
   },
   {
-    "id": "prod_erebuni-headboard",
-    "slug": "erebuni-headboard",
-    "name": { "hy": "Էրեբունի", "ru": "Эребуни", "en": "Erebuni" },
+    "id": "prod_mayfair-headboard",
+    "slug": "mayfair-headboard",
+    "name": { "hy": "Mayfair", "ru": "Mayfair", "en": "Mayfair" },
     "description": {
       "hy": "Առանձին գլխամաս՝ ամրացվում է անմիջապես պատին, առանց մահճակալի։ Ալիքների լայնությունը՝ ձեր ընտրությամբ։",
       "ru": "Отдельное изголовье, крепится прямо на стену, без кровати. Ширину каналов выбираете вы.",
@@ -1589,21 +1589,21 @@
     "createdAt": "2026-01-01T00:00:00.000Z",
     "images": [
       {
-        "id": "img_erebuni-headboard_1",
-        "url": "/media/generated/product-erebuni-headboard-1",
+        "id": "img_mayfair-headboard_1",
+        "url": "/media/generated/product-mayfair-headboard-1",
         "alt": "",
         "width": 1600,
         "height": 2000,
-        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAAAAECAwQFBv/EABwQAAMAAgMBAAAAAAAAAAAAAAABAgMRBCExEv/EABYBAQEBAAAAAAAAAAAAAAAAAAABAv/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AObxT9MsyY2l4Lh2lT2ZGbKnDMq179Ai32BpDinL6J3da92VgAgGAH//2Q==",
+        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAECAwQG/8QAHBAAAwACAwEAAAAAAAAAAAAAAAECAxESITEE/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A5vEtssyRpEfjU03yNGVRxZlWB+gRp9sDSHjtw+idZK17srABAMAP/9k=",
         "sortOrder": 1
       },
       {
-        "id": "img_erebuni-headboard_2",
-        "url": "/media/generated/product-erebuni-headboard-2",
+        "id": "img_mayfair-headboard_2",
+        "url": "/media/generated/product-mayfair-headboard-2",
         "alt": "",
         "width": 1600,
         "height": 2000,
-        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAIBAwUG/8QAHBAAAwACAwEAAAAAAAAAAAAAAAECAxEEITES/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFREBAQAAAAAAAAAAAAAAAAAAAEH/2gAMAwEAAhEDEQA/AOdxTsnLOkTxGnT+i7MocMzVZ79AVvsDSGinL6Y93WvSsAF0AwAf/9k=",
+        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGQABAAMBAQAAAAAAAAAAAAAAAAECAwUG/8QAHBAAAgIDAQEAAAAAAAAAAAAAAAECEQMhMQQS/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A83jhYyQo08rTls19Ch8NrplXPfQQ3sGkXhJp6LTm2u2ZoMCKBIA//9k=",
         "sortOrder": 2
       }
     ],
@@ -1647,9 +1647,9 @@
     ]
   },
   {
-    "id": "prod_zvartnots-panel",
-    "slug": "zvartnots-panel",
-    "name": { "hy": "Զվարթնոց", "ru": "Звартноц", "en": "Zvartnots" },
+    "id": "prod_regent-panel",
+    "slug": "regent-panel",
+    "name": { "hy": "Regent", "ru": "Regent", "en": "Regent" },
     "description": {
       "hy": "Ամբողջ պատը ծածկող փափուկ պանելների համակարգ՝ թաքնված LED գծերով կարերի միջև։ Չափվում և տեղադրվում է մեր կողմից։",
       "ru": "Система мягких панелей во всю стену со скрытыми LED-линиями между швами. Замер и монтаж — с нашей стороны.",
@@ -1686,21 +1686,21 @@
     "createdAt": "2026-01-01T00:00:00.000Z",
     "images": [
       {
-        "id": "img_zvartnots-panel_1",
-        "url": "/media/generated/product-zvartnots-panel-1",
+        "id": "img_regent-panel_1",
+        "url": "/media/generated/product-regent-panel-1",
         "alt": "",
         "width": 1600,
         "height": 2000,
-        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAECAwUG/8QAGxAAAwADAQEAAAAAAAAAAAAAAAECAxExIQT/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/APNY4dcHeJyuGvx0lvZtlyJyyK5r6AU/WBUXjpp+PRVU9dMkNgSwGAH/2Q==",
+        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAIBAwQG/8QAHRAAAgICAwEAAAAAAAAAAAAAAAECEQMhBBITIv/EABYBAQEBAAAAAAAAAAAAAAAAAAEAAv/EABURAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIRAxEAPwDl8atmrz+SjiSXorNebIujM0xjktgI5bAUWDcXaHlOTW3YgCEASBJ//9k=",
         "sortOrder": 1
       },
       {
-        "id": "img_zvartnots-panel_2",
-        "url": "/media/generated/product-zvartnots-panel-2",
+        "id": "img_regent-panel_2",
+        "url": "/media/generated/product-regent-panel-2",
         "alt": "",
         "width": 1600,
         "height": 2000,
-        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAECAwUG/8QAHBAAAwACAwEAAAAAAAAAAAAAAAECESEDBDEi/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDzURkdxhG3Tc7ybctQ5ekRXMfoBT+mBUXx2148FVbx6ZIbAl7AYAf/2Q==",
+        "blurhash": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAZABQDASIAAhEBAxEB/8QAGgABAAMAAwAAAAAAAAAAAAAAAAECAwQFBv/EAB0QAAMAAgIDAAAAAAAAAAAAAAABAgMRBCESIjH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABURAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIRAxEAPwDzGNbZs8epHCc9to5OTJPi1olV17XYFV7MAVx05fTL1da+mYKiGCQB/9k=",
         "sortOrder": 2
       }
     ],
