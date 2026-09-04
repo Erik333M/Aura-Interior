@@ -36,11 +36,11 @@ export function retailFromCost(cost: number): number {
 }
 
 export const products: SeedProduct[] = [
-  // ───────────────────────── Beds — 450,000–1,400,000 ֏ ─────────────────────
+  // ────────────────────────── Beds — 150,000–230,000 ֏ ──────────────────────
   {
     slug: 'chelsea-bed',
     categorySlug: 'beds',
-    priceFrom: 680_000,
+    priceFrom: 180_000,
     widthCm: 180,
     depthCm: 215,
     heightCm: 120,
@@ -63,7 +63,7 @@ export const products: SeedProduct[] = [
   {
     slug: 'elyson-bed',
     categorySlug: 'beds',
-    priceFrom: 540_000,
+    priceFrom: 165_000,
     widthCm: 160,
     depthCm: 210,
     heightCm: 110,
@@ -86,7 +86,7 @@ export const products: SeedProduct[] = [
   {
     slug: 'belmont-bed',
     categorySlug: 'beds',
-    priceFrom: 890_000,
+    priceFrom: 210_000,
     widthCm: 200,
     depthCm: 220,
     heightCm: 135,
@@ -109,7 +109,7 @@ export const products: SeedProduct[] = [
   {
     slug: 'marlowe-bed',
     categorySlug: 'beds',
-    priceFrom: 450_000,
+    priceFrom: 150_000,
     widthCm: 140,
     depthCm: 205,
     heightCm: 100,
@@ -132,7 +132,7 @@ export const products: SeedProduct[] = [
   {
     slug: 'devereux-bed',
     categorySlug: 'beds',
-    priceFrom: 1_400_000,
+    priceFrom: 230_000,
     widthCm: 200,
     depthCm: 230,
     heightCm: 150,
@@ -161,7 +161,7 @@ export const products: SeedProduct[] = [
   {
     slug: 'savoy-bed',
     categorySlug: 'beds',
-    priceFrom: 760_000,
+    priceFrom: 195_000,
     widthCm: 180,
     depthCm: 215,
     heightCm: 125,
