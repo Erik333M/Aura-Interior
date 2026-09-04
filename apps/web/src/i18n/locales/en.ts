@@ -187,13 +187,14 @@ export const en: Dictionary = {
     title: 'Interior Design',
     lead: 'Complete bedroom fit-outs — lighting, wall panelling and made-to-order furniture.',
     processTitle: 'How we work',
-    step1Title: 'Consultation',
-    step1Body: 'We talk through the space, the style and the budget.',
+    step1Title: 'More than just furniture',
+    step1Body: 'A gift from AURA INTERIOR awaits you on larger orders.',
     step2Title: 'Free visit and measurement',
     step2Body:
       'Precise on-site measurements, material samples to see and touch, and style consultation from the AURA INTERIOR team.',
-    step3Title: 'Design',
-    step3Body: 'We show you the layout, the fabrics and the colours.',
+    step3Title: 'Made to your order',
+    step3Body:
+      'We work to individual commissions, built around your preferences and the dimensions of your space. Your order is ready in 7–10 working days, depending on the type of furniture, its complexity and its size.',
     step4Title: 'Build and install',
     step4Body: 'We manufacture in our workshop and install it ourselves.',
     projectsTitle: 'Completed projects',

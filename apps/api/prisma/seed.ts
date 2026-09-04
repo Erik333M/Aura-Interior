@@ -185,6 +185,48 @@ async function main(): Promise<void> {
   }
   console.log(`  ✔ ${products.length} products with images and fabric options`);
 
+  // ── Prune ─────────────────────────────────────────────────────────────────
+  // The seed files are the source of truth, so anything no longer in them has
+  // to go. Without this a renamed slug leaves the old row behind and the
+  // catalogue quietly doubles — which is exactly what a rename did.
+  const keepProducts = products.map((p) => p.slug);
+  const staleProducts = await prisma.product.findMany({
+    where: { slug: { notIn: keepProducts } },
+    select: { id: true, slug: true },
+  });
+  if (staleProducts.length > 0) {
+    await prisma.product.deleteMany({ where: { id: { in: staleProducts.map((p) => p.id) } } });
+    console.log(
+      `  ✔ removed ${staleProducts.length} product(s) no longer in the seed: ${staleProducts.map((p) => p.slug).join(', ')}`,
+    );
+  }
+
+  const keepCategories = categories.map((c) => c.slug);
+  const staleCategories = await prisma.category.findMany({
+    where: { slug: { notIn: keepCategories } },
+    select: { id: true, slug: true, _count: { select: { products: true } } },
+  });
+  for (const c of staleCategories) {
+    // Restrict on delete means a category still holding products is a data
+    // error worth failing on, not something to force through.
+    if (c._count.products > 0) {
+      throw new Error(
+        `Category "${c.slug}" was removed from the seed but still has ${c._count.products} product(s).`,
+      );
+    }
+    await prisma.category.delete({ where: { id: c.id } });
+    console.log(`  ✔ removed stale category: ${c.slug}`);
+  }
+
+  const staleFabrics = await prisma.fabric.findMany({
+    where: { slug: { notIn: fabrics.map((f) => f.slug) } },
+    select: { id: true, slug: true },
+  });
+  if (staleFabrics.length > 0) {
+    await prisma.fabric.deleteMany({ where: { id: { in: staleFabrics.map((f) => f.id) } } });
+    console.log(`  ✔ removed ${staleFabrics.length} stale fabric(s)`);
+  }
+
   // ── Projects ──────────────────────────────────────────────────────────────
   for (const pr of projects) {
     const data = {

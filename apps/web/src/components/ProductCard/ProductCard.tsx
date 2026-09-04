@@ -3,6 +3,7 @@ import type { Product } from '@aura/types';
 import { useI18n } from '@/i18n';
 import { ResponsiveImage } from '@/components/ResponsiveImage';
 import { WishlistButton } from '@/components/WishlistButton';
+import { CardZoom } from '@/components/CardZoom';
 import styles from './ProductCard.module.scss';
 
 const SIZES = '(min-width: 1280px) 22vw, (min-width: 768px) 30vw, (min-width: 480px) 45vw, 90vw';
@@ -20,6 +21,7 @@ export function ProductCard({ product, eager = false }: { product: Product; eage
       <div className={styles.media}>
         {product.featured && <span className={styles.badge}>{t.catalogue.sortFeatured}</span>}
         <WishlistButton slug={product.slug} />
+        <CardZoom product={product} />
 
         {primary && (
           <div className={`${styles.layer} ${styles.primary}`}>
