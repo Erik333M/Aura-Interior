@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { useI18n } from '@/i18n';
 import styles from './PriceRange.module.scss';
 
@@ -51,13 +51,52 @@ export function PriceRange({ min, max, valueMin, valueMax, histogram, onChange }
   };
 
   const pct = (v: number): number => (max === min ? 0 : ((v - min) / (max - min)) * 100);
-  const peak = Math.max(1, ...histogram);
-  const buckets = histogram.length;
+
+  /**
+   * Bucket count follows the available width, not the API's fixed 24.
+   *
+   * At 390px the sidebar gives the histogram ~310px, so 24 buckets became 10.8px
+   * bars — and because the catalogue spans 48,000 to 1,400,000 with most pieces
+   * under 400,000, twenty of those were near-empty stubs. It read as a broken
+   * barcode rather than a distribution.
+   *
+   * Merging adjacent buckets until each bar is at least MIN_BAR wide keeps the
+   * shape of the data and makes it legible: 12 bars on a phone, the full 24 on
+   * a desktop sidebar.
+   */
+  const MIN_BAR = 16;
+  const histRef = useRef<HTMLDivElement>(null);
+  const [barsPerGroup, setBarsPerGroup] = useState(1);
+
+  useLayoutEffect(() => {
+    const el = histRef.current;
+    if (!el) return;
+    const measure = (): void => {
+      const width = el.clientWidth;
+      if (width === 0) return;
+      const affordable = Math.max(4, Math.floor(width / MIN_BAR));
+      setBarsPerGroup(Math.max(1, Math.ceil(histogram.length / affordable)));
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [histogram.length]);
+
+  // Merge adjacent buckets, summing their counts so the distribution is
+  // preserved rather than sampled.
+  const grouped: number[] = [];
+  for (let i = 0; i < histogram.length; i += barsPerGroup) {
+    grouped.push(histogram.slice(i, i + barsPerGroup).reduce((a, b) => a + b, 0));
+  }
+
+  const peak = Math.max(1, ...grouped);
+  const buckets = grouped.length;
 
   return (
     <div className={styles.wrap}>
-      <div className={styles.histogram} aria-hidden="true">
-        {histogram.map((count, i) => {
+      <div className={styles.histogram} ref={histRef} aria-hidden="true">
+        {grouped.map((count, i) => {
           const bucketStart = min + ((max - min) * i) / buckets;
           const bucketEnd = min + ((max - min) * (i + 1)) / buckets;
           const inRange = bucketEnd >= lo && bucketStart <= hi;
@@ -65,7 +104,18 @@ export function PriceRange({ min, max, valueMin, valueMax, histogram, onChange }
             <span
               key={i}
               className={`${styles.bar} ${inRange ? styles.barActive : styles.barMuted}`}
-              style={{ height: `${Math.max(4, (count / peak) * 100)}%` }}
+              // Square-root scale, not linear. The catalogue is heavily skewed —
+              // 13 mattresses sit in the cheapest bucket against ones and twos
+              // across the rest — so a linear scale drew one tower and a flat
+              // row of stubs. sqrt keeps the ordering and the shape while making
+              // the small buckets legible; it is the usual treatment for a
+              // long-tailed distribution.
+              //
+              // Empty buckets keep a hairline so the baseline reads as a
+              // considered line rather than a gap in the render.
+              style={{
+                height: count === 0 ? '3px' : `${Math.max(8, Math.sqrt(count / peak) * 100)}%`,
+              }}
             />
           );
         })}

@@ -189,8 +189,9 @@ export const en: Dictionary = {
     processTitle: 'How we work',
     step1Title: 'Consultation',
     step1Body: 'We talk through the space, the style and the budget.',
-    step2Title: 'Measuring',
-    step2Body: 'We come to the site and take exact dimensions.',
+    step2Title: 'Free visit and measurement',
+    step2Body:
+      'Precise on-site measurements, material samples to see and touch, and style consultation from the AURA INTERIOR team.',
     step3Title: 'Design',
     step3Body: 'We show you the layout, the fabrics and the colours.',
     step4Title: 'Build and install',
