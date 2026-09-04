@@ -58,7 +58,9 @@ export function InquiryForm({
         const lines = [
           product ? `${t.inquiry.piece}: ${tl(product.name)}` : null,
           fabric ? `${t.inquiry.fabric}: ${tl(fabric.name)}` : null,
-          input.customDimensions ? `${t.inquiry.customDimensions}: ${input.customDimensions}` : null,
+          input.customDimensions
+            ? `${t.inquiry.customDimensions}: ${input.customDimensions}`
+            : null,
           '',
           input.message,
           '',

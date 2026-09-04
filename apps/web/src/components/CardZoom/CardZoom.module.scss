@@ -1,0 +1,143 @@
+// The trigger sits under the wishlist heart, revealed on hover so it never
+// competes with the photograph at rest.
+.trigger {
+  position: absolute;
+  top: calc(var(--space-3) + 42px);
+  right: var(--space-3);
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: var(--boucle);
+  background-color: color-mix(in srgb, var(--obsidian) 55%, transparent);
+  backdrop-filter: blur(6px);
+  border: var(--hairline) solid transparent;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity 280ms var(--ease-soft),
+    transform 280ms var(--ease-soft),
+    color 280ms var(--ease-soft),
+    border-color 280ms var(--ease-soft);
+
+  @include focus-ring(2px);
+
+  &:hover {
+    color: var(--gold);
+    border-color: var(--accent-hairline);
+  }
+
+  // Always available on touch, where there is no hover to reveal it.
+  @media (hover: none), (pointer: coarse) {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// Revealed with the card, and kept visible while it has focus so keyboard
+// users can reach it.
+:global(article):hover .trigger,
+:global(article):focus-within .trigger,
+.trigger:focus-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+// ── Lightbox ────────────────────────────────────────────────────────────────
+.viewer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  // Cursor signals that the image itself is the zoom control.
+  cursor: zoom-in;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background-color: var(--onyx);
+}
+
+.stageZoomed {
+  cursor: zoom-out;
+}
+
+.image {
+  max-height: 74svh;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  transition: transform 520ms var(--ease-soft);
+  will-change: transform;
+}
+
+// 2x, panned from the pointer position so the part you aimed at is what you get.
+.imageZoomed {
+  transform: scale(2);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5, 20px);
+}
+
+.nav {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: var(--hairline) solid var(--accent-hairline);
+  color: var(--boucle);
+  background-color: color-mix(in srgb, var(--obsidian) 60%, transparent);
+  transition:
+    border-color 280ms var(--ease-soft),
+    color 280ms var(--ease-soft);
+
+  @include focus-ring;
+
+  &:hover:not(:disabled) {
+    border-color: var(--accent);
+    color: var(--gold);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 12ch;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--boucle);
+}
+
+.price {
+  font-size: 12px;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+
+.hint {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--taupe);
+}

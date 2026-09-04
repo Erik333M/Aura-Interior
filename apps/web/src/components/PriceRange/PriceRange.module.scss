@@ -8,24 +8,33 @@
 .histogram {
   display: flex;
   align-items: flex-end;
-  gap: 2px;
-  height: 48px;
-  padding-inline: 2px;
+  gap: 3px;
+  // Taller than it was: at 48px the distribution had no room to say anything,
+  // and a cramped chart undercuts the composure the rest of the page has.
+  height: 72px;
+  margin-block-end: var(--space-2);
 }
 
 .bar {
   flex: 1;
-  min-height: 2px;
-  border-radius: 1px 1px 0 0;
+  min-height: 3px;
+  border-radius: 2px 2px 0 0;
   background-color: var(--border-strong);
   transition:
-    background-color var(--dur-micro) var(--ease-out),
-    opacity var(--dur-micro) var(--ease-out);
+    background-color 320ms var(--ease-soft),
+    opacity 320ms var(--ease-soft),
+    height 420ms var(--ease-soft);
 }
 
 .barActive {
-  background-color: var(--accent);
-  opacity: 0.75;
+  // A soft vertical fall rather than a flat fill — closer to the way the rest
+  // of the page treats gold, and it stops the chart looking like a UI control.
+  background-image: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--accent) 55%, transparent),
+    var(--accent)
+  );
+  opacity: 0.9;
 }
 
 .barMuted {
@@ -37,7 +46,7 @@
 // wrapper so the two inputs can overlap without painting two tracks.
 .slider {
   position: relative;
-  height: 28px;
+  height: 32px;
 }
 
 .track {
@@ -119,11 +128,13 @@
 
 .values {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
   gap: var(--space-3);
-  font-size: 12px;
+  margin-block-start: var(--space-1);
+  font-size: 13px;
   font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
   color: var(--text-dim);
 }
 

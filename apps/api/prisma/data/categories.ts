@@ -26,13 +26,13 @@ export const categories: SeedCategory[] = [
     },
   },
   {
-    slug: 'poufs-ottomans',
+    slug: 'soft-seating',
     sortOrder: 3,
-    name: { hy: 'Փուֆեր և Օտոմաններ', ru: 'Пуфы и Оттоманки', en: 'Poufs & Ottomans' },
+    name: { hy: 'Փուֆեր', ru: 'Пуфы', en: 'Poufs' },
     desc: {
-      hy: 'Կլոր և գլանաձև փուֆեր բուկլե և թավշյա գործվածքով՝ որպես նստատեղ կամ ոտնատակ։',
-      ru: 'Круглые и цилиндрические пуфы из букле и бархата — как дополнительное сиденье или подставка для ног.',
-      en: 'Round and cylindrical poufs in bouclé and velvet — extra seating, or somewhere to rest your feet.',
+      hy: 'Կլոր և գլանաձև փափուկ փուֆեր բուկլե և թավշյա գործվածքով՝ որպես նստատեղ կամ ոտնատակ։',
+      ru: 'Круглые и цилиндрические мягкие пуфы из букле и бархата — как дополнительное сиденье или подставка для ног.',
+      en: 'Round and cylindrical soft poufs in bouclé and velvet — extra seating, or somewhere to rest your feet.',
     },
   },
   {
