@@ -36,24 +36,82 @@
   border-color: var(--accent-hairline);
 }
 
-// ── Lightbox ────────────────────────────────────────────────────────────────
-.viewer {
+// ── Viewer ──────────────────────────────────────────────────────────────────
+// A self-contained panel. The wide Modal variant deliberately has no chrome so
+// a lightbox can fill the screen, but that left the title stranded at the top
+// of a 1100px box, the close button far from the image, and the page showing
+// between the two. Everything the viewer needs now lives in one card.
+.panel {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  width: min(92vw, 860px);
+  margin-inline: auto;
+  background-color: var(--bg-elevated);
+  border: var(--hairline) solid var(--accent-hairline);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lift);
+  overflow: hidden;
+}
+
+.head {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5, 20px);
+  border-block-end: var(--hairline) solid var(--border);
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.name {
+  font-family: var(--font-display);
+  @include fluid-type(19px, 24px);
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.price {
+  font-size: 13px;
+  color: var(--accent-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.close {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--text-dim);
+  border: var(--hairline) solid transparent;
+  transition:
+    color 280ms var(--ease-soft),
+    border-color 280ms var(--ease-soft);
+
+  @include focus-ring;
+
+  &:hover {
+    color: var(--accent-text);
+    border-color: var(--accent-hairline);
+  }
 }
 
 .stage {
   position: relative;
-  width: 100%;
   display: grid;
   place-items: center;
-  // Cursor signals that the image itself is the zoom control.
+  // The photographs are on white; a matching ground stops the image looking
+  // like a cut-out floating on the dark panel.
+  background-color: var(--boucle);
   cursor: zoom-in;
   overflow: hidden;
-  border-radius: var(--radius-md);
-  background-color: var(--onyx);
 }
 
 .stageZoomed {
@@ -61,34 +119,35 @@
 }
 
 .image {
-  max-height: 74svh;
-  width: auto;
-  max-width: 100%;
+  display: block;
+  width: 100%;
+  max-height: min(62svh, 640px);
   object-fit: contain;
   transition: transform 520ms var(--ease-soft);
   will-change: transform;
 }
 
-// 2x, panned from the pointer position so the part you aimed at is what you get.
 .imageZoomed {
-  transform: scale(2);
+  transform: scale(2.2);
 }
 
-.bar {
+.foot {
   display: flex;
   align-items: center;
-  gap: var(--space-5, 20px);
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-5, 20px);
+  border-block-start: var(--hairline) solid var(--border);
 }
 
 .nav {
   display: grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  border: var(--hairline) solid var(--accent-hairline);
-  color: var(--boucle);
-  background-color: color-mix(in srgb, var(--obsidian) 60%, transparent);
+  border: var(--hairline) solid var(--border-strong);
+  color: var(--text-dim);
   transition:
     border-color 280ms var(--ease-soft),
     color 280ms var(--ease-soft);
@@ -97,7 +156,7 @@
 
   &:hover:not(:disabled) {
     border-color: var(--accent);
-    color: var(--gold);
+    color: var(--accent-text);
   }
 
   &:disabled {
@@ -106,29 +165,10 @@
   }
 }
 
-.meta {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  min-width: 12ch;
-}
-
-.name {
-  font-family: var(--font-display);
-  font-size: 18px;
-  color: var(--boucle);
-}
-
-.price {
-  font-size: 12px;
-  color: var(--gold);
-  font-variant-numeric: tabular-nums;
-}
-
 .hint {
   font-size: 11px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--taupe);
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
 }

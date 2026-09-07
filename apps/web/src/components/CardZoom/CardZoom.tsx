@@ -89,14 +89,40 @@ export function CardZoom({ product }: { product: Product }) {
         </svg>
       </button>
 
+      {/* No Modal title: the wide variant renders no chrome of its own, which
+          left the heading stranded at the top of a 1100px box with the page
+          showing between it and the photograph. The viewer supplies its own
+          header, close button and controls so they read as one panel. */}
       <Modal
         open={open}
         onClose={() => setOpen(false)}
         wide
-        title={name}
+        ariaLabel={name}
         closeLabel={t.product.closeZoom}
       >
-        <div className={styles.viewer}>
+        <div className={styles.panel}>
+          <div className={styles.head}>
+            <span className={styles.title}>
+              <span className={styles.name}>{name}</span>
+              <span className={styles.price}>{price(product.priceFrom)}</span>
+            </span>
+            <button
+              type="button"
+              className={styles.close}
+              onClick={() => setOpen(false)}
+              aria-label={t.product.closeZoom}
+            >
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
+                <path
+                  d="M6 6l12 12M18 6L6 18"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </button>
+          </div>
+
           {current && (
             <div
               ref={stageRef}
@@ -114,7 +140,7 @@ export function CardZoom({ product }: { product: Product }) {
             </div>
           )}
 
-          <div className={styles.bar}>
+          <div className={styles.foot}>
             <button
               type="button"
               className={styles.nav}
@@ -133,9 +159,8 @@ export function CardZoom({ product }: { product: Product }) {
               </svg>
             </button>
 
-            <span className={styles.meta}>
-              <span className={styles.name}>{name}</span>
-              <span className={styles.price}>{price(product.priceFrom)}</span>
+            <span className={styles.hint}>
+              {index + 1} / {images.length} · {zoomed ? t.product.closeZoom : t.product.zoom}
             </span>
 
             <button
@@ -156,10 +181,6 @@ export function CardZoom({ product }: { product: Product }) {
               </svg>
             </button>
           </div>
-
-          <span className={styles.hint}>
-            {zoomed ? t.product.closeZoom : t.product.zoom} · {index + 1} / {images.length}
-          </span>
         </div>
       </Modal>
     </>

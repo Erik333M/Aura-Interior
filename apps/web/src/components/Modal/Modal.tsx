@@ -10,6 +10,8 @@ export interface ModalProps {
   open: boolean;
   onClose: () => void;
   title?: string;
+  /** Accessible name when the panel draws its own header instead of `title`. */
+  ariaLabel?: string;
   subtitle?: string;
   children: ReactNode;
   /** Lightbox-style: full-bleed panel with no chrome. */
@@ -26,6 +28,7 @@ export function Modal({
   open,
   onClose,
   title,
+  ariaLabel,
   subtitle,
   children,
   wide = false,
@@ -72,7 +75,7 @@ export function Modal({
               className={`${styles.panel} ${wide ? styles.wide : ''}`}
               role="dialog"
               aria-modal="true"
-              aria-label={title}
+              aria-label={ariaLabel ?? title}
               tabIndex={-1}
               initial={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.97, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
